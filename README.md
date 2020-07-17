@@ -1,5 +1,5 @@
-# OpenMultiboot - 1.0 2014/10/03
-
+OpenMultiboot [![Build Status](https://travis-ci.org/OpenVisionE2/openmultibootmanager.svg?branch=master)](https://travis-ci.org/OpenVisionE2/openmultibootmanager) [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+=============
 - OpenMultiboot will be donated to OE-Alliance by GigaBlue.
 - OpenMultiboot can be modified or adapted to work with STB's from other vendors as long naming "OpenMultiboot" is not changed and logos of OpenMultiboot persists.
 - OpenMultiboot uses boxbranding and informations from bitbake recipes, due to that ipk files are specific for each STB! Do not try to use OpenMultiboot from STB A on STB B.
