@@ -354,7 +354,7 @@ class OMBManagerInstall(Screen):
 		virtual_mtd = tmp_folder + '/virtual_mtd'
 		Console().ePopen("%s nandsim cache_file=%s %s" % (OMB_MODPROBE_BIN, virtual_mtd, self.nandsim_parm))
 		if not os.path.exists('/dev/mtd' + mtd):
-			 Console().ePopen('rmmod nandsim')
+			Console().ePopen('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
