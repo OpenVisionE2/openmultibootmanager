@@ -7,7 +7,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenMultiBoot\n"
+"Project-Id-Version: OpenMultiboot\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-07-31 11:48+0200\n"
 "PO-Revision-Date: 2016-12-07 15:59+0300\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.4\n"
 
 msgid ""
-" to use openMultiboot\n"
+" to use OpenMultiboot\n"
 "Do you want install it?"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "The folder %s already exist"
 msgstr ""
 
-msgid "Where do you want to install openMultiboot?"
+msgid "Where do you want to install OpenMultiboot?"
 msgstr ""
 
 msgid "You need the module "
@@ -159,11 +159,11 @@ msgstr ""
 msgid "Your STB doesn't seem supported"
 msgstr ""
 
-msgid "openMultiboot About"
+msgid "OpenMultiboot About"
 msgstr ""
 
-msgid "openMultiboot Install"
+msgid "OpenMultiboot Install"
 msgstr ""
 
-msgid "openMultiboot Manager"
+msgid "OpenMultiboot Manager"
 msgstr ""

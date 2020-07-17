@@ -1,10 +1,10 @@
-# OpenMultiBoot - 1.0 2014/10/03
+# OpenMultiboot - 1.0 2014/10/03
 
-- OpenMultiBoot will be donated to OE-Alliance by GigaBlue.
-- OpenMultiBoot can be modified or adapted to work with STB's from other vendors as long naming "OpenMultiBoot" is not changed and logos of OpenMultiBoot persists.
-- OpenMultiBoot uses boxbranding and informations from bitbake recipes, due to that ipk files are specific for each STB! Do not try to use OpenMultiBoot from STB A on STB B.
-- **GigaBlue takes no responsibility for any potential damage OpenMultiBoot might cause on STB's from other vendors.**
-- OpenMultiBoot requires some kernel-modules to work. They will be installed on installation of OpenMultiBoot:
+- OpenMultiboot will be donated to OE-Alliance by GigaBlue.
+- OpenMultiboot can be modified or adapted to work with STB's from other vendors as long naming "OpenMultiboot" is not changed and logos of OpenMultiboot persists.
+- OpenMultiboot uses boxbranding and informations from bitbake recipes, due to that ipk files are specific for each STB! Do not try to use OpenMultiboot from STB A on STB B.
+- **GigaBlue takes no responsibility for any potential damage OpenMultiboot might cause on STB's from other vendors.**
+- OpenMultiboot requires some kernel-modules to work. They will be installed on installation of OpenMultiboot:
     - **ubifs** - **kernel-module-nandsim**
     - **jffs2** - **kernel-module-nandsim kernel-module-block2mtd**
 
@@ -17,7 +17,7 @@
 - Zipped image needs regular folder structure like flashing from USB-device.
 - It is not recommended to re-use existing settings, do not blame us if problems occur.
 - Check your recording path configuration and existing timers if you attach a new device.
-- Do not use Flash-Online if you have not booted your regularly flashed image, use delete/install in OpenMultiBoot of regularly flashed image.
+- Do not use Flash-Online if you have not booted your regularly flashed image, use delete/install in OpenMultiboot of regularly flashed image.
 - Special thanks goes to skaman, kajgan, captain, arn354 and all testers!
 
-[![Play openMultiBoot YouTube](http://img.youtube.com/vi/WYOYCraLoMk/0.jpg)](https://www.youtube.com/watch?v=WYOYCraLoMk)
+[![Play OpenMultiboot YouTube](http://img.youtube.com/vi/WYOYCraLoMk/0.jpg)](https://www.youtube.com/watch?v=WYOYCraLoMk)
