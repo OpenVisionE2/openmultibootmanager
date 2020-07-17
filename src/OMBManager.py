@@ -203,10 +203,10 @@ def OMBManager(session, **kwargs):
 			if partition.mountpoint != '/':
 				data_dir = partition.mountpoint + '/' + OMB_DATA_DIR
 				if os.path.exists(data_dir):
-					if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
+					if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not os.path.ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
 						if os.readlink("/sbin/init") == "/sbin/init.sysvinit":
 							if os.path.isfile('/sbin/open_multiboot'):
-								os.system("ln -sfn /sbin/open_multiboot /sbin/init")
+								Console().ePopen("ln -sfn /sbin/open_multiboot /sbin/init")
 					session.open(OMBManagerList, partition.mountpoint)
 					found = True
 					break
@@ -214,5 +214,5 @@ def OMBManager(session, **kwargs):
 	if not found:
 # by meo: Allow plugin installation only for images in flash. We don't need plugin in mb installed images.
 # The postinst link creation in open_multiboot will be also disabled to avoid conflicts between init files.
-		if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot'):
+		if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not os.path.ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
 			OMBManagerInit(session)

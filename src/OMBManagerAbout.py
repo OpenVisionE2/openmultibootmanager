@@ -29,6 +29,7 @@ from Components.Label import Label
 
 from OMBManagerCommon import OMB_MANAGER_VERION
 from OMBManagerLocale import _
+from OMBManagerInstall import OMB_GETBOXTYPE
 
 class OMBManagerAbout(Screen):
 	skin = """
@@ -46,6 +47,8 @@ class OMBManagerAbout(Screen):
 		self.setTitle(_('OpenMultiboot About'))
 		
 		about = "OpenMultiboot Manager " + OMB_MANAGER_VERION + "\n"
+		about += OMB_GETBOXTYPE + "\n"
+		about += "Special version for Open Vision" + "\n"
 		about += "(c) 2014 Impex-Sat Gmbh & Co.KG\n\n"
 		about += "Written by Sandro Cavazzoni <sandro@skanetwork.com>"
 		
