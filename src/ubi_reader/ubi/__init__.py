@@ -19,8 +19,7 @@
 #############################################################
 
 import re
-from ubi.volume import get_volumes
-from ubi.block import sort, get_blocks_in_list, extract_blocks
+from ubi.block import sort, extract_blocks
 from ubi.defines import *
 from ubi import display
 from ubi.image import description as image
