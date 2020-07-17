@@ -9,7 +9,7 @@
 #
 # Author: Pr2
 # Version: 1.2
-PluginName=open-multiboot
+PluginName=OpenMultiboot
 printf "Po files update/creation from script starting.\n"
 #
 # Update Makefile.am to include all existing language files sorted
@@ -61,5 +61,3 @@ done
 rm $PluginName-py.pot $PluginName-xml.pot
 IFS=$OLDIFS
 printf "Po files update/creation from script finished!\n"
-
-
