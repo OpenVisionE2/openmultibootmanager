@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
 #############################################################
 # ubi_reader/ubi
 # (c) 2013 Jason Pruitt (jrspruitt@gmail.com)
@@ -43,7 +45,7 @@ class description(object):
     Int:leb_num          -- Logical Erase Block number.
     Int:file_offset      -- Address location in file of this block.
     Int:size             -- Size of total block data or PEB size.
-    Will print out all information when invoked as a string.
+    Will print(out all information when invoked as a string.)
     """
 
     def __init__(self, block_buf):
