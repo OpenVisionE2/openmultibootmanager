@@ -23,12 +23,11 @@
 #############################################################################
 
 from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
 
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 
-from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR, OMB_MANAGER_VERION
+from OMBManagerCommon import OMB_MANAGER_VERION
 from OMBManagerLocale import _
 
 class OMBManagerAbout(Screen):
@@ -44,9 +43,9 @@ class OMBManagerAbout(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 		
-		self.setTitle(_('openMultiboot About'))
+		self.setTitle(_('OpenMultiboot About'))
 		
-		about = "openMultiboot Manager " + OMB_MANAGER_VERION + "\n"
+		about = "OpenMultiboot Manager " + OMB_MANAGER_VERION + "\n"
 		about += "(c) 2014 Impex-Sat Gmbh & Co.KG\n\n"
 		about += "Written by Sandro Cavazzoni <sandro@skanetwork.com>"
 		
@@ -58,4 +57,3 @@ class OMBManagerAbout(Screen):
 		
 	def keyCancel(self):
 		self.close()
-		

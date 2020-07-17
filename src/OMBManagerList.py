@@ -45,6 +45,8 @@ from OMBManagerLocale import _
 from enigma import eTimer
 
 import os
+from os import path
+from Components.Console import Console
 
 class OMBManagerList(Screen):
 	skin = """
@@ -159,7 +161,7 @@ class OMBManagerList(Screen):
 	def __init__(self, session, mount_point):
 		Screen.__init__(self, session)
 		
-		self.setTitle(_('openMultiboot Manager'))
+		self.setTitle(_('OpenMultiboot Manager'))
 		
 		self.session = session
 		mount_point = mount_point.rstrip("/")
@@ -196,15 +198,21 @@ class OMBManagerList(Screen):
 
 	def isCompatible(self, base_path):
 		running_box_type = "none"
-		e2_path = '/usr/lib/enigma2/python'
+		if path.isdir("/usr/lib64"):
+			e2_path = '/usr/lib64/enigma2/python'
+		else:
+			e2_path = '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
 			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
 			running_box_type = fout.read().strip()
 
-		e2_path = base_path + '/usr/lib/enigma2/python'
+		if path.isdir("/usr/lib64"):
+			e2_path = base_path + '/usr/lib64/enigma2/python'
+		else:
+			e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
 			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
 			brand_oem = fout.read().strip()
 			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
@@ -224,7 +232,7 @@ class OMBManagerList(Screen):
 
 		try:
 			if running_box_type is None:
-				running_box_type = open('/proc/stb/info/boxtype', 'r').read().strip()
+				running_box_type = open('/etc/openvision/model', 'r').read().strip()
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
 			with open(archconffile, "r") as arch:
 				for line in arch:
@@ -239,8 +247,11 @@ class OMBManagerList(Screen):
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = ""
 		image_version = ""
-		
-		e2_path = base_path + '/usr/lib/enigma2/python'
+
+		if path.isdir("/usr/lib64"):
+			e2_path = base_path + '/usr/lib64/enigma2/python'
+		else:
+			e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
 			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
@@ -477,7 +488,7 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 		else:
 			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):	
 				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
-				os.system(cmd)
+				Console().ePopen(cmd)
 				
 		
 		self.close()

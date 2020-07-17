@@ -40,6 +40,7 @@ from enigma import eTimer
 import os
 import glob
 import struct
+from Components.Console import Console
 
 try:
 	from boxbranding import *
@@ -140,7 +141,7 @@ class OMBManagerInstall(Screen):
 	def __init__(self, session, mount_point, upload_list):
 		Screen.__init__(self, session)
 		
-		self.setTitle(_('openMultiboot Install'))
+		self.setTitle(_('OpenMultiboot Install'))
 
 		self.session = session
 		self.mount_point = mount_point
@@ -358,20 +359,17 @@ class OMBManagerInstall(Screen):
 
 		# This is idea from EGAMI Team to handle universal UBIFS unpacking - used only for INI-HDp model
 		if OMB_GETMACHINEBUILD in ('inihdp'):
-			if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"):
-				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.py"
-			else:
-				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
+			ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
 			cmd= "chmod 755 " + ubifile
-			rc = os.system(cmd)
+			rc =  Console().ePopen(cmd)
 			cmd = "python " + ubifile + " " + rootfs_path + " -o " + ubi_path
-			rc = os.system(cmd)
+			rc =  Console().ePopen(cmd)
 			os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/rootfs/* ' + dst_path)
-			rc = os.system(cmd)
+			rc =  Console().ePopen(cmd)
 			cmd = ('chmod -R +x ' + dst_path)
-			rc = os.system(cmd)
+			rc =  Console().ePopen(cmd)
 			cmd = 'rm -rf ' + ubi_path
-			rc = os.system(cmd)
+			rc =  Console().ePopen(cmd)
 			os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path)
 			self.dirtyHack(dst_path)
 			return True
@@ -379,7 +377,7 @@ class OMBManagerInstall(Screen):
 		virtual_mtd = tmp_folder + '/virtual_mtd'
 		os.system(OMB_MODPROBE_BIN + ' nandsim cache_file=' + virtual_mtd + ' ' + self.nandsim_parm)
 		if not os.path.exists('/dev/mtd' + mtd):
-			os.system('rmmod nandsim')
+			 Console().ePopen('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
@@ -488,18 +486,18 @@ class OMBManagerInstall(Screen):
 # My apologies to Sandro for this bad code.
 
 		if not os.path.exists('/usr/lib/python2.7/boxbranding.so'):
-			os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
+			 Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
 		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.py'):
 			os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python2.7/boxbranding.so")
 			os.system("rm -f " + dst_path + '/usr/lib/python2.7/boxbranding.py')
 		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo"):
 			os.system("cp /usr/lib/python2.7/subprocess.pyo " + dst_path + "/usr/lib/python2.7/subprocess.pyo")
-# openmultiboot installed in the multiboot image. where the init will go ?
+# OpenMultiboot installed in the multiboot image. where the init will go ?
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			os.system("rm -f " + dst_path + '/sbin/open_multiboot')
 			os.system("rm -f " + dst_path + '/sbin/open-multiboot-branding-helper.py')
-			os.system("rm -f " + dst_path + '/etc/ipk-postinsts/*-openmultiboot')
-# We can't create the init symlink because it will be overwrited by openmultiboot
+			os.system("rm -f " + dst_path + '/etc/ipk-postinsts/*-OpenMultiboot')
+# We can't create the init symlink because it will be overwrited by OpenMultiboot
 			os.system('ln -sfn /sbin/init.sysvinit ' + dst_path + '/sbin/open_multiboot')
 
 	def afterInstallImage(self, dst_path):
