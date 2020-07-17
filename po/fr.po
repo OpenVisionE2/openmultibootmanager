@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 11:48+0200\n"
+"POT-Creation-Date: 2020-07-18 01:49+0430\n"
 "PO-Revision-Date: 2018-07-31 11:52+0200\n"
 "Last-Translator: Pr2\n"
 "Language-Team: \n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: ../src/OMBManager.py:144
 msgid ""
 " to use OpenMultiboot\n"
 "Do you want install it?"
@@ -25,73 +26,97 @@ msgstr ""
 " pour utiliser OpenMultiboot\n"
 "Voulez-vous l’installer?"
 
+#: ../src/OMBManager.py:50
 msgid "Cancel"
 msgstr "Annuler"
 
+#: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
 msgstr "Impossible de créer un répertoire de donnée"
 
+#: ../src/OMBManagerInstall.py:205 ../src/OMBManagerInstall.py:216
 #, python-format
 msgid "Cannot create folder %s"
 msgstr "Impossible de créer le dossier %s"
 
+#: ../src/OMBManagerInstall.py:195
 #, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Impossible de créer le dossier noyau %s"
 
+#: ../src/OMBManagerInstall.py:188
 #, python-format
 msgid "Cannot create main folder %s"
 msgstr "Impossible de créer le dossier principal %s"
 
+#: ../src/OMBManagerInstall.py:358
 msgid "Cannot create virtual MTD device"
 msgstr "Impossible de créer le périphérique virtuel MTD"
 
+#: ../src/OMBManagerInstall.py:220
 msgid "Cannot deflate image"
 msgstr "Impossible de décompresser l’image"
 
+#: ../src/OMBManagerInstall.py:226
 msgid "Cannot extract nfi image"
 msgstr "Impossible d’extraire l’image nfi"
 
+#: ../src/OMBManager.py:104
 msgid "Cannot format the device"
 msgstr "Impossible de formater le périphérique"
 
+#: ../src/OMBManager.py:163
 msgid "Cannot install "
 msgstr "Impossible d’installer "
 
+#: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
 msgstr "Impossible de monter à nouveau le périphérique"
 
+#: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
 msgstr "Impossible de démonter le périphérique"
 
+#: ../src/OMBManagerInstall.py:127
 msgid "Choose the image to install"
 msgstr "Choisir l’image a installer"
 
+#: ../src/OMBManagerList.py:173
 msgid "Current Running Image:"
 msgstr "Image qui fonctionne actuellement:"
 
+#: ../src/OMBManagerList.py:346
 msgid "Delete"
 msgstr "Effacer"
 
+#: ../src/OMBManagerList.py:428
 #, python-format
 msgid "Do you want to delete %s?"
 msgstr "Voulez-vous effacer %s?"
 
+#: ../src/OMBManagerList.py:365
 msgid "Do you want to reboot now ?"
 msgstr "Voulez-vous redémarrer maintenant ?"
 
+#: ../src/OMBManagerList.py:479
 msgid "Enable Boot Menu"
 msgstr "Activer le menu de démarrage"
 
+#: ../src/OMBManagerInstall.py:262 ../src/OMBManagerInstall.py:292
+#: ../src/OMBManagerInstall.py:308 ../src/OMBManagerInstall.py:373
 msgid "Error copying kernel"
 msgstr "Erreur en copiant le noyau"
 
+#: ../src/OMBManagerInstall.py:289 ../src/OMBManagerInstall.py:305
+#: ../src/OMBManagerInstall.py:370
 msgid "Error copying unpacked rootfs"
 msgstr "Erreur lors de la copie du rootfs décompressé"
 
+#: ../src/OMBManagerInstall.py:257 ../src/OMBManagerInstall.py:284
 msgid "Error unpacking rootfs"
 msgstr "Erreur en décompressant le rootfs"
 
+#: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -100,40 +125,60 @@ msgstr ""
 " \n"
 "Voulez vous formater votre disque?"
 
+#: ../src/OMBManagerInstall.py:311 ../src/OMBManagerInstall.py:376
 msgid "Generic error in unpack process"
 msgstr "Erreur générique dans le processus de décompression"
 
+#: ../src/OMBManagerList.py:184
 msgid "Install"
 msgstr "Installer"
 
+#: ../src/OMBManagerList.py:182
 msgid "Menu"
 msgstr "Menu"
 
+#: ../src/OMBManager.py:55
 msgid "No suitable devices found"
 msgstr "Pas de périphérique approprié trouvé"
 
+#: ../src/OMBManagerList.py:373
 msgid "Open MultiBoot Menu"
 msgstr "Menu Open MultiBoot"
 
+#: ../src/OMBManagerAbout.py:47
+msgid "OpenMultiboot About"
+msgstr "À propos d’OpenMultiboot"
+
+#: ../src/OMBManagerInstall.py:118
+msgid "OpenMultiboot Install"
+msgstr "Installer OpenMultiboot"
+
+#: ../src/plugin.py:34 ../src/OMBManagerList.py:164
 msgid "OpenMultiboot Manager"
 msgstr "Gestionnaire d’OpenMultiboot"
 
+#: ../src/OMBManagerList.py:389
 msgid "Please enter new name:"
 msgstr "Merci d'entrer un nouveau nom:"
 
+#: ../src/OMBManagerList.py:447
 #, python-format
 msgid "Please upload an image inside %s"
 msgstr "S’il vous plaît télécharger une image dans %s"
 
+#: ../src/OMBManagerList.py:407
 msgid "Please wait while delete is in progress."
 msgstr "Merci de patienter pendant que l’effacement est en cours."
 
+#: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
 msgstr "Merci de patienter pendant que le formatage est en cours."
 
+#: ../src/OMBManager.py:154
 msgid "Please wait while installation is in progress."
 msgstr "Merci de patienter pendant que l’installation est en cours."
 
+#: ../src/OMBManagerInstall.py:143
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -141,34 +186,32 @@ msgstr ""
 "Merci de patienter pendant que l’installation est en cours.\n"
 "Cette opération peut prendre un certain temps."
 
+#: ../src/OMBManagerList.py:180
 msgid "Rename"
 msgstr "Renommer"
 
+#: ../src/OMBManagerList.py:467
 msgid "Save"
 msgstr "Sauvegarder"
 
+#: ../src/OMBManagerList.py:353
 #, python-format
 msgid "Set next boot to %s ?"
 msgstr "Définir le prochain démarrage sur %s ?"
 
+#: ../src/OMBManagerInstall.py:199
 #, python-format
 msgid "The folder %s already exist"
 msgstr "Le répertoire %s existe déjà"
 
+#: ../src/OMBManager.py:43
 msgid "Where do you want to install OpenMultiboot?"
 msgstr "Où voulez-vous installer OpenMultiboot?"
 
+#: ../src/OMBManager.py:144
 msgid "You need the module "
 msgstr "Vous avez besoin du module "
 
+#: ../src/OMBManagerInstall.py:248
 msgid "Your STB doesn't seem supported"
 msgstr "Votre récepteur ne semble pas supporté"
-
-msgid "OpenMultiboot About"
-msgstr "À propos d’OpenMultiboot"
-
-msgid "OpenMultiboot Install"
-msgstr "Installer OpenMultiboot"
-
-msgid "OpenMultiboot Manager"
-msgstr "Gestionnaire d’OpenMultiboot"

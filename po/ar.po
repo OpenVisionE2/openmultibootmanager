@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenMultiboot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 11:48+0200\n"
+"POT-Creation-Date: 2020-07-18 01:49+0430\n"
 "PO-Revision-Date: 2018-12-02 13:33+0300\n"
 "Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
 "Language-Team: mosad - مساعد الجعيد\n"
@@ -13,6 +13,7 @@ msgstr ""
 "X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 
+#: ../src/OMBManager.py:144
 msgid ""
 " to use OpenMultiboot\n"
 "Do you want install it?"
@@ -20,69 +21,97 @@ msgstr ""
 " لا تستخدم الملتيبوت المفتوح\n"
 "هل تريد تثبيته؟"
 
+#: ../src/OMBManager.py:50
 msgid "Cancel"
 msgstr "إلغاء"
 
+#: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
 msgstr "لا يمكن إنشاء مجلد بيانات"
 
+#: ../src/OMBManagerInstall.py:205 ../src/OMBManagerInstall.py:216
+#, python-format
 msgid "Cannot create folder %s"
 msgstr "لا يمكن إنشاء المجلد %s"
 
+#: ../src/OMBManagerInstall.py:195
+#, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "لا يمكن إنشاء مجلد نواة %s"
 
+#: ../src/OMBManagerInstall.py:188
+#, python-format
 msgid "Cannot create main folder %s"
 msgstr "لا يمكن إنشاء المجلد الرئيسي %s"
 
+#: ../src/OMBManagerInstall.py:358
 msgid "Cannot create virtual MTD device"
 msgstr "لا يمكن إنشاء الجهاز الظاهري"
 
+#: ../src/OMBManagerInstall.py:220
 msgid "Cannot deflate image"
 msgstr "لا يمكن إفراغ الصورة"
 
+#: ../src/OMBManagerInstall.py:226
 msgid "Cannot extract nfi image"
 msgstr "لا يمكن استخراج صورة nfi"
 
+#: ../src/OMBManager.py:104
 msgid "Cannot format the device"
 msgstr "لا يمكن تهيئه الجهاز"
 
+#: ../src/OMBManager.py:163
 msgid "Cannot install "
 msgstr "لا يمكن التثبيت"
 
+#: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
 msgstr "لا يمكن أعاده ربط الجهاز"
 
+#: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
 msgstr "لا يمكن ربط الجهاز"
 
+#: ../src/OMBManagerInstall.py:127
 msgid "Choose the image to install"
 msgstr "اختر الصورة التي سيتم تثبيتها"
 
+#: ../src/OMBManagerList.py:173
 msgid "Current Running Image:"
 msgstr "تعمل الصورة الحالية:"
 
+#: ../src/OMBManagerList.py:346
 msgid "Delete"
 msgstr "حذف"
 
+#: ../src/OMBManagerList.py:428
+#, python-format
 msgid "Do you want to delete %s?"
 msgstr "هل تريد حذف %s ؟"
 
+#: ../src/OMBManagerList.py:365
 msgid "Do you want to reboot now ?"
 msgstr "هل تريد أعاده التشغيل الآن ؟"
 
+#: ../src/OMBManagerList.py:479
 msgid "Enable Boot Menu"
 msgstr "تمكين قائمة الإقلاع"
 
+#: ../src/OMBManagerInstall.py:262 ../src/OMBManagerInstall.py:292
+#: ../src/OMBManagerInstall.py:308 ../src/OMBManagerInstall.py:373
 msgid "Error copying kernel"
 msgstr "خطاء نسخ النواة"
 
+#: ../src/OMBManagerInstall.py:289 ../src/OMBManagerInstall.py:305
+#: ../src/OMBManagerInstall.py:370
 msgid "Error copying unpacked rootfs"
 msgstr "حدث خطاء أثناء نسخ الجذر الذي تم فك حزمته"
 
+#: ../src/OMBManagerInstall.py:257 ../src/OMBManagerInstall.py:284
 msgid "Error unpacking rootfs"
 msgstr "خطا في إستخراج الجذر"
 
+#: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -90,39 +119,61 @@ msgstr ""
 "نظام الملفات غير معتمد\n"
 "هل تريد تهئية محرك الاقراص الخاص بك ؟"
 
-msgid "Generic error in unpaack process"
+#: ../src/OMBManagerInstall.py:311 ../src/OMBManagerInstall.py:376
+#, fuzzy
+msgid "Generic error in unpack process"
 msgstr "خطاء عام في عملية فتح الملف المضغوط"
 
+#: ../src/OMBManagerList.py:184
 msgid "Install"
 msgstr "تثبيت"
 
+#: ../src/OMBManagerList.py:182
 msgid "Menu"
 msgstr "قائمة"
 
+#: ../src/OMBManager.py:55
 msgid "No suitable devices found"
 msgstr "لم يتم العثور علي أجهزه مناسبة"
 
+#: ../src/OMBManagerList.py:373
 msgid "Open MultiBoot Menu"
 msgstr "قائمة الملتيبوت المفتوح"
 
+#: ../src/OMBManagerAbout.py:47
+msgid "OpenMultiboot About"
+msgstr "حول الملتيبوت المفتوح"
+
+#: ../src/OMBManagerInstall.py:118
+msgid "OpenMultiboot Install"
+msgstr "تثبيت الملتيبوت المفتوح"
+
+#: ../src/plugin.py:34 ../src/OMBManagerList.py:164
 msgid "OpenMultiboot Manager"
 msgstr "إدارة الملتيبوت المفتوح"
 
+#: ../src/OMBManagerList.py:389
 msgid "Please enter new name:"
 msgstr "الرجاء إدخال اسم جديد:"
 
+#: ../src/OMBManagerList.py:447
+#, python-format
 msgid "Please upload an image inside %s"
 msgstr "من فضلك أرفع صورة في الداخل %s"
 
+#: ../src/OMBManagerList.py:407
 msgid "Please wait while delete is in progress."
 msgstr "الرجاء الانتظار أثناء الحذف قيد التقدم."
 
+#: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
 msgstr "الرجاء الانتظار بينما تكون التهئية قيد التقدم."
 
+#: ../src/OMBManager.py:154
 msgid "Please wait while installation is in progress."
 msgstr "الرجاء الانتظار أثناء التثبيت قيد التقدم."
 
+#: ../src/OMBManagerInstall.py:143
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -130,41 +181,32 @@ msgstr ""
 "الرجاء الانتظار أثناء التثبيت قيد التقدم.\n"
 "قد تستغرق هذه العملية بعض الوقت."
 
+#: ../src/OMBManagerList.py:180
 msgid "Rename"
 msgstr "إعادة تسمية"
 
+#: ../src/OMBManagerList.py:467
 msgid "Save"
 msgstr "حفظ"
 
+#: ../src/OMBManagerList.py:353
+#, python-format
 msgid "Set next boot to %s ?"
 msgstr "هل تريد تعيين الإقلاع التالي %s ?"
 
+#: ../src/OMBManagerInstall.py:199
+#, python-format
 msgid "The folder %s already exist"
 msgstr "المجلد %s موجود بالفعل"
 
+#: ../src/OMBManager.py:43
 msgid "Where do you want to install OpenMultiboot?"
 msgstr "أين تريد تثبيت نظام الملتيبوت المفتوح؟"
 
+#: ../src/OMBManager.py:144
 msgid "You need the module "
 msgstr "أنت في حاجه إلى الوحدة"
 
+#: ../src/OMBManagerInstall.py:248
 msgid "Your STB doesn't seem supported"
 msgstr "لا يبدو أن جهاز الإستقبال الخاص بك معتمد"
-
-msgid "OpenMultiboot About"
-msgstr "حول الملتيبوت المفتوح"
-
-msgid "OpenMultiboot Install"
-msgstr "تثبيت الملتيبوت المفتوح"
-
-msgid "OpenMultiboot Manager"
-msgstr "إدارة الملتيبوت المفتوح"
-
-msgid "Preferences"
-msgstr "الإعدادات"
-
-msgid "About"
-msgstr "حول"
-
-msgid "OpenMultiboot"
-msgstr "الملتيبوت المفتوح"
