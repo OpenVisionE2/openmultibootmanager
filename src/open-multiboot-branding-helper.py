@@ -35,7 +35,9 @@ KEYS_FNC_MAP = {
 	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
 	'box_type': 'boxbranding.getBoxType()',
 	'brand_oem': 'boxbranding.getBrandOEM()',
+	'image_version': 'boxbranding.getImageVersion()',
 	'image_build': 'boxbranding.getImageBuild()',
+	'image_distro': 'boxbranding.getImageDistro()',
 	'image_folder': 'boxbranding.getImageFolder()',
 	'image_file_system': 'boxbranding.getImageFileSystem()'
 }
@@ -66,6 +68,14 @@ else:
 				print(key + ' = ' + eval(KEYS_FNC_MAP[key]))
 		else:
 			if WORKAROUND:
-				pass
+				if sys.argv[2] == 'image_distro':
+					try:
+						print(open("/etc/issue").readlines()[-2].capitalize().strip()[:-6])
+					except:
+						print("undefined")
+				elif sys.argv[2] == 'image_version':
+					print(' ')
+				else:
+					pass
 			else:
 				print(eval(KEYS_FNC_MAP[sys.argv[2]]))

@@ -52,6 +52,8 @@ except:
 if BRANDING:
 	OMB_GETBOXTYPE = getBoxType()
 	OMB_GETBRANDOEM = getBrandOEM()
+	OMB_GETIMAGEDISTRO = getImageDistro()
+	OMB_GETIMAGEVERSION = getImageVersion()
 	OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
 	OMB_GETIMAGEFOLDER = getImageFolder() # needed
 	OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
