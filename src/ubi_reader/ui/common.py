@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 #############################################################
 # ubi_reader
 # (c) 2013 Jason Pruitt (jrspruitt@gmail.com)
