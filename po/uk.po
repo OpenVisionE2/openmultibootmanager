@@ -1,21 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-18 01:17+0430\n"
-"PO-Revision-Date: 202-03-09 08:24+0100\n"
-"Last-Translator: j00zek <j00zek@users.noreply.github.com>\n"
-"Language-Team: Polish\n"
-"Language: \n"
+"PO-Revision-Date: 2019-11-13 20:50+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../src/OMBManager.py:144
 #, fuzzy
@@ -23,174 +19,175 @@ msgid ""
 " to use OpenMultiboot\n"
 "Do you want install it?"
 msgstr ""
-" aby korzystać z openMultiboot-a\n"
-"Chcesz zainstalować?"
+" для використання openMultiboot.\n"
+"Ви хочете установити його зараз?"
 
 #: ../src/OMBManager.py:50
 msgid "Cancel"
-msgstr "Anuluj"
+msgstr "Вийти"
 
 #: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
-msgstr "Błąd tworzenia katalogu z danymi"
+msgstr "Не вдалося створити каталог"
 
 #: ../src/OMBManagerInstall.py:205 ../src/OMBManagerInstall.py:216
 #, python-format
 msgid "Cannot create folder %s"
-msgstr "Błąd tworzenia katalogu %s"
+msgstr "Не вдалося створити каталог %s"
 
 #: ../src/OMBManagerInstall.py:195
 #, python-format
 msgid "Cannot create kernel folder %s"
-msgstr "Błąd tworzenia katalogu na kernele %s"
+msgstr "Не вдалося створити папку ядра %s"
 
 #: ../src/OMBManagerInstall.py:188
 #, python-format
 msgid "Cannot create main folder %s"
-msgstr "Błąd tworzenia głównego katalogu %s"
+msgstr "Не вдалося створити домашній каталог %s"
 
 #: ../src/OMBManagerInstall.py:358
 msgid "Cannot create virtual MTD device"
-msgstr "Błąd tworzenia wirtualnego urządzenia MTD"
+msgstr "Не вдалося створити віртуальний MTD пристрій"
 
 #: ../src/OMBManagerInstall.py:220
 msgid "Cannot deflate image"
-msgstr "Błąd rozpakowania obrazu"
+msgstr "Не вдалося розпакувати імідж"
 
 #: ../src/OMBManagerInstall.py:226
 msgid "Cannot extract nfi image"
-msgstr "Błąd ekstrakcji obrazu nfi"
+msgstr "Не вдалося витягнути імідж nfi"
 
 #: ../src/OMBManager.py:104
 msgid "Cannot format the device"
-msgstr "Błąd formatowania urządzenia"
+msgstr "Не вдалося відформатувати пристрій зберігання"
 
 #: ../src/OMBManager.py:163
 msgid "Cannot install "
-msgstr "Błąd instalacji "
+msgstr "Не вдалося встановити "
 
 #: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
-msgstr "Błąd montowania urządzenia"
+msgstr "Не вдалося змонтувати пристрій зберігання"
 
 #: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
-msgstr "Błąd odmontowania urządzenia"
+msgstr "Не вдалося розмонтувати пристрій зберігання"
 
 #: ../src/OMBManagerInstall.py:127
 msgid "Choose the image to install"
-msgstr "Wybierz obraz do instalacji"
+msgstr "Виберіть імідж для установки..."
 
 #: ../src/OMBManagerList.py:173
 msgid "Current Running Image:"
-msgstr "Obecnie uruchomiony obraz"
+msgstr "Поточний завантажений імідж:"
 
 #: ../src/OMBManagerList.py:346
 msgid "Delete"
-msgstr "Skasuj"
+msgstr "Видалити"
 
 #: ../src/OMBManagerList.py:428
 #, python-format
 msgid "Do you want to delete %s?"
-msgstr "Naprawdę skasować %s?"
+msgstr "Ви дійсно хочете видалити %s?"
 
 #: ../src/OMBManagerList.py:365
 msgid "Do you want to reboot now ?"
-msgstr "Naprawdę zrestartować teraz?"
+msgstr "Ви хочете зробити перезавантаження зараз?"
 
 #: ../src/OMBManagerList.py:479
 #, fuzzy
 msgid "Enable Boot Menu"
-msgstr "Włącz menu startowe"
+msgstr "Включити меню завантаження"
 
 #: ../src/OMBManagerInstall.py:262 ../src/OMBManagerInstall.py:292
 #: ../src/OMBManagerInstall.py:308 ../src/OMBManagerInstall.py:373
 msgid "Error copying kernel"
-msgstr "Błąd kopiowania kernela"
+msgstr "Помилка копіювання ядра"
 
 #: ../src/OMBManagerInstall.py:289 ../src/OMBManagerInstall.py:305
 #: ../src/OMBManagerInstall.py:370
 msgid "Error copying unpacked rootfs"
-msgstr "Błąd kopiowania rozpakowanego rootfs"
+msgstr "Помилка розпакованого rootfs"
 
 #: ../src/OMBManagerInstall.py:257 ../src/OMBManagerInstall.py:284
 msgid "Error unpacking rootfs"
-msgstr "Błąd rozpakowywania rootfs"
+msgstr "Помилка розпакування rootfs"
 
 #: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
 msgstr ""
+"Файлова система не підтримується,\n"
+"хочете відформатувати Ваш пристрій зберігання в ext4 (всі дані будуть втрачені)?"
 
 #: ../src/OMBManagerInstall.py:311 ../src/OMBManagerInstall.py:376
 #, fuzzy
 msgid "Generic error in unpack process"
-msgstr "Błąd kopiowania rozpakowanego rootfs"
+msgstr "Загальна помилка під час процесу розпакування"
 
 #: ../src/OMBManagerList.py:184
 msgid "Install"
-msgstr "Instalacja"
+msgstr "Встановити"
 
 #: ../src/OMBManagerList.py:182
 msgid "Menu"
-msgstr "Menu"
+msgstr "Меню"
 
 #: ../src/OMBManager.py:55
 msgid "No suitable devices found"
-msgstr "Nie znaleziono odpowiednich urządzeń"
+msgstr "Не знайдені відповідні пристрої зберігання."
 
 #: ../src/OMBManagerList.py:373
 msgid "Open MultiBoot Menu"
-msgstr "Menu Open MultiBoot-a"
+msgstr "Меню openMultiboot"
 
 #: ../src/OMBManagerAbout.py:47
 #, fuzzy
 msgid "OpenMultiboot About"
-msgstr "Informacje o openMultiboot"
+msgstr "Інформація openMultiboot"
 
 #: ../src/OMBManagerInstall.py:118
 #, fuzzy
 msgid "OpenMultiboot Install"
-msgstr "Instalacja openMultiboot"
+msgstr "Встановити openMultiboot"
 
 #: ../src/plugin.py:34 ../src/OMBManagerList.py:164
-#, fuzzy
 msgid "OpenMultiboot Manager"
-msgstr "Menadżer openMultiboot-a"
+msgstr "Менеджер openMultiboot"
 
 #: ../src/OMBManagerList.py:389
 msgid "Please enter new name:"
-msgstr "Podaj nową nazwę:"
+msgstr "Введіть нове імя:"
 
 #: ../src/OMBManagerList.py:447
 #, python-format
 msgid "Please upload an image inside %s"
-msgstr "Wgraj obraz do %s"
+msgstr "Будь ласка, завантажте потрібний архів з іміджем (будь-яке імя без пропусків.zip)в %s"
 
 #: ../src/OMBManagerList.py:407
 msgid "Please wait while delete is in progress."
-msgstr "Czekaj na zakończenie kasowania."
+msgstr "Будь ласка зачекайте, йде процес видалення"
 
 #: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
-msgstr "Czekaj na zakończenie formatowania."
+msgstr "Будь ласка зачекайте, процес форматування в процесі."
 
 #: ../src/OMBManager.py:154
 msgid "Please wait while installation is in progress."
-msgstr "Czekaj na zakończenie instalowania."
+msgstr "Будь ласка зачекайте, установка в процесі."
 
 #: ../src/OMBManagerInstall.py:143
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
 msgstr ""
-"Czekaj na zakończenie instalowania.\n"
-"Może to potrwać kilka minut."
+"Будь ласка зачекайте, поки йде процес встановлення.\n"
+"Ця операція може зайняти досить тривалий час."
 
 #: ../src/OMBManagerList.py:180
 msgid "Rename"
-msgstr "Opis"
+msgstr "Перейменувати"
 
 #: ../src/OMBManagerList.py:467
 msgid "Save"
@@ -199,22 +196,22 @@ msgstr ""
 #: ../src/OMBManagerList.py:353
 #, python-format
 msgid "Set next boot to %s ?"
-msgstr "Następne uruchomienie %s?"
+msgstr "Установити наступне завантаження ресивера в %s ?"
 
 #: ../src/OMBManagerInstall.py:199
 #, python-format
 msgid "The folder %s already exist"
-msgstr "Katalog %s już istnieje"
+msgstr "Каталог %s уже існує"
 
 #: ../src/OMBManager.py:43
 #, fuzzy
 msgid "Where do you want to install OpenMultiboot?"
-msgstr "Gdzie zainstalować openMultiBoot?"
+msgstr "Куди Ви хочете встановити openMultiboot?"
 
 #: ../src/OMBManager.py:144
 msgid "You need the module "
-msgstr "Potrzebujesz moduł "
+msgstr "Вам необхідний модуль "
 
 #: ../src/OMBManagerInstall.py:248
 msgid "Your STB doesn't seem supported"
-msgstr "Ten tuner jest niewspierany"
+msgstr "Ваш ресивер здається не підтримується!"

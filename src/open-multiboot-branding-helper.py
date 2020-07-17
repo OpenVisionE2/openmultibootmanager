@@ -26,20 +26,15 @@ from __future__ import print_function
 import sys
 
 KEYS_FNC_MAP = {
-	'machine_build': 'boxbranding.getMachineBuild()',
-	'machine_proc_model': 'boxbranding.getMachineProcModel()',
-	'machine_brand': 'boxbranding.getMachineBrand()',
-	'machine_name': 'boxbranding.getMachineName()',
 	'machine_mtd_kernel': 'boxbranding.getMachineMtdKernel()',
 	'machine_kernel_file': 'boxbranding.getMachineKernelFile()',
+	'machine_mtd_boot': 'boxbranding.getMachineMtdBoot()',
 	'machine_mtd_root': 'boxbranding.getMachineMtdRoot()',
 	'machine_root_file': 'boxbranding.getMachineRootFile()',
 	'machine_mkubifs': 'boxbranding.getMachineMKUBIFS()',
 	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
 	'box_type': 'boxbranding.getBoxType()',
 	'brand_oem': 'boxbranding.getBrandOEM()',
-	'oe_version': 'boxbranding.getOEVersion()',
-	'driver_date': 'boxbranding.getDriverDate()',
 	'image_version': 'boxbranding.getImageVersion()',
 	'image_build': 'boxbranding.getImageBuild()',
 	'image_distro': 'boxbranding.getImageDistro()',

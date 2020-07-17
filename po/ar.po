@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
 
 msgid ""
-" to use openMultiboot\n"
+" to use OpenMultiboot\n"
 "Do you want install it?"
 msgstr ""
 " لا تستخدم الملتيبوت المفتوح\n"
@@ -142,7 +142,7 @@ msgstr "هل تريد تعيين الإقلاع التالي %s ?"
 msgid "The folder %s already exist"
 msgstr "المجلد %s موجود بالفعل"
 
-msgid "Where do you want to install openMultiboot?"
+msgid "Where do you want to install OpenMultiboot?"
 msgstr "أين تريد تثبيت نظام الملتيبوت المفتوح؟"
 
 msgid "You need the module "
@@ -151,13 +151,13 @@ msgstr "أنت في حاجه إلى الوحدة"
 msgid "Your STB doesn't seem supported"
 msgstr "لا يبدو أن جهاز الإستقبال الخاص بك معتمد"
 
-msgid "openMultiboot About"
+msgid "OpenMultiboot About"
 msgstr "حول الملتيبوت المفتوح"
 
-msgid "openMultiboot Install"
+msgid "OpenMultiboot Install"
 msgstr "تثبيت الملتيبوت المفتوح"
 
-msgid "openMultiboot Manager"
+msgid "OpenMultiboot Manager"
 msgstr "إدارة الملتيبوت المفتوح"
 
 msgid "Preferences"

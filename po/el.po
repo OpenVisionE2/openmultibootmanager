@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 msgid ""
-" to use openMultiboot\n"
+" to use OpenMultiboot\n"
 "Do you want install it?"
 msgstr ""
 
@@ -156,8 +156,8 @@ msgstr ""
 msgid "The folder %s already exist"
 msgstr "Ο φάκελος %s υπάρχει ήδη"
 
-msgid "Where do you want to install openMultiboot?"
-msgstr "Πού θέλετε να εγκατασταθεί το openMultiboot;"
+msgid "Where do you want to install OpenMultiboot?"
+msgstr "Πού θέλετε να εγκατασταθεί το OpenMultiboot;"
 
 msgid "You need the module "
 msgstr "Απαιτείται το module "
@@ -165,11 +165,11 @@ msgstr "Απαιτείται το module "
 msgid "Your STB doesn't seem supported"
 msgstr "Ο δέκτης σας δεν φαίνεται να υποστηρίζεται"
 
-msgid "openMultiboot About"
-msgstr "Σχετικά με το openMultiboot"
+msgid "OpenMultiboot About"
+msgstr "Σχετικά με το OpenMultiboot"
 
-msgid "openMultiboot Install"
-msgstr "Εγκατάσταση openMultiboot"
+msgid "OpenMultiboot Install"
+msgstr "Εγκατάσταση OpenMultiboot"
 
-msgid "openMultiboot Manager"
-msgstr "Διαχείριση openMultiboot"
+msgid "OpenMultiboot Manager"
+msgstr "Διαχείριση OpenMultiboot"

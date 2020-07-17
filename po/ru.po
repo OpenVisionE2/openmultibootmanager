@@ -17,9 +17,9 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-" to use openMultiboot\n"
+" to use OpenMultiboot\n"
 "Do you want install it?"
-msgstr "Установить openMultiboot"
+msgstr "Установить OpenMultiboot"
 
 msgid "Cancel"
 msgstr "Отмена"
@@ -108,7 +108,7 @@ msgid "No suitable devices found"
 msgstr "Не найдены подходящие устройства хранения"
 
 msgid "Open MultiBoot Menu"
-msgstr "Меню openMultiboot"
+msgstr "Меню OpenMultiboot"
 
 msgid "OpenMultiboot Manager"
 msgstr "Менеджер OpenMultiboot"
@@ -150,8 +150,8 @@ msgstr "Установить следующую загрузку ресивер�
 msgid "The folder %s already exist"
 msgstr "Папка %s уже существует"
 
-msgid "Where do you want to install openMultiboot?"
-msgstr "Куда Вы хотите установить openMultiboot?"
+msgid "Where do you want to install OpenMultiboot?"
+msgstr "Куда Вы хотите установить OpenMultiboot?"
 
 msgid "You need the module "
 msgstr "Вам необходим модуль "
@@ -159,11 +159,11 @@ msgstr "Вам необходим модуль "
 msgid "Your STB doesn't seem supported"
 msgstr "Ваш ресивер ,кажется, не поддерживается"
 
-msgid "openMultiboot About"
-msgstr "Информация об openMultiboot"
+msgid "OpenMultiboot About"
+msgstr "Информация об OpenMultiboot"
 
-msgid "openMultiboot Install"
-msgstr "Установить openMultiboot"
+msgid "OpenMultiboot Install"
+msgstr "Установить OpenMultiboot"
 
-msgid "openMultiboot Manager"
-msgstr "Менеджер openMultiboot"
+msgid "OpenMultiboot Manager"
+msgstr "Менеджер OpenMultiboot"
