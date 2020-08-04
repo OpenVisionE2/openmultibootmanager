@@ -28,7 +28,7 @@ from Screens.MessageBox import MessageBox
 
 from OMBManagerList import OMBManagerList
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, BRANDING, OMB_UNJFFS2_BIN
+from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, OMB_UNJFFS2_BIN
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -190,7 +190,7 @@ def OMBManager(session, **kwargs):
 	if "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
 		kernel_module = None
 	
-	if kernel_module and os.system('opkg list_installed | grep ' + kernel_module) != 0 and BRANDING:
+	if kernel_module and os.system('opkg list_installed | grep ' + kernel_module) != 0:
 		OMBManagerKernelModule(session, kernel_module)
 		return
 

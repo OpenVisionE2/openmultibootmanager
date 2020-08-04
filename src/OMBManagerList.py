@@ -37,7 +37,7 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN, BRANDING
+from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN
 from OMBManagerAbout import OMBManagerAbout
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from OMBManagerLocale import _
@@ -180,10 +180,7 @@ class OMBManagerList(Screen):
 		self["key_red"] = Button(_('Rename'))
 		self["key_yellow"] = Button()
 		self["key_blue"] = Button(_('Menu'))
-		if BRANDING:
-			self["key_green"] = Button(_('Install'))
-		else:
-			self["key_green"] = Button('')
+		self["key_green"] = Button(_('Install'))
 		self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "MenuActions"],
 		{
 			"cancel": self.close,
@@ -253,7 +250,7 @@ class OMBManagerList(Screen):
 		else:
 			e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py"
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
 			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
 			image_distro = fout.read().strip()
 			fin,fout = os.popen4(helper + " " + e2_path + " image_version")
@@ -428,8 +425,6 @@ class OMBManagerList(Screen):
 				self.session.openWithCallback(self.deleteConfirm, MessageBox, _("Do you want to delete %s?") % self.entry_to_delete['label'], MessageBox.TYPE_YESNO)
 		
 	def keyInstall(self):
-		if not BRANDING:
-			return
 		upload_list = []
 		if os.path.exists(self.upload_dir):
 			for file_entry in os.listdir(self.upload_dir):

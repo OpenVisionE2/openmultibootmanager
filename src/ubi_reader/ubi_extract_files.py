@@ -29,7 +29,7 @@ from ui.common import extract_files, output_dir
 
 if __name__ == '__main__':
     description = 'Extract contents of UBI image.'
-    usage = 'ubi_extract_files.py [options] filepath'
+    usage = 'ubi_extract_files.pyo [options] filepath'
     parser = argparse.ArgumentParser(usage=usage, description=description)
 
     parser.add_argument('-l', '--log-file', dest='logpath',

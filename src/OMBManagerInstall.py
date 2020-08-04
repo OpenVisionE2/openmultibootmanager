@@ -42,39 +42,21 @@ from os import path
 import glob
 import struct
 from Components.Console import Console
+from boxbranding import *
 
-try:
-	from boxbranding import *
-	BRANDING = True
-except:
-	BRANDING = False
-
-if BRANDING:
-	OMB_GETBOXTYPE = getBoxType()
-	OMB_GETBRANDOEM = getBrandOEM()
-	OMB_GETIMAGEDISTRO = getImageDistro()
-	OMB_GETIMAGEVERSION = getImageVersion()
-	OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
-	OMB_GETIMAGEFOLDER = getImageFolder() # needed
-	OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
-	OMB_GETMACHINEKERNELFILE = getMachineKernelFile() # needed
-	OMB_GETMACHINEMTDBOOT = getMachineMtdBoot()
-	OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
-	OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
-	OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
-	OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
-else:
-	OMB_GETIMAGEFILESYSTEM = "tar.bz2"
-	f=open("/proc/mounts","r")
-	for line in f:
-		if line.find("rootfs")>-1:
-			if line.find("ubi")>-1:
-				OMB_GETIMAGEFILESYSTEM = "ubi"
-				break
-			if line.find("jffs2")>-1:
-				OMB_GETIMAGEFILESYSTEM = "jffs2"
-				break
-
+OMB_GETBOXTYPE = getBoxType()
+OMB_GETBRANDOEM = getBrandOEM()
+OMB_GETIMAGEDISTRO = getImageDistro()
+OMB_GETIMAGEVERSION = getImageVersion()
+OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
+OMB_GETIMAGEFOLDER = getImageFolder() # needed
+OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
+OMB_GETMACHINEKERNELFILE = getMachineKernelFile() # needed
+OMB_GETMACHINEMTDBOOT = getMachineMtdBoot()
+OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
+OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
+OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
+OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
 
 OMB_DD_BIN = '/bin/dd'
 OMB_CP_BIN = '/bin/cp'
