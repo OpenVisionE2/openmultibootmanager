@@ -319,16 +319,11 @@ class OMBManagerInstall(Screen):
 				ubifile = "/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
 			else:
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
-			cmd= "chmod 755 " + ubifile
-			rc =  Console().ePopen(cmd)
-			cmd = "python " + ubifile + " " + rootfs_path + " -o " + ubi_path
-			rc =  Console().ePopen(cmd)
+			Console().ePopen("chmod 755 %s" % ubifile)
+			Console().ePopen("python %s %s -o %s" % (ubifile, rootfs_path, ubi_path))
 			Console().ePopen("%s -rp %s/rootfs/* %s" % (OMB_CP_BIN, ubi_path, dst_path))
-			rc =  Console().ePopen(cmd)
-			cmd = ('chmod -R +x ' + dst_path)
-			rc =  Console().ePopen(cmd)
-			cmd = 'rm -rf ' + ubi_path
-			rc =  Console().ePopen(cmd)
+			Console().ePopen("chmod -R +x %s" % dst_path)
+			Console().ePopen("rm -rf %s" % ubi_path)
 			Console().ePopen("%s %s %s" % (OMB_CP_BIN, kernel_path, kernel_dst_path))
 			self.dirtyHack(dst_path)
 			return True

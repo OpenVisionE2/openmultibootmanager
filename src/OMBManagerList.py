@@ -482,8 +482,7 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 				os.remove(self.data_dir + '/.bootmenu.lock')
 		else:
 			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):	
-				cmd = "touch " + self.data_dir + '/.bootmenu.lock'
-				Console().ePopen(cmd)
+				Console().ePopen("touch %s/.bootmenu.lock" % self.data_dir)
 				
 		
 		self.close()
