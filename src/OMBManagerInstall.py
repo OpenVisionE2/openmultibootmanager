@@ -58,22 +58,6 @@ OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
 OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
 OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
 
-OMB_DD_BIN = '/bin/dd'
-OMB_CP_BIN = '/bin/cp'
-OMB_RM_BIN = '/bin/rm'
-OMB_TAR_BIN = '/bin/tar'
-OMB_UBIATTACH_BIN = '/usr/sbin/ubiattach'
-OMB_UBIDETACH_BIN = '/usr/sbin/ubidetach'
-OMB_MOUNT_BIN = '/bin/mount'
-OMB_UMOUNT_BIN = '/bin/umount'
-OMB_MODPROBE_BIN = '/sbin/modprobe'
-OMB_RMMOD_BIN = '/sbin/rmmod'
-OMB_UNZIP_BIN = '/usr/bin/unzip'
-OMB_LOSETUP_BIN = '/sbin/losetup'
-OMB_ECHO_BIN = '/bin/echo'
-OMB_MKNOD_BIN = '/bin/mknod'
-OMB_UNJFFS2_BIN = '/usr/bin/unjffs2'
-
 class OMBManagerInstall(Screen):
 	skin = """
 			<screen position="360,150" size="560,400">
@@ -189,7 +173,7 @@ class OMBManagerInstall(Screen):
 
 		tmp_folder = self.mount_point + '/' + OMB_TMP_DIR
 		if os.path.exists(tmp_folder):
-			Console().ePopen("%s -rf %s" % (OMB_RM_BIN, tmp_folder))
+			Console().ePopen("rm -rf %s" % tmp_folder)
 		try:
 			os.makedirs(tmp_folder)
 			os.makedirs(tmp_folder + '/ubi')
@@ -198,7 +182,7 @@ class OMBManagerInstall(Screen):
 			self.showError(_("Cannot create folder %s") % tmp_folder)
 			return
 
-		if os.system(OMB_UNZIP_BIN + ' ' + source_file + ' -d ' + tmp_folder) != 0:
+		if os.system('unzip ' + source_file + ' -d ' + tmp_folder) != 0:
 			self.showError(_("Cannot deflate image"))
 			return
 
@@ -208,16 +192,16 @@ class OMBManagerInstall(Screen):
 				self.showError(_("Cannot extract nfi image"))
 				return
 			else:
-				Console().ePopen("%s -f %s" % (OMB_RM_BIN, source_file))
+				Console().ePopen("rm -f %s" % source_file)
 				self.afterInstallImage(target_folder)
 				self.messagebox.close()
 				self.close()
 		elif self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
-			Console().ePopen("%s -f %s" % (OMB_RM_BIN, source_file))
+			Console().ePopen("rm -f %s" % source_file)
 			self.messagebox.close()
 			self.close()
 
-		Console().ePopen("%s -rf %s" % (OMB_RM_BIN, tmp_folder))
+		Console().ePopen("rm -rf %s" % tmp_folder)
 
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		if "ubi" in OMB_GETIMAGEFILESYSTEM:
@@ -227,7 +211,7 @@ class OMBManagerInstall(Screen):
 		elif "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
 			return self.installImageTARBZ2(src_path, dst_path, kernel_dst_path, tmp_folder)
 		else:
-			self.showError(_("Your STB doesn\'t seem supported"))
+			self.showError(_("Your receiver doesn\'t seem supported"))
 			return False
 
 	def installImageTARBZ2(self, src_path, dst_path, kernel_dst_path, tmp_folder):
@@ -235,12 +219,12 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		if os.system(OMB_TAR_BIN + ' jxf %s -C %s' % (rootfs_path,dst_path)) != 0:
+		if os.system('tar jxf %s -C %s' % (rootfs_path, dst_path)) != 0:
 			self.showError(_("Error unpacking rootfs"))
 			return False
 
 		if os.path.exists(dst_path + '/usr/bin/enigma2'):
-			if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+			if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 				self.showError(_("Error copying kernel"))
 				return False
 
@@ -261,42 +245,42 @@ class OMBManagerInstall(Screen):
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		jffs2_path = src_path + '/jffs2'
 
-		if os.path.exists(OMB_UNJFFS2_BIN):
-			if os.system("%s %s %s" % (OMB_UNJFFS2_BIN, rootfs_path, jffs2_path)) != 0:
+		if os.path.exists('/usr/bin/unjffs2'):
+			if os.system("unjffs2 %s %s" % (rootfs_path, jffs2_path)) != 0:
 				self.showError(_("Error unpacking rootfs"))
 				rc = False
 
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				if os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+				if os.system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
 					self.showError(_("Error copying unpacked rootfs"))
 					rc = False
-				if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 					self.showError(_("Error copying kernel"))
 					rc = False
 		else:
-			Console().ePopen("%s loop" % OMB_MODPROBE_BIN)
-			Console().ePopen("%s mtdblock" % OMB_MODPROBE_BIN)
-			Console().ePopen("%s block2mtd" % OMB_MODPROBE_BIN)
-			Console().ePopen("%s %s b 31 0" % (OMB_MKNOD_BIN, mtdfile))
-			Console().ePopen("%s /dev/loop0 %s" % (OMB_LOSETUP_BIN, rootfs_path))
-			Console().ePopen('%s "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % (OMB_ECHO_BIN, self.esize))
-			Console().ePopen("%s -t jffs2 %s %s" % (OMB_MOUNT_BIN, mtdfile, jffs2_path))
+			Console().ePopen("modprobe loop")
+			Console().ePopen("modprobe mtdblock")
+			Console().ePopen("modprobe block2mtd")
+			Console().ePopen("mknod %s b 31 0" % mtdfile)
+			Console().ePopen("losetup /dev/loop0 %s" % rootfs_path)
+			Console().ePopen('echo "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
+			Console().ePopen("mount -t jffs2 %s %s" % (mtdfile, jffs2_path))
 
 			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				if os.system(OMB_CP_BIN + ' -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+				if os.system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
 					self.showError(_("Error copying unpacked rootfs"))
 					rc = False
-				if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 					self.showError(_("Error copying kernel"))
 					rc = False
 			else:
 				self.showError(_("Generic error in unpack process"))
 				rc = False
 
-			Console().ePopen("%s %s" % (OMB_UMOUNT_BIN, jffs2_path))
-			Console().ePopen("%s block2mtd" % OMB_RMMOD_BIN)
-			Console().ePopen("%s mtdblock" % OMB_RMMOD_BIN)
-			Console().ePopen("%s loop" % OMB_RMMOD_BIN)
+			Console().ePopen("umount %s" % jffs2_path)
+			Console().ePopen("rmmod block2mtd")
+			Console().ePopen("rmmod mtdblock")
+			Console().ePopen("rmmod loop")
 
 		return rc
 
@@ -321,41 +305,41 @@ class OMBManagerInstall(Screen):
 				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
 			Console().ePopen("chmod 755 %s" % ubifile)
 			Console().ePopen("python %s %s -o %s" % (ubifile, rootfs_path, ubi_path))
-			Console().ePopen("%s -rp %s/rootfs/* %s" % (OMB_CP_BIN, ubi_path, dst_path))
+			Console().ePopen("cp -rp %s/rootfs/* %s" % (ubi_path, dst_path))
 			Console().ePopen("chmod -R +x %s" % dst_path)
 			Console().ePopen("rm -rf %s" % ubi_path)
-			Console().ePopen("%s %s %s" % (OMB_CP_BIN, kernel_path, kernel_dst_path))
+			Console().ePopen("cp %s %s" % (kernel_path, kernel_dst_path))
 			self.dirtyHack(dst_path)
 			return True
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
-		Console().ePopen("%s nandsim cache_file=%s %s" % (OMB_MODPROBE_BIN, virtual_mtd, self.nandsim_parm))
+		Console().ePopen("modprobe nandsim cache_file=%s %s" % (virtual_mtd, self.nandsim_parm))
 		if not os.path.exists('/dev/mtd' + mtd):
 			Console().ePopen('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
 		if not os.path.exists('/dev/mtdblock' + mtd):
-			Console().ePopen("%s if=%s of=/dev/mtd%s bs=2048" % (OMB_DD_BIN, rootfs_path, mtd))
+			Console().ePopen("dd if=%s of=/dev/mtd%s bs=2048" % (rootfs_path, mtd))
 		else:
-			Console().ePopen("%s if=%s of=/dev/mtdblock%s bs=2048" % (OMB_DD_BIN, rootfs_path, mtd))
-		Console().ePopen("%s /dev/ubi_ctrl -m %s -O %s" % (OMB_UBIATTACH_BIN, mtd, self.vid_offset))
-		Console().ePopen("%s -t ubifs ubi1_0 %s" % (OMB_MOUNT_BIN, ubi_path))
+			Console().ePopen("dd if=%s of=/dev/mtdblock%s bs=2048" % (rootfs_path, mtd))
+		Console().ePopen("ubiattach /dev/ubi_ctrl -m %s -O %s" % (mtd, self.vid_offset))
+		Console().ePopen("mount -t ubifs ubi1_0 %s" % ubi_path)
 
 		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
-			if os.system(OMB_CP_BIN + ' -rp ' + ubi_path + '/* ' + dst_path) != 0:
+			if os.system('cp -rp ' + ubi_path + '/* ' + dst_path) != 0:
 				self.showError(_("Error copying unpacked rootfs"))
 				rc = False
-			if os.system(OMB_CP_BIN + ' ' + kernel_path + ' ' + kernel_dst_path) != 0:
+			if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 				self.showError(_("Error copying kernel"))
 				rc = False
 		else:
 			self.showError(_("Generic error in unpack process"))
 			rc = False
 
-		Console().ePopen("%s %s" % (OMB_UMOUNT_BIN, ubi_path))
-		Console().ePopen("%s -m %s" % (OMB_UBIDETACH_BIN, mtd))
-		Console().ePopen("%s nandsim" % OMB_RMMOD_BIN)
+		Console().ePopen("umount %s" % ubi_path)
+		Console().ePopen("ubidetach -m %s" % mtd)
+		Console().ePopen("rmmod nandsim")
 
 		self.dirtyHack(dst_path)
 
@@ -443,22 +427,22 @@ class OMBManagerInstall(Screen):
 		if not os.path.exists('/usr/lib64/python2.7/boxbranding.so') and path.isdir("/usr/lib64"):
 			 Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python2.7/boxbranding.so")
 		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.pyo') and not path.isdir("/usr/lib64"):
-			Console().ePopen("cp /usr/lib/enigma2/python/boxbranding.so %s /usr/lib/python2.7/boxbranding.so" % dst_path)
-			Console().ePopen("rm -f %s /usr/lib/python2.7/boxbranding.pyo" % dst_path)
+			Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so %s/usr/lib/python2.7/boxbranding.so" % dst_path)
+			Console().ePopen("rm -f %s/usr/lib/python2.7/boxbranding.pyo" % dst_path)
 		if os.path.exists(dst_path + '/usr/lib64/python2.7/boxbranding.pyo') and path.isdir("/usr/lib64"):
-			Console().ePopen("cp /usr/lib64/enigma2/python/boxbranding.so %s /usr/lib64/python2.7/boxbranding.so" % dst_path)
-			Console().ePopen("rm -f %s /usr/lib64/python2.7/boxbranding.pyo" % dst_path)
+			Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so %s/usr/lib64/python2.7/boxbranding.so" % dst_path)
+			Console().ePopen("rm -f %s/usr/lib64/python2.7/boxbranding.pyo" % dst_path)
 		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo") and not path.isdir("/usr/lib64"):
-			Console().ePopen("cp /usr/lib/python2.7/subprocess.pyo %s /usr/lib/python2.7/subprocess.pyo" % dst_path)
+			Console().ePopen("ln -s /usr/lib/python2.7/subprocess.pyo %s/usr/lib/python2.7/subprocess.pyo" % dst_path)
 		if not os.path.exists(dst_path + "/usr/lib64/python2.7/subprocess.pyo") and path.isdir("/usr/lib64"):
-			Console().ePopen("cp /usr/lib64/python2.7/subprocess.pyo %s /usr/lib64/python2.7/subprocess.pyo" % dst_path)
+			Console().ePopen("ln -s /usr/lib64/python2.7/subprocess.pyo %s/usr/lib64/python2.7/subprocess.pyo" % dst_path)
 # OpenMultiboot installed in the multiboot image. where the init will go ?
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
-			Console().ePopen("rm -f %s /sbin/open_multiboot" % dst_path)
-			Console().ePopen("rm -f %s /sbin/open-multiboot-branding-helper.pyo" % dst_path)
-			Console().ePopen("rm -f %s /etc/ipk-postinsts/*-OpenMultiboot" % dst_path)
+			Console().ePopen("rm -f %s/sbin/open_multiboot" % dst_path)
+			Console().ePopen("rm -f %s/sbin/open-multiboot-branding-helper.pyo" % dst_path)
+			Console().ePopen("rm -f %s/etc/ipk-postinsts/*-OpenMultiboot" % dst_path)
 # We can't create the init symlink because it will be overwrited by OpenMultiboot
-			Console().ePopen("ln -sfn /sbin/init.sysvinit %s /sbin/open_multiboot" % dst_path)
+			Console().ePopen("ln -sfn /sbin/init.sysvinit %s/sbin/open_multiboot" % dst_path)
 
 	def afterInstallImage(self, dst_path):
 		fix = False

@@ -37,7 +37,7 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from OMBManagerInstall import OMBManagerInstall, OMB_RM_BIN
+from OMBManagerInstall import OMBManagerInstall
 from OMBManagerAbout import OMBManagerAbout
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from OMBManagerLocale import _
@@ -408,9 +408,9 @@ class OMBManagerList(Screen):
 		
 	def deleteImage(self):
 		self.timer.stop()
-		os.system(OMB_RM_BIN + ' -rf ' + self.entry_to_delete['path'])
-		os.system(OMB_RM_BIN + ' -f ' + self.entry_to_delete['kernelbin'])
-		os.system(OMB_RM_BIN + ' -f ' + self.entry_to_delete['labelfile'])
+		Console().ePopen("rm -rf %s" % self.entry_to_delete['path'])
+		Console().ePopen("rm -rf %s" % self.entry_to_delete['kernelbin'])
+		Console().ePopen("rm -rf %s" % self.entry_to_delete['labelfile'])
 		self.messagebox.close()
 		self.refresh()
 		

@@ -28,7 +28,7 @@ from Screens.MessageBox import MessageBox
 
 from OMBManagerList import OMBManagerList
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, OMB_UNJFFS2_BIN
+from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM
 from OMBManagerLocale import _
 
 from enigma import eTimer
@@ -183,7 +183,7 @@ def OMBManager(session, **kwargs):
 
 	kernel_module = 'kernel-module-nandsim'
 	if "jffs2" in OMB_GETIMAGEFILESYSTEM:
-		if os.path.exists(OMB_UNJFFS2_BIN):
+		if os.path.exists('/usr/bin/unjffs2'):
 			kernel_module = None
 		else:
 			kernel_module = 'kernel-module-block2mtd'
