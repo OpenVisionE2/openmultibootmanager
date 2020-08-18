@@ -35,14 +35,14 @@ from Tools.Directories import fileExists
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
 from OMBManagerLocale import _
 
-from enigma import eTimer
+from enigma import eTimer, getBoxType
 
 import os
 from os import path
 import glob
 import struct
 from Components.Console import Console
-from boxbranding import *
+from boxbranding import getBrandOEM, getImageDistro, getImageVersion, getImageFileSystem, getImageFolder, getMachineMtdKernel, getMachineKernelFile, getMachineMtdBoot, getMachineMtdRoot, getMachineRootFile, getMachineMKUBIFS, getMachineUBINIZE
 
 OMB_GETBOXTYPE = getBoxType()
 OMB_GETBRANDOEM = getBrandOEM()
@@ -361,7 +361,7 @@ class OMBManagerInstall(Screen):
 				machine_type = 'dm7020hdv2'
 
 		print('Dreambox image type: %s' % machine_type)
-		if machine_type == 'dm800' or machine_type == 'dm500hd' or machine_type == 'dm800se':
+		if machine_type in ('dm800','dm500hd','dm800se'):
 			self.esize = '0x4000,0x200'
 			self.vid_offset = '512'
 			bs = 512

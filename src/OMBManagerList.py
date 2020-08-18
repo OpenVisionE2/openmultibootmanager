@@ -37,7 +37,7 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from OMBManagerInstall import OMBManagerInstall
+from OMBManagerInstall import OMBManagerInstall, OMB_GETBOXTYPE, OMB_GETIMAGEDISTRO, OMB_GETIMAGEVERSION
 from OMBManagerAbout import OMBManagerAbout
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from OMBManagerLocale import _
@@ -194,42 +194,8 @@ class OMBManagerList(Screen):
 	
 
 	def isCompatible(self, base_path):
-		running_box_type = "none"
-		if path.isdir("/usr/lib64"):
-			e2_path = '/usr/lib64/enigma2/python'
-		else:
-			e2_path = '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
-			running_box_type = fout.read().strip()
-
-		if path.isdir("/usr/lib64"):
-			e2_path = base_path + '/usr/lib64/enigma2/python'
-		else:
-			e2_path = base_path + '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			fin,fout = os.popen4(helper + " " + e2_path + " brand_oem")
-			brand_oem = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " box_type")
-			box_type = fout.read().strip()
-
-			if brand_oem == "vuplus" and box_type[0:2] != "vu":
-				box_type = "vu" + box_type
-				print("OMB: buggy image, fixed box_type is %s" % box_type)
-
-			if brand_oem == 'formuler':
-				if running_box_type != "formuler4turbo" or box_type != "formuler4turbo":
-					running_box_type = running_box_type[:9]
-					box_type = box_type[:9]
-
-			print("DEBUG",base_path, running_box_type , box_type)
-			return (running_box_type == box_type)
-
+		running_box_type = OMB_GETBOXTYPE
 		try:
-			if running_box_type is None:
-				running_box_type = open('/etc/openvision/model', 'r').read().strip()
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
 			with open(archconffile, "r") as arch:
 				for line in arch:
@@ -238,33 +204,18 @@ class OMBManagerList(Screen):
 						return True
 		except:
 			pass
-
 		return False
 
 	def guessImageTitle(self, base_path, identifier):
-		image_distro = ""
-		image_version = ""
-
-		if path.isdir("/usr/lib64"):
-			e2_path = base_path + '/usr/lib64/enigma2/python'
-		else:
-			e2_path = base_path + '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
-			image_distro = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " image_version")
-			image_version = fout.read().strip()
-		
+		image_distro = OMB_GETIMAGEDISTRO
+		image_version = OMB_GETIMAGEVERSION
 		if len(image_distro) > 0:
 			return image_distro + " " + image_version
 		else:
 			return identifier
 
 	def imageTitleFromLabel(self, file_entry):
-		f = open(self.data_dir + '/' + file_entry)
-		label = f.readline().strip()
-		f.close()
+		label = open(self.data_dir + '/' + file_entry).readline().strip()
 		return label
 		
 	def populateImagesList(self):
@@ -355,9 +306,7 @@ class OMBManagerList(Screen):
 			image = self.images_entries[self.select]['identifier']
 			print("[OMB] set nextboot to %s" % image)
 			file_entry = self.data_dir + '/.nextboot'
-			f = open(file_entry, 'w')
-			f.write(image)
-			f.close()
+			open(file_entry, 'w').write(image)
 
 			self.session.openWithCallback(self.confirmRebootCB, MessageBox,_('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
 
@@ -394,9 +343,7 @@ class OMBManagerList(Screen):
 			else:
 				file_entry = self.data_dir + '/.label_' + renameimage['identifier']
 
-			f = open(file_entry, 'w')
-			f.write(name)
-			f.close()
+			open(file_entry, 'w').write(name)
 			self.refresh()
 		
 	def deleteConfirm(self, confirmed):
@@ -483,6 +430,4 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 		else:
 			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):	
 				Console().ePopen("touch %s/.bootmenu.lock" % self.data_dir)
-				
-		
 		self.close()

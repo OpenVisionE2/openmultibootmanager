@@ -24,6 +24,7 @@ from __future__ import print_function
 #############################################################################
 
 import sys
+import boxbranding
 
 KEYS_FNC_MAP = {
 	'machine_mtd_kernel': 'boxbranding.getMachineMtdKernel()',
@@ -54,12 +55,8 @@ def print_help():
 if len(sys.argv) != 3:
 	print_help()
 else:
-	WORKAROUND = False
 	sys.path.insert(0, sys.argv[1])
-	try:
-		import boxbranding
-	except:
-		WORKAROUND = True
+
 	if not sys.argv[2] in KEYS_FNC_MAP and sys.argv[2] != 'all':
 		print_help()
 	else:
@@ -67,15 +64,4 @@ else:
 			for key in KEYS_FNC_MAP.keys():
 				print(key + ' = ' + eval(KEYS_FNC_MAP[key]))
 		else:
-			if WORKAROUND:
-				if sys.argv[2] == 'image_distro':
-					try:
-						print(open("/etc/issue").readlines()[-2].capitalize().strip()[:-6])
-					except:
-						print("undefined")
-				elif sys.argv[2] == 'image_version':
-					print(' ')
-				else:
-					pass
-			else:
-				print(eval(KEYS_FNC_MAP[sys.argv[2]]))
+			print(eval(KEYS_FNC_MAP[sys.argv[2]]))
