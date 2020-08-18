@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
 #############################################################
 # ubi_reader
 # (c) 2013 Jason Pruitt (jrspruitt@gmail.com)
@@ -27,7 +29,7 @@ from ui.common import extract_files, output_dir
 
 if __name__ == '__main__':
     description = 'Extract contents of UBI image.'
-    usage = 'ubi_extract_files.py [options] filepath'
+    usage = 'ubi_extract_files.pyo [options] filepath'
     parser = argparse.ArgumentParser(usage=usage, description=description)
 
     parser.add_argument('-l', '--log-file', dest='logpath',
@@ -107,7 +109,7 @@ if __name__ == '__main__':
             uubifs.log.log_to_file = log_to_file
             uubifs.log.quiet = quiet
             # Run extract all files.
-            print 'Writing to: %s' % vol_out_path
+            print('Writing to: %s' % vol_out_path)
             extract_files(uubifs, vol_out_path, perms)
 
     sys.exit(0)

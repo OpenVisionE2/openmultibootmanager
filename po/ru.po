@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 11:48+0200\n"
+"POT-Creation-Date: 2020-07-18 01:49+0430\n"
 "PO-Revision-Date: 2016-09-07 18:42+0300\n"
 "Last-Translator: Dimitrij <Dima-73@inbox.lv>\n"
 "Language-Team: openPli dima-73@inbox.lv\n"
@@ -15,79 +15,104 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: ../src/OMBManager.py:144
 #, fuzzy
 msgid ""
-" to use openMultiboot\n"
+" to use OpenMultiboot\n"
 "Do you want install it?"
-msgstr "Установить openMultiboot"
+msgstr "Установить OpenMultiboot"
 
+#: ../src/OMBManager.py:50
 msgid "Cancel"
 msgstr "Отмена"
 
+#: ../src/OMBManager.py:78
 msgid "Cannot create data folder"
 msgstr "Не удалось создать папку"
 
+#: ../src/OMBManagerInstall.py:205 ../src/OMBManagerInstall.py:216
 #, python-format
 msgid "Cannot create folder %s"
 msgstr "Невозможно создать папку %s"
 
+#: ../src/OMBManagerInstall.py:195
 #, python-format
 msgid "Cannot create kernel folder %s"
 msgstr "Невозможно создать папку ядра %s"
 
+#: ../src/OMBManagerInstall.py:188
 #, python-format
 msgid "Cannot create main folder %s"
 msgstr "Не удалось создать домашнюю папку %s"
 
+#: ../src/OMBManagerInstall.py:358
 msgid "Cannot create virtual MTD device"
 msgstr "Невозможно создать виртуальное MTD устройство"
 
+#: ../src/OMBManagerInstall.py:220
 msgid "Cannot deflate image"
 msgstr "Невозможно распаковать имидж"
 
+#: ../src/OMBManagerInstall.py:226
 msgid "Cannot extract nfi image"
 msgstr "Не удалось извлечь имидж nfi"
 
+#: ../src/OMBManager.py:104
 msgid "Cannot format the device"
 msgstr "Не удалось форматировать устройство хранения"
 
+#: ../src/OMBManager.py:163
 msgid "Cannot install "
 msgstr "Не удалось установить "
 
+#: ../src/OMBManager.py:107
 msgid "Cannot remount the device"
 msgstr "Не удалось примонтировать устройство хранения"
 
+#: ../src/OMBManager.py:101
 msgid "Cannot umount the device"
 msgstr "Не удалось отмонтировать устройство хранения"
 
+#: ../src/OMBManagerInstall.py:127
 msgid "Choose the image to install"
 msgstr "Выберите имидж для установки..."
 
+#: ../src/OMBManagerList.py:173
 msgid "Current Running Image:"
 msgstr "Текущий загруженный имидж:"
 
+#: ../src/OMBManagerList.py:346
 msgid "Delete"
 msgstr "Удалить"
 
+#: ../src/OMBManagerList.py:428
 #, python-format
 msgid "Do you want to delete %s?"
 msgstr "Вы действительно хотите удалить %s?"
 
+#: ../src/OMBManagerList.py:365
 msgid "Do you want to reboot now ?"
 msgstr "Вы хотите сделать перезагрузку сейчас?"
 
+#: ../src/OMBManagerList.py:479
 msgid "Enable Boot Menu"
 msgstr "Включить меню загрузки"
 
+#: ../src/OMBManagerInstall.py:262 ../src/OMBManagerInstall.py:292
+#: ../src/OMBManagerInstall.py:308 ../src/OMBManagerInstall.py:373
 msgid "Error copying kernel"
 msgstr ""
 
+#: ../src/OMBManagerInstall.py:289 ../src/OMBManagerInstall.py:305
+#: ../src/OMBManagerInstall.py:370
 msgid "Error copying unpacked rootfs"
 msgstr ""
 
+#: ../src/OMBManagerInstall.py:257 ../src/OMBManagerInstall.py:284
 msgid "Error unpacking rootfs"
 msgstr ""
 
+#: ../src/OMBManager.py:133
 msgid ""
 "Filesystem not supported\n"
 "Do you want format your drive?"
@@ -95,40 +120,60 @@ msgstr ""
 "Файловая система не поддерживается,\n"
 "хотите отформатировать Ваше устройство хранения в ext4 (все данные будут потеряны)?"
 
+#: ../src/OMBManagerInstall.py:311 ../src/OMBManagerInstall.py:376
 msgid "Generic error in unpack process"
 msgstr ""
 
+#: ../src/OMBManagerList.py:184
 msgid "Install"
 msgstr "Установить"
 
+#: ../src/OMBManagerList.py:182
 msgid "Menu"
 msgstr "Меню"
 
+#: ../src/OMBManager.py:55
 msgid "No suitable devices found"
 msgstr "Не найдены подходящие устройства хранения"
 
+#: ../src/OMBManagerList.py:373
 msgid "Open MultiBoot Menu"
-msgstr "Меню openMultiboot"
+msgstr "Меню OpenMultiboot"
 
+#: ../src/OMBManagerAbout.py:47
+msgid "OpenMultiboot About"
+msgstr "Информация об OpenMultiboot"
+
+#: ../src/OMBManagerInstall.py:118
+msgid "OpenMultiboot Install"
+msgstr "Установить OpenMultiboot"
+
+#: ../src/plugin.py:34 ../src/OMBManagerList.py:164
 msgid "OpenMultiboot Manager"
 msgstr "Менеджер OpenMultiboot"
 
+#: ../src/OMBManagerList.py:389
 msgid "Please enter new name:"
 msgstr "Введите новое имя:"
 
+#: ../src/OMBManagerList.py:447
 #, python-format
 msgid "Please upload an image inside %s"
 msgstr "Пожалуйста, загрузите нужный архив с имиджем в %s"
 
+#: ../src/OMBManagerList.py:407
 msgid "Please wait while delete is in progress."
 msgstr "Пожалуйста, подождите, удаление в процессе."
 
+#: ../src/OMBManager.py:92
 msgid "Please wait while format is in progress."
 msgstr "Пожалуйста, подождите, форматирование в процессе."
 
+#: ../src/OMBManager.py:154
 msgid "Please wait while installation is in progress."
 msgstr "Пожалуйста, подождите, пока идет процесс установки."
 
+#: ../src/OMBManagerInstall.py:143
 msgid ""
 "Please wait while installation is in progress.\n"
 "This operation may take a while."
@@ -136,34 +181,32 @@ msgstr ""
 "Пожалуйста, подождите, пока идет процесс установки.\n"
 "Эта операция может занять довольно долгое время."
 
+#: ../src/OMBManagerList.py:180
 msgid "Rename"
 msgstr "Переименовать"
 
+#: ../src/OMBManagerList.py:467
 msgid "Save"
 msgstr "Сохранить"
 
+#: ../src/OMBManagerList.py:353
 #, python-format
 msgid "Set next boot to %s ?"
 msgstr "Установить следующую загрузку ресивера в %s ?"
 
+#: ../src/OMBManagerInstall.py:199
 #, python-format
 msgid "The folder %s already exist"
 msgstr "Папка %s уже существует"
 
-msgid "Where do you want to install openMultiboot?"
-msgstr "Куда Вы хотите установить openMultiboot?"
+#: ../src/OMBManager.py:43
+msgid "Where do you want to install OpenMultiboot?"
+msgstr "Куда Вы хотите установить OpenMultiboot?"
 
+#: ../src/OMBManager.py:144
 msgid "You need the module "
 msgstr "Вам необходим модуль "
 
+#: ../src/OMBManagerInstall.py:248
 msgid "Your STB doesn't seem supported"
 msgstr "Ваш ресивер ,кажется, не поддерживается"
-
-msgid "openMultiboot About"
-msgstr "Информация об openMultiboot"
-
-msgid "openMultiboot Install"
-msgstr "Установить openMultiboot"
-
-msgid "openMultiboot Manager"
-msgstr "Менеджер openMultiboot"
