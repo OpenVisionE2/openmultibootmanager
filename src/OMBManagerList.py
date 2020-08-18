@@ -37,7 +37,7 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from OMBManagerInstall import OMBManagerInstall, OMB_GETBOXTYPE, OMB_GETIMAGEDISTRO, OMB_GETIMAGEVERSION
+from OMBManagerInstall import OMBManagerInstall, OMB_GETBOXTYPE
 from OMBManagerAbout import OMBManagerAbout
 from OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from OMBManagerLocale import _
@@ -207,8 +207,8 @@ class OMBManagerList(Screen):
 		return False
 
 	def guessImageTitle(self, base_path, identifier):
-		image_distro = OMB_GETIMAGEDISTRO
-		image_version = OMB_GETIMAGEVERSION
+		image_distro = ""
+		image_version = ""
 		if path.isdir("/usr/lib64"):
 			e2_path = base_path + '/usr/lib64/enigma2/python'
 		else:
