@@ -209,6 +209,16 @@ class OMBManagerList(Screen):
 	def guessImageTitle(self, base_path, identifier):
 		image_distro = OMB_GETIMAGEDISTRO
 		image_version = OMB_GETIMAGEVERSION
+		if path.isdir("/usr/lib64"):
+			e2_path = base_path + '/usr/lib64/enigma2/python'
+		else:
+			e2_path = base_path + '/usr/lib/enigma2/python'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
+			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
+			image_distro = fout.read().strip()
+			fin,fout = os.popen4(helper + " " + e2_path + " image_version")
+			image_version = fout.read().strip()
 		if len(image_distro) > 0:
 			return image_distro + " " + image_version
 		else:
