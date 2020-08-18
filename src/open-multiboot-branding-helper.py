@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -21,22 +24,18 @@
 #############################################################################
 
 import sys
+import boxbranding
 
 KEYS_FNC_MAP = {
-	'machine_build': 'boxbranding.getMachineBuild()',
-	'machine_proc_model': 'boxbranding.getMachineProcModel()',
-	'machine_brand': 'boxbranding.getMachineBrand()',
-	'machine_name': 'boxbranding.getMachineName()',
 	'machine_mtd_kernel': 'boxbranding.getMachineMtdKernel()',
 	'machine_kernel_file': 'boxbranding.getMachineKernelFile()',
+	'machine_mtd_boot': 'boxbranding.getMachineMtdBoot()',
 	'machine_mtd_root': 'boxbranding.getMachineMtdRoot()',
 	'machine_root_file': 'boxbranding.getMachineRootFile()',
 	'machine_mkubifs': 'boxbranding.getMachineMKUBIFS()',
 	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
 	'box_type': 'boxbranding.getBoxType()',
 	'brand_oem': 'boxbranding.getBrandOEM()',
-	'oe_version': 'boxbranding.getOEVersion()',
-	'driver_date': 'boxbranding.getDriverDate()',
 	'image_version': 'boxbranding.getImageVersion()',
 	'image_build': 'boxbranding.getImageBuild()',
 	'image_distro': 'boxbranding.getImageDistro()',
@@ -45,39 +44,24 @@ KEYS_FNC_MAP = {
 }
 
 def print_help():
-	print 'Syntax:'
-	print sys.argv[0] + ' enigma2_dir key'
-	print ''
-	print 'Valid keys:'
+	print('Syntax:')
+	print(sys.argv[0] + ' enigma2_dir key')
+	print('')
+	print('Valid keys:')
 	for key in KEYS_FNC_MAP.keys():
-		print ' * ' + key
-	print ' * all'
+		print(' * ' + key)
+	print(' * all')
 
 if len(sys.argv) != 3:
 	print_help()
 else:
-	WORKAROUND = False
 	sys.path.insert(0, sys.argv[1])
-	try:
-		import boxbranding
-	except:
-		WORKAROUND = True
+
 	if not sys.argv[2] in KEYS_FNC_MAP and sys.argv[2] != 'all':
 		print_help()
 	else:
 		if sys.argv[2] == 'all':
 			for key in KEYS_FNC_MAP.keys():
-				print key + ' = ' + eval(KEYS_FNC_MAP[key])
+				print(key + ' = ' + eval(KEYS_FNC_MAP[key]))
 		else:
-			if WORKAROUND:
-				if sys.argv[2] == 'image_distro':
-					try:
-						print open("/etc/issue").readlines()[-2].capitalize().strip()[:-6]
-					except:
-						print "undefined"
-				elif sys.argv[2] == 'image_version':
-					print ' '
-				else:
-					pass
-			else:
-				print eval(KEYS_FNC_MAP[sys.argv[2]])
+			print(eval(KEYS_FNC_MAP[sys.argv[2]]))

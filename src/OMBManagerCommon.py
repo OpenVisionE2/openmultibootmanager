@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -24,4 +26,4 @@ OMB_MAIN_DIR = '/omb'
 OMB_DATA_DIR = 'open-multiboot'
 OMB_UPLOAD_DIR = 'open-multiboot-upload'
 OMB_TMP_DIR = 'open-multiboot-tmp'
-OMB_MANAGER_VERION = '1.0'
+OMB_MANAGER_VERION = '10.1'
