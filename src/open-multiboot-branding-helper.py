@@ -35,7 +35,6 @@ KEYS_FNC_MAP = {
 	'machine_mkubifs': 'boxbranding.getMachineMKUBIFS()',
 	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
 	'box_type': 'boxbranding.getBoxType()',
-	'brand_oem': 'boxbranding.getBrandOEM()',
 	'image_version': 'boxbranding.getImageVersion()',
 	'image_build': 'boxbranding.getImageBuild()',
 	'image_distro': 'boxbranding.getImageDistro()',

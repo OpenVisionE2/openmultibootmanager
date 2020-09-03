@@ -27,7 +27,7 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 
-from OMBManagerCommon import OMB_MANAGER_VERION
+from OMBManagerCommon import OMB_MANAGER_VERSION
 from OMBManagerLocale import _
 from OMBManagerInstall import OMB_GETBOXTYPE
 
@@ -46,7 +46,7 @@ class OMBManagerAbout(Screen):
 		
 		self.setTitle(_('OpenMultiboot About'))
 		
-		about = "OpenMultiboot Manager " + OMB_MANAGER_VERION + "\n"
+		about = "OpenMultiboot Manager " + OMB_MANAGER_VERSION + "\n"
 		about += OMB_GETBOXTYPE + "\n"
 		about += "Special version for Open Vision" + "\n"
 		about += "(c) 2014 Impex-Sat Gmbh & Co.KG\n\n"
