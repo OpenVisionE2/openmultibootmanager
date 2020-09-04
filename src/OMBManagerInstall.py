@@ -42,10 +42,10 @@ from os import path
 import glob
 import struct
 from Components.Console import Console
-from boxbranding import getBrandOEM, getImageDistro, getImageVersion, getImageFileSystem, getImageFolder, getMachineMtdKernel, getMachineKernelFile, getMachineMtdBoot, getMachineMtdRoot, getMachineRootFile, getMachineMKUBIFS, getMachineUBINIZE
+from boxbranding import getBoxBrand, getImageDistro, getImageVersion, getImageFileSystem, getImageFolder, getMachineMtdKernel, getMachineKernelFile, getMachineMtdBoot, getMachineMtdRoot, getMachineRootFile, getMachineMKUBIFS, getMachineUBINIZE
 
 OMB_GETBOXTYPE = getBoxType()
-OMB_GETBRANDOEM = getBrandOEM()
+OMB_GETBRANDOEM = getBoxBrand()
 OMB_GETIMAGEDISTRO = getImageDistro()
 OMB_GETIMAGEVERSION = getImageVersion()
 OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
