@@ -28,7 +28,7 @@ from Screens.MessageBox import MessageBox
 
 from OMBManagerList import OMBManagerList
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR
-from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM
+from OMBManagerInstall import OMB_GETIMAGEFILESYSTEM, OMB_GETBRANDOEM
 from OMBManagerLocale import _
 
 from enigma import eTimer
