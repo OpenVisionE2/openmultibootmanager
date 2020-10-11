@@ -187,6 +187,7 @@ class OMBManagerInstall(Screen):
 			return
 
 		nfifile = glob.glob('%s/*.nfi' % tmp_folder)
+		tarxzfile = glob.glob('%s/*.rootfs.tar.xz' % tmp_folder)
 		if nfifile:
 			if not self.extractImageNFI(nfifile[0], tmp_folder):
 				self.showError(_("Cannot extract nfi image"))
@@ -196,12 +197,27 @@ class OMBManagerInstall(Screen):
 				self.afterInstallImage(target_folder)
 				self.messagebox.close()
 				self.close()
+		if tarxzfile:
+			if os.system('/bin/tar' + ' xpJf %s -C %s' % (tarxzfile[0], target_folder)) != 0:
+				if not os.path.exists(target_folder + "/usr/bin/enigma2"):
+					self.showError(_("Error unpacking rootfs"))
+					Console().ePopen("rm -rf %s" % tmp_folder)
+				else:
+					self.afterInstallImage(target_folder)
+					Console().ePopen("rm -f %s" % source_file)
+					Console().ePopen("rm -rf %s" % tmp_folder)
+					self.messagebox.close()
+					self.close(target_folder)
+			else:
+				self.showError(_("Error unpacking rootfs"))
+				Console().ePopen("rm -rf %s" % tmp_folder)
 		elif self.installImage(tmp_folder, target_folder, kernel_target_file, tmp_folder):
 			Console().ePopen("rm -f %s" % source_file)
+			Console().ePopen("rm -rf %s" % tmp_folder)
 			self.messagebox.close()
-			self.close()
-
-		Console().ePopen("rm -rf %s" % tmp_folder)
+			self.close(target_folder)
+		else:
+			Console().ePopen("rm -rf %s" % tmp_folder)
 
 	def installImage(self, src_path, dst_path, kernel_dst_path, tmp_folder):
 		if "ubi" in OMB_GETIMAGEFILESYSTEM:
