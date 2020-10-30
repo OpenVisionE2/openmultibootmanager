@@ -215,9 +215,9 @@ class OMBManagerList(Screen):
 			e2_path = base_path + '/usr/lib/enigma2/python'
 		if os.path.exists(e2_path + '/boxbranding.so'):
 			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			fin,fout = os.popen4(helper + " " + e2_path + " image_distro")
+			fin, fout = os.popen4(helper + " " + e2_path + " image_distro")
 			image_distro = fout.read().strip()
-			fin,fout = os.popen4(helper + " " + e2_path + " image_version")
+			fin, fout = os.popen4(helper + " " + e2_path + " image_version")
 			image_version = fout.read().strip()
 		if len(image_distro) > 0:
 			return image_distro + " " + image_version
@@ -308,7 +308,7 @@ class OMBManagerList(Screen):
 	def KeyOk(self):
 		self.select = self["list"].getIndex()
 		name = self["list"].getCurrent()
-		self.session.openWithCallback(self.confirmNextbootCB, MessageBox,_('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.confirmNextbootCB, MessageBox, _('Set next boot to %s ?') % name, MessageBox.TYPE_YESNO)
 		
 
 	def confirmNextbootCB(self, ret):
@@ -318,7 +318,7 @@ class OMBManagerList(Screen):
 			file_entry = self.data_dir + '/.nextboot'
 			open(file_entry, 'w').write(image)
 
-			self.session.openWithCallback(self.confirmRebootCB, MessageBox,_('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
+			self.session.openWithCallback(self.confirmRebootCB, MessageBox, _('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
 
 	def confirmRebootCB(self, ret):
 		if ret:
@@ -326,7 +326,7 @@ class OMBManagerList(Screen):
 
 	def showMen(self):
 		myoptions = [['Preferences', 'preferences'], ['About', 'about']]	
-		self.session.openWithCallback(self.doshowMen,ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
+		self.session.openWithCallback(self.doshowMen, ChoiceBox, title=_("Open MultiBoot Menu"), list=myoptions)
 		
 	def doshowMen(self, sel):
 		if sel:
@@ -358,7 +358,7 @@ class OMBManagerList(Screen):
 		
 	def deleteConfirm(self, confirmed):
 		if confirmed and len(self.entry_to_delete['path']) > 1:
-			self.messagebox = self.session.open(MessageBox,_('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
+			self.messagebox = self.session.open(MessageBox, _('Please wait while delete is in progress.'), MessageBox.TYPE_INFO, enable_input = False)
 			self.timer = eTimer()
 			self.timer.callback.append(self.deleteImage)
 			self.timer.start(100)

@@ -23,9 +23,9 @@ import zlib
 from ubifs.defines import *
 
 # For happy printing
-ino_types = ['file', 'dir','lnk','blk','chr','fifo','sock']
-node_types = ['ino','data','dent','xent','trun','pad','sb','mst','ref','idx','cs','orph']
-key_types = ['ino','data','dent','xent']
+ino_types = ['file', 'dir', 'lnk', 'blk', 'chr', 'fifo', 'sock']
+node_types = ['ino', 'data', 'dent', 'xent', 'trun', 'pad', 'sb', 'mst', 'ref', 'idx', 'cs', 'orph']
+key_types = ['ino', 'data', 'dent', 'xent']
 
 
 def parse_key(key):
@@ -39,7 +39,7 @@ def parse_key(key):
     Int:ino_num    -- Inode number.
     Int:khash      -- Key hash.
     """
-    hkey, lkey = struct.unpack('<II',key[0:UBIFS_SK_LEN])
+    hkey, lkey = struct.unpack('<II', key[0:UBIFS_SK_LEN])
     ino_num = hkey & UBIFS_S_KEY_HASH_MASK
     key_type = lkey >> UBIFS_S_KEY_BLOCK_BITS
     khash = lkey

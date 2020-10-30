@@ -314,7 +314,7 @@ class OMBManagerInstall(Screen):
 		ubi_path = src_path + '/ubi'
 
 		# This is idea from EGAMI Team to handle universal UBIFS unpacking - used only for INI-HDp model
-		if OMB_GETBOXTYPE in ("xpeedlx3","sezammarvel","mbultra","beyonwizt4","atemionemesis"):
+		if OMB_GETBOXTYPE in ("xpeedlx3", "sezammarvel", "mbultra", "beyonwizt4", "atemionemesis"):
 			if path.isdir("/usr/lib64"):
 				ubifile = "/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
 			else:
@@ -377,7 +377,7 @@ class OMBManagerInstall(Screen):
 				machine_type = 'dm7020hdv2'
 
 		print('Dreambox image type: %s' % machine_type)
-		if machine_type in ('dm800','dm500hd','dm800se'):
+		if machine_type in ('dm800', 'dm500hd', 'dm800se'):
 			self.esize = '0x4000,0x200'
 			self.vid_offset = '512'
 			bs = 512
