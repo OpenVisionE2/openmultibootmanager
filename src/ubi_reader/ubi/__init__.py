@@ -61,7 +61,7 @@ class ubi():
         self._data_blocks_list = data_list
         self._int_vol_blocks_list = int_vol_list
         self._unknown_blocks_list = unknown_list
-        
+
         arbitrary_block = self.blocks.itervalues().next()
         self._min_io_size = arbitrary_block.ec_hdr.vid_hdr_offset
         self._leb_size = self.file.block_size - arbitrary_block.ec_hdr.data_offset
@@ -91,8 +91,8 @@ class ubi():
         List -- Of volume objects groupled by image.
         """
         return self._images
-    images = property(_get_images)           
- 
+    images = property(_get_images)
+
     def _get_data_blocks_list(self):
         """Get all UBI blocks found in file that are data blocks.
 

@@ -41,23 +41,23 @@ class OMBManagerAbout(Screen):
 						font="Regular;22"
 						zPosition="1" />
 			</screen>"""
-			
+
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('OpenMultiboot About'))
-		
+
 		about = "OpenMultiboot Manager " + OMB_MANAGER_VERSION + "\n"
 		about += OMB_GETBOXTYPE + "\n"
 		about += "Special version for Open Vision" + "\n"
 		about += "(c) 2014 Impex-Sat Gmbh & Co.KG\n\n"
 		about += "Written by Sandro Cavazzoni <sandro@skanetwork.com>"
-		
+
 		self['about'] = Label(about)
 		self["actions"] = ActionMap(["SetupActions"],
 		{
 			"cancel": self.keyCancel
 		})
-		
+
 	def keyCancel(self):
 		self.close()

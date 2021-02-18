@@ -65,5 +65,3 @@ def decompress(ctype, unc_len, data):
         return zlib.decompress(data, -11)
     else:
         return data
-
-

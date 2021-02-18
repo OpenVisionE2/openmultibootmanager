@@ -50,7 +50,7 @@ class description(object):
     """
 
     def __init__(self, block_buf):
- 
+
         self.file_offset = -1
         self.peb_num = -1
         self.leb_num = -1
@@ -73,7 +73,7 @@ class description(object):
 
             self.leb_num = self.vid_hdr.lnum
 
-        self.is_vtbl = bool(self.vtbl_recs) or False 
+        self.is_vtbl = bool(self.vtbl_recs) or False
         self.is_valid = not self.ec_hdr.errors and not self.vid_hdr.errors
 
     def __repr__(self):
@@ -122,12 +122,10 @@ def extract_blocks(ubi):
             blk.peb_num = ubi.first_peb_num + peb_count
             blk.size = ubi.file.block_size
             blocks[blk.peb_num] = blk
-            peb_count += 1            
+            peb_count += 1
         else:
             cur_offset += ubi.file.block_size
             ubi.first_peb_num = cur_offset / ubi.file.block_size
             ubi.file.start_offset = cur_offset
 
     return blocks
-
-

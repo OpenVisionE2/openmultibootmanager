@@ -77,7 +77,7 @@ def by_leb(blocks):
     
     Returns:
     List              -- Indexes of blocks sorted by LEB.
-    """ 
+    """
     slist_len = len(blocks)
     slist = ['x'] * slist_len
 
@@ -167,7 +167,7 @@ def by_type(blocks, slist=None):
     data = []
     int_vol = []
     unknown = []
-    
+
     for i in blocks:
         if slist and i not in slist:
             continue

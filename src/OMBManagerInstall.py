@@ -78,10 +78,10 @@ class OMBManagerInstall(Screen):
 					<convert type="StringList" />
 				</widget>
 			</screen>"""
-			
+
 	def __init__(self, session, mount_point, upload_list):
 		Screen.__init__(self, session)
-		
+
 		self.setTitle(_('OpenMultiboot Install'))
 
 		self.session = session

@@ -57,10 +57,10 @@ class ubi_file(object):
             self._end_offset = end_offset
         else:
             self._fhandle.seek(0, 2)
-            self._end_offset = self.tell() 
+            self._end_offset = self.tell()
 
         self._block_size = block_size
-        
+
         if start_offset >= self._end_offset:
             raise Exception('Start offset larger than file size!')
 
@@ -98,7 +98,7 @@ class ubi_file(object):
         while True:
             cur_loc = self._fhandle.tell()
             if self.end_offset and cur_loc > self.end_offset:
-                break            
+                break
             elif self.end_offset and self.end_offset - cur_loc < self.block_size:
                 chunk_size = self.end_offset - cur_loc
             else:
