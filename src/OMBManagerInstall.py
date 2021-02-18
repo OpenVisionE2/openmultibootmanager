@@ -372,7 +372,7 @@ class OMBManagerInstall(Screen):
 			nfidata.close()
 			return False
 		else:
-			machine_type = header[4:4+header[4:].find('\0')]
+			machine_type = header[4:4 + header[4:].find('\0')]
 			if header[:4] == 'NFI3':
 				machine_type = 'dm7020hdv2'
 
