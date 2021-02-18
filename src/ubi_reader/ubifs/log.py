@@ -24,6 +24,7 @@ import sys
 
 import ui
 
+
 class log():
     def __init__(self):
         self.log_to_file = False

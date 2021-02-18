@@ -58,6 +58,7 @@ OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
 OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
 OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
 
+
 class OMBManagerInstall(Screen):
 	skin = """
 			<screen position="360,150" size="560,400">
@@ -112,7 +113,6 @@ class OMBManagerInstall(Screen):
 		self.timer.start(100)
 		self.error_timer = eTimer()
 		self.error_timer.callback.append(self.showErrorCallback)
-
 
 	def showErrorCallback(self):
 		self.error_timer.stop()

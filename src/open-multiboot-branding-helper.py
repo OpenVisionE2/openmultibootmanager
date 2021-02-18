@@ -43,6 +43,7 @@ KEYS_FNC_MAP = {
 	'image_file_system': 'boxbranding.getImageFileSystem()'
 }
 
+
 def print_help():
 	print('Syntax:')
 	print(sys.argv[0] + ' enigma2_dir key')
@@ -51,6 +52,7 @@ def print_help():
 	for key in KEYS_FNC_MAP.keys():
 		print(' * ' + key)
 	print(' * all')
+
 
 if len(sys.argv) != 3:
 	print_help()

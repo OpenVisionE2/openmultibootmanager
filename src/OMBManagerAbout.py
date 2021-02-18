@@ -31,6 +31,7 @@ from OMBManagerCommon import OMB_MANAGER_VERSION
 from OMBManagerLocale import _
 from OMBManagerInstall import OMB_GETBOXTYPE
 
+
 class OMBManagerAbout(Screen):
 	skin = """
 			<screen position="center,center" size="560,400">
