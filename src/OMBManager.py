@@ -176,7 +176,7 @@ class OMBManagerKernelModule:
 				type = MessageBox.TYPE_ERROR
 			)
 		else:
-			OMBManager(self.session);
+			OMBManager(self.session)
 		
 def OMBManager(session, **kwargs):
 	found = False
