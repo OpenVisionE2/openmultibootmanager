@@ -30,7 +30,7 @@ class ubi_file(object):
     Int:start_offset -- (optional) Where to start looking in the file for
                         UBI data.
     Int:end_offset   -- (optional) Where to stop looking in the file.
-    
+
     Methods:
     seek            -- Put file head to specified byte offset.
         Int:offset
@@ -112,7 +112,7 @@ class ubi_file(object):
 
     def read_block(self, block):
         """Read complete PEB data from file.
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """
@@ -121,7 +121,7 @@ class ubi_file(object):
 
     def read_block_data(self, block):
         """Read LEB data from file
-        
+
         Argument:
         Obj:block -- Block data is desired for.
         """

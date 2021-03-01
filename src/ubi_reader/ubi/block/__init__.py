@@ -103,7 +103,7 @@ def extract_blocks(ubi):
 
     Arguments:.
     Obj:ubi    -- UBI object.
-    
+
     Returns:
     Dict -- Of block objects keyed by PEB number.
     """

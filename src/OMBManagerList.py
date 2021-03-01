@@ -57,25 +57,25 @@ class OMBManagerList(Screen):
 					position="0,0"
 					size="560,360"
 					alphatest="on" />
-					
+
 			<widget name="label1"
 					zPosition="2"
 					position="10,10"
 					size="540,30"
-					font="Regular;24" 
-					halign="center" 
+					font="Regular;24"
+					halign="center"
 					valign="center"
 					transparent="1" />
-			
+
 			<widget name="label2"
 					zPosition="2"
 					position="10,40"
 					size="540,30"
-					font="Regular;24" 
-					halign="center" 
+					font="Regular;24"
+					halign="center"
 					valign="center"
-					transparent="1" />		
-					
+					transparent="1" />
+
 			<widget source="list"
 					render="Listbox"
 					position="10,100"
@@ -83,7 +83,7 @@ class OMBManagerList(Screen):
 					size="540,260"
 					scrollbarMode="showOnDemand"
 					transparent="1">
-					
+
 				<convert type="StringList" />
 			</widget>
 			<widget name="key_red"
@@ -95,7 +95,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_green"
 					position="140,360"
 					size="140,40"
@@ -105,7 +105,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_yellow"
 					position="280,360"
 					size="140,40"
@@ -115,7 +115,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-					
+
 			<widget name="key_blue"
 					position="420,360"
 					size="140,40"
@@ -125,7 +125,7 @@ class OMBManagerList(Screen):
 					transparent="1"
 					foregroundColor="white"
 					font="Regular;18" />
-	
+
 			<ePixmap name="red"
 					 pixmap="buttons/red.png"
 					 position="0,360"
@@ -133,7 +133,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="green"
 					 pixmap="buttons/green.png"
 					 position="140,360"
@@ -141,7 +141,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="yellow"
 					 pixmap="buttons/yellow.png"
 					 position="280,360"
@@ -149,7 +149,7 @@ class OMBManagerList(Screen):
 					 zPosition="4"
 					 transparent="1"
 					 alphatest="on" />
-					 
+
 			<ePixmap name="blue"
 					 pixmap="buttons/blue.png"
 					 position="420,360"

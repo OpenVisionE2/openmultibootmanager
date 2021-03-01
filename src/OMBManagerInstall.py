@@ -74,7 +74,7 @@ class OMBManagerInstall(Screen):
 						size="540,330"
 						scrollbarMode="showOnDemand"
 						transparent="1" >
-						
+
 					<convert type="StringList" />
 				</widget>
 			</screen>"""
