@@ -35,28 +35,28 @@ from Tools.Directories import fileExists
 from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
 from OMBManagerLocale import _
 
-from enigma import eTimer, getBoxType
+from enigma import eTimer
 
 import os
 from os import path
 import glob
 import struct
 from Components.Console import Console
-from boxbranding import getBoxBrand, getImageDistro, getImageVersion, getImageFileSystem, getImageFolder, getMachineMtdKernel, getMachineKernelFile, getMachineMtdBoot, getMachineMtdRoot, getMachineRootFile, getMachineMKUBIFS, getMachineUBINIZE
+from Components.SystemInfo import BoxInfo
 
-OMB_GETBOXTYPE = getBoxType()
-OMB_GETBRANDOEM = getBoxBrand()
-OMB_GETIMAGEDISTRO = getImageDistro()
-OMB_GETIMAGEVERSION = getImageVersion()
-OMB_GETIMAGEFILESYSTEM = getImageFileSystem() # needed
-OMB_GETIMAGEFOLDER = getImageFolder() # needed
-OMB_GETMACHINEMTDKERNEL = getMachineMtdKernel()
-OMB_GETMACHINEKERNELFILE = getMachineKernelFile() # needed
-OMB_GETMACHINEMTDBOOT = getMachineMtdBoot()
-OMB_GETMACHINEMTDROOT = getMachineMtdRoot()
-OMB_GETMACHINEROOTFILE = getMachineRootFile() # needed
-OMB_GETMACHINEMKUBIFS = getMachineMKUBIFS()
-OMB_GETMACHINEUBINIZE = getMachineUBINIZE()
+OMB_GETBOXTYPE = BoxInfo.getItem("model")
+OMB_GETBRANDOEM = BoxInfo.getItem("brand")
+OMB_GETIMAGEDISTRO = BoxInfo.getItem("distro")
+OMB_GETIMAGEVERSION = BoxInfo.getItem("imageversion")
+OMB_GETIMAGEFILESYSTEM = BoxInfo.getItem("imagefs") # needed
+OMB_GETIMAGEFOLDER = BoxInfo.getItem("imagedir") # needed
+OMB_GETMACHINEMTDKERNEL = BoxInfo.getItem("mtdkernel")
+OMB_GETMACHINEKERNELFILE = BoxInfo.getItem("kernelfile") # needed
+OMB_GETMACHINEMTDBOOT = BoxInfo.getItem("mtdbootfs")
+OMB_GETMACHINEMTDROOT = BoxInfo.getItem("mtdrootfs")
+OMB_GETMACHINEROOTFILE = BoxInfo.getItem("rootfile") # needed
+OMB_GETMACHINEMKUBIFS = BoxInfo.getItem("mkubifs")
+OMB_GETMACHINEUBINIZE = BoxInfo.getItem("ubinize")
 
 
 class OMBManagerInstall(Screen):
@@ -438,16 +438,19 @@ class OMBManagerInstall(Screen):
 # But this is not a perfect world and we have to help OMB to
 # prevent funny cases for non standard images.
 # My apologies to Sandro for this bad code.
-		if not os.path.exists('/usr/lib/python2.7/boxbranding.so') and not path.isdir("/usr/lib64"):
-			 Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
-		if not os.path.exists('/usr/lib64/python2.7/boxbranding.so') and path.isdir("/usr/lib64"):
-			 Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python2.7/boxbranding.so")
-		if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.pyo') and not path.isdir("/usr/lib64"):
-			Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so %s/usr/lib/python2.7/boxbranding.so" % dst_path)
-			Console().ePopen("rm -f %s/usr/lib/python2.7/boxbranding.pyo" % dst_path)
-		if os.path.exists(dst_path + '/usr/lib64/python2.7/boxbranding.pyo') and path.isdir("/usr/lib64"):
-			Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so %s/usr/lib64/python2.7/boxbranding.so" % dst_path)
-			Console().ePopen("rm -f %s/usr/lib64/python2.7/boxbranding.pyo" % dst_path)
+		try:
+			if not os.path.exists('/usr/lib/python2.7/boxbranding.so') and not path.isdir("/usr/lib64"):
+				 Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python2.7/boxbranding.so")
+			if not os.path.exists('/usr/lib64/python2.7/boxbranding.so') and path.isdir("/usr/lib64"):
+				 Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python2.7/boxbranding.so")
+			if os.path.exists(dst_path + '/usr/lib/python2.7/boxbranding.pyo') and not path.isdir("/usr/lib64"):
+				Console().ePopen("ln -s /usr/lib/enigma2/python/boxbranding.so %s/usr/lib/python2.7/boxbranding.so" % dst_path)
+				Console().ePopen("rm -f %s/usr/lib/python2.7/boxbranding.pyo" % dst_path)
+			if os.path.exists(dst_path + '/usr/lib64/python2.7/boxbranding.pyo') and path.isdir("/usr/lib64"):
+				Console().ePopen("ln -s /usr/lib64/enigma2/python/boxbranding.so %s/usr/lib64/python2.7/boxbranding.so" % dst_path)
+				Console().ePopen("rm -f %s/usr/lib64/python2.7/boxbranding.pyo" % dst_path)
+		except:
+			pass
 		if not os.path.exists(dst_path + "/usr/lib/python2.7/subprocess.pyo") and not path.isdir("/usr/lib64"):
 			Console().ePopen("ln -s /usr/lib/python2.7/subprocess.pyo %s/usr/lib/python2.7/subprocess.pyo" % dst_path)
 		if not os.path.exists(dst_path + "/usr/lib64/python2.7/subprocess.pyo") and path.isdir("/usr/lib64"):

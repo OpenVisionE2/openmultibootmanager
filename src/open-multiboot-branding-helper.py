@@ -24,23 +24,23 @@ from __future__ import print_function
 #############################################################################
 
 import sys
-import boxbranding
+from Components.SystemInfo import BoxInfo
 
 KEYS_FNC_MAP = {
-	'machine_mtd_kernel': 'boxbranding.getMachineMtdKernel()',
-	'machine_kernel_file': 'boxbranding.getMachineKernelFile()',
-	'machine_mtd_boot': 'boxbranding.getMachineMtdBoot()',
-	'machine_mtd_root': 'boxbranding.getMachineMtdRoot()',
-	'machine_root_file': 'boxbranding.getMachineRootFile()',
-	'machine_mkubifs': 'boxbranding.getMachineMKUBIFS()',
-	'machine_ubinize': 'boxbranding.getMachineUBINIZE()',
-	'box_type': 'boxbranding.getBoxType()',
-	'brand_oem': 'boxbranding.getBoxBrand()',
-	'image_version': 'boxbranding.getImageVersion()',
-	'image_build': 'boxbranding.getImageBuild()',
-	'image_distro': 'boxbranding.getImageDistro()',
-	'image_folder': 'boxbranding.getImageFolder()',
-	'image_file_system': 'boxbranding.getImageFileSystem()'
+	'machine_mtd_kernel': 'BoxInfo.getItem("mtdkernel")',
+	'machine_kernel_file': 'BoxInfo.getItem("kernelfile")',
+	'machine_mtd_boot': 'BoxInfo.getItem("mtdbootfs")',
+	'machine_mtd_root': 'BoxInfo.getItem("mtdrootfs")',
+	'machine_root_file': 'BoxInfo.getItem("rootfile")',
+	'machine_mkubifs': 'BoxInfo.getItem("mkubifs")',
+	'machine_ubinize': 'BoxInfo.getItem("ubinize")',
+	'box_type': 'BoxInfo.getItem("model")',
+	'brand_oem': 'BoxInfo.getItem("brand")',
+	'image_version': 'BoxInfo.getItem("imageversion")',
+	'image_build': 'BoxInfo.getItem("imagebuild")',
+	'image_distro': 'BoxInfo.getItem("distro")',
+	'image_folder': 'BoxInfo.getItem("imagedir")',
+	'image_file_system': 'BoxInfo.getItem("imagefs")'
 }
 
 

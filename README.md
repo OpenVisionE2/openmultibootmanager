@@ -2,7 +2,7 @@ OpenMultiboot [![Build Status](https://travis-ci.org/OpenVisionE2/openmultibootm
 =============
 - OpenMultiboot will be donated to OE-Alliance by GigaBlue.
 - OpenMultiboot can be modified or adapted to work with STB's from other vendors as long naming "OpenMultiboot" is not changed and logos of OpenMultiboot persists.
-- OpenMultiboot uses boxbranding and informations from bitbake recipes, due to that ipk files are specific for each STB! Do not try to use OpenMultiboot from STB A on STB B.
+- OpenMultiboot uses informations from bitbake recipes, due to that ipk files are specific for each STB! Do not try to use OpenMultiboot from STB A on STB B.
 - **GigaBlue takes no responsibility for any potential damage OpenMultiboot might cause on STB's from other vendors.**
 - OpenMultiboot requires some kernel-modules to work. They will be installed on installation of OpenMultiboot:
     - **ubifs** - **kernel-module-nandsim**
