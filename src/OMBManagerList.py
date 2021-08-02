@@ -171,6 +171,7 @@ class OMBManagerList(Screen):
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
 		self.select = None
 		self.dynamic_loader = None
+		self.running_box_type = None
 
 		self["label1"] = Label(_("Current Running Image:"))
 		self["label2"] = Label("")
@@ -200,17 +201,51 @@ class OMBManagerList(Screen):
 		#print ("DYNAMIC_LOADER:", target_dynamic_loader)
 		self.dynamic_loader = target_dynamic_loader
 
+	def setRunningBoxType(self):
+		self.running_box_type = OMB_GETBOXTYPE
+		if path.isdir("/usr/lib64"):
+			e2_path = base_path + '/usr/lib64/enigma2/python'
+		else:
+			e2_path = base_path + '/usr/lib/enigma2/python'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
+			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			self.running_box_type = p.stdout.read().strip()
+			return True
+
+		try:
+			if self.running_box_type is None:
+				self.running_box_type = open('/proc/enigma/model', 'r').read().strip()
+		except:
+			pass
+
+		return False
+
 	def isCompatible(self, base_path):
-		running_box_type = OMB_GETBOXTYPE
+		box_type = OMB_GETBOXTYPE
+		if path.isdir("/usr/lib64"):
+			e2_path = base_path + '/usr/lib64/enigma2/python'
+			usrlib_path = '/usr/lib64'
+		else:
+			e2_path = base_path + '/usr/lib/enigma2/python'
+			usrlib_path = '/usr/lib'
+		if os.path.exists(e2_path + '/boxbranding.so'):
+			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
+			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+			box_type = p.stdout.read().strip()
+
+			return (self.running_box_type == box_type)
+
 		try:
 			archconffile = "%s/etc/opkg/arch.conf" % base_path
 			with open(archconffile, "r") as arch:
 				for line in arch:
 					box_type = line.split()[1]
-					if running_box_type == box_type or running_box_type in line:
+					if self.running_box_type == box_type or self.running_box_type in line:
 						return True
 		except:
 			pass
+
 		return False
 
 	def guessImageTitle(self, base_path, identifier):
@@ -224,7 +259,7 @@ class OMBManagerList(Screen):
 			usrlib_path = '/usr/lib'
 
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
+			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
 			fin, fout = os.popen4(helper + " " + e2_path + " image_distro")
 			image_distro = fout.read().strip()
 			fin, fout = os.popen4(helper + " " + e2_path + " image_version")
@@ -254,6 +289,9 @@ class OMBManagerList(Screen):
 			'path': '/'
 		})
 		self.images_list.append(self.images_entries[0]['label'])
+
+		self.setRunningBoxType()
+
 		if os.path.exists(self.data_dir):
 			for file_entry in os.listdir(self.data_dir):
 				if not os.path.isdir(self.data_dir + '/' + file_entry):
