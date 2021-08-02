@@ -170,6 +170,7 @@ class OMBManagerList(Screen):
 		self.data_dir = mount_point + '/' + OMB_DATA_DIR
 		self.upload_dir = mount_point + '/' + OMB_UPLOAD_DIR
 		self.select = None
+		self.dynamic_loader = None
 
 		self["label1"] = Label(_("Current Running Image:"))
 		self["label2"] = Label("")
@@ -193,6 +194,12 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 
+	def getDynamicLoader(self, base_path):
+		p = Popen("/usr/bin/strings " + base_path + "/bin/echo", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
+		target_dynamic_loader = base_path + p.stdout.read().split("\n")[0].strip()
+		#print ("DYNAMIC_LOADER:", target_dynamic_loader)
+		self.dynamic_loader = target_dynamic_loader
+
 	def isCompatible(self, base_path):
 		running_box_type = OMB_GETBOXTYPE
 		try:
@@ -211,10 +218,13 @@ class OMBManagerList(Screen):
 		image_version = ""
 		if path.isdir("/usr/lib64"):
 			e2_path = base_path + '/usr/lib64/enigma2/python'
+			usrlib_path = '/usr/lib64'
 		else:
 			e2_path = base_path + '/usr/lib/enigma2/python'
+			usrlib_path = '/usr/lib'
+
 		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
+			helper = "LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
 			fin, fout = os.popen4(helper + " " + e2_path + " image_distro")
 			image_distro = fout.read().strip()
 			fin, fout = os.popen4(helper + " " + e2_path + " image_version")
@@ -251,6 +261,8 @@ class OMBManagerList(Screen):
 
 				if file_entry[0] == '.':
 					continue
+
+				self.getDynamicLoader(self.data_dir + '/' + file_entry)
 
 				if not self.isCompatible(self.data_dir + '/' + file_entry):
 					continue
