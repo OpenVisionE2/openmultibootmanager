@@ -38,12 +38,13 @@ from Components.Sources.List import List
 from Components.Label import Label
 from Components.config import getConfigListEntry, config, ConfigYesNo, NoSave
 
-from .OMBManagerInstall import OMBManagerInstall
+from .OMBManagerInstall import OMBManagerInstall, OMB_GETBOXTYPE
 from .OMBManagerAbout import OMBManagerAbout
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBManagerLocale import _
 
 from .OMBList import OMBList
+from .OMBConfig import omb_legacy
 
 from .BoxConfig import BoxConfig
 
@@ -218,7 +219,7 @@ class OMBManagerList(Screen):
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
 		try:
-			selected = open(self.data_dir + '/.selected').read()
+			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % (self.data_dir, OMB_GETBOXTYPE)).read()
 		except:
 			pass
 
@@ -247,7 +248,7 @@ class OMBManagerList(Screen):
 		if ret:
 			image = self.images_entries[self.select]['identifier']
 			print("[OMB] set nextboot to %s" % image)
-			file_entry = self.data_dir + '/.nextboot'
+			file_entry = omb_legacy and self.data_dir + '/.nextboot' or '%s/.%s-nextboot' % (self.data_dir, OMB_GETBOXTYPE)
 			open(file_entry, 'w').write(image)
 
 			self.session.openWithCallback(self.confirmRebootCB, MessageBox, _('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
