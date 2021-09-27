@@ -440,26 +440,26 @@ class OMBManagerInstall(Screen):
 # My apologies to Sandro for this bad code.
 		try:
 			for pyver in ["2.7", "3.9"]:
-				if os.path.exists('/usr/lib/python' + pyver  + '/boxbranding.so'):
-					if not os.path.exists('/usr/lib/python' + pyver  + '/boxbranding.so'):
+				if os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
+					if not os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib/python' + pyver  + '/boxbranding.pyo'):
+					if os.path.exists(dst_path + '/usr/lib/python' + pyver + '/boxbranding.pyo'):
 						os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib/python' + pyver  + '/boxbranding.pyo')
-					if not os.path.exists(dst_path + "/usr/lib/python" + pyver  + "/subprocess.pyo"):
-						os.system("cp /usr/lib/python" + pyver  + "/subprocess.pyo " + dst_path + "/usr/lib/python" + pyver  + "/subprocess.pyo")
+						os.system("rm -f " + dst_path + '/usr/lib/python' + pyver + '/boxbranding.pyo')
+					if not os.path.exists(dst_path + "/usr/lib/python" + pyver + "/subprocess.pyo"):
+						os.system("cp /usr/lib/python" + pyver + "/subprocess.pyo " + dst_path + "/usr/lib/python" + pyver + "/subprocess.pyo")
 		except:
 			pass
 		try:
 			for pyver in ["2.7", "3.9"]:
-				if os.path.exists('/usr/lib64/python' + pyver  + '/boxbranding.so'):
-					if not os.path.exists('/usr/lib64/python' + pyver  + '/boxbranding.so'):
+				if os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
+					if not os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib64/python' + pyver  + '/boxbranding.pyo'):
+					if os.path.exists(dst_path + '/usr/lib64/python' + pyver + '/boxbranding.pyo'):
 						os.system("cp /usr/lib64/enigma2/python/boxbranding.so " + dst_path + "/usr/lib64/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib64/python' + pyver  + '/boxbranding.pyo')
-					if not os.path.exists(dst_path + "/usr/lib64/python" + pyver  + "/subprocess.pyo"):
-						os.system("cp /usr/lib64/python" + pyver  + "/subprocess.pyo " + dst_path + "/usr/lib64/python" + pyver  + "/subprocess.pyo")
+						os.system("rm -f " + dst_path + '/usr/lib64/python' + pyver + '/boxbranding.pyo')
+					if not os.path.exists(dst_path + "/usr/lib64/python" + pyver + "/subprocess.pyo"):
+						os.system("cp /usr/lib64/python" + pyver + "/subprocess.pyo " + dst_path + "/usr/lib64/python" + pyver + "/subprocess.pyo")
 		except:
 			pass
 # OpenMultiboot installed in the multiboot image. where the init will go ?
