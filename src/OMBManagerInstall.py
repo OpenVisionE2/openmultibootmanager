@@ -32,8 +32,8 @@ from Components.Sources.List import List
 
 from Tools.Directories import fileExists
 
-from OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
-from OMBManagerLocale import _
+from .OMBManagerCommon import OMB_MAIN_DIR, OMB_DATA_DIR, OMB_UPLOAD_DIR, OMB_TMP_DIR
+from .OMBManagerLocale import _
 
 from enigma import eTimer
 

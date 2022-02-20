@@ -27,9 +27,9 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 
-from OMBManagerCommon import OMB_MANAGER_VERSION
-from OMBManagerLocale import _
-from OMBManagerInstall import OMB_GETBOXTYPE
+from .OMBManagerCommon import OMB_MANAGER_VERSION
+from .OMBManagerLocale import _
+from .OMBManagerInstall import OMB_GETBOXTYPE
 
 
 class OMBManagerAbout(Screen):
