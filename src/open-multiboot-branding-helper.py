@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 #############################################################################
 #
 # Copyright (C) 2014 Impex-Sat Gmbh & Co.KG
@@ -49,7 +49,7 @@ def print_help():
 	print(sys.argv[0] + ' enigma2_dir key')
 	print('')
 	print('Valid keys:')
-	for key in KEYS_FNC_MAP.keys():
+	for key in list(KEYS_FNC_MAP.keys()):
 		print(' * ' + key)
 	print(' * all')
 
@@ -63,7 +63,7 @@ else:
 		print_help()
 	else:
 		if sys.argv[2] == 'all':
-			for key in KEYS_FNC_MAP.keys():
+			for key in list(KEYS_FNC_MAP.keys()):
 				print(key + ' = ' + eval(KEYS_FNC_MAP[key]))
 		else:
 			print(eval(KEYS_FNC_MAP[sys.argv[2]]))
