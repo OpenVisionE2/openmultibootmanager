@@ -65,7 +65,7 @@ def by_range(blocks, block_range):
     Returns:
     List                        -- Indexes of blocks sorted by LEB.
     """
-    peb_range = range(block_range[0], block_range[1])
+    peb_range = list(range(block_range[0], block_range[1]))
     return [i for i in blocks if i in peb_range]
 
 
@@ -89,7 +89,7 @@ def by_leb(blocks):
 
         slist[blocks[block].leb_num] = block
     return slist
-    return sorted(blocks.iterkeys(), key=lambda x: blocks[x].leb_num)
+    return sorted(iter(blocks.keys()), key=lambda x: blocks[x].leb_num)
 
 
 def by_vol_id(blocks, slist=None):

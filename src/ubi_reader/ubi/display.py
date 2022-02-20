@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 #############################################################
 # ubi_reader/ubi
 # (c) 2013 Jason Pruitt (jrspruitt@gmail.com)
