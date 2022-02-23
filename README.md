@@ -1,4 +1,4 @@
-OpenMultiboot [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+OpenMultiboot [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) [![openmultibootmanager](https://github.com/OpenVisionE2/openmultibootmanager/actions/workflows/openmultibootmanager.yml/badge.svg)](https://github.com/OpenVisionE2/openmultibootmanager/actions/workflows/openmultibootmanager.yml) [![ovbot](https://github.com/OpenVisionE2/openmultibootmanager/actions/workflows/ovbot.yml/badge.svg)](https://github.com/OpenVisionE2/openmultibootmanager/actions/workflows/ovbot.yml)
 =============
 - OpenMultiboot will be donated to OE-Alliance by GigaBlue.
 - OpenMultiboot can be modified or adapted to work with STB's from other vendors as long naming "OpenMultiboot" is not changed and logos of OpenMultiboot persists.
