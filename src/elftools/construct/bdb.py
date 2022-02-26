@@ -253,7 +253,7 @@ class Bdb:
     # Call self.get_*break*() to see the breakpoints or better
     # for bp in Breakpoint.bpbynumber: if bp: bp.bpprint().
 
-    def set_break(self, filename, lineno, temporary=0, cond = None,
+    def set_break(self, filename, lineno, temporary=0, cond=None,
                   funcname=None):
         filename = self.canonic(filename)
         import linecache # Import as late as possible

@@ -588,7 +588,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
 
     complete_commands = _complete_bpnumber
 
-    def do_break(self, arg, temporary = 0):
+    def do_break(self, arg, temporary=0):
         """b(reak) [ ([filename:]lineno | function) [, condition] ]
         Without argument, list all breaks.
 
