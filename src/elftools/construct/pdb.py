@@ -63,6 +63,7 @@ Debugger commands
 =================
 
 """
+from __future__ import print_function
 # NOTE: the actual command documentation is collected from docstrings of the
 # commands and is appended to __doc__ after the class has been defined.
 
@@ -451,10 +452,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     # interface abstraction functions
 
     def message(self, msg):
-        print >>self.stdout, msg
+        print(msg, file=self.stdout)
 
     def error(self, msg):
-        print >>self.stdout, '***', msg
+        print('***', msg, file=self.stdout)
 
     # Generic completion functions.  Individual complete_foo methods can be
     # assigned below to one of these functions.
@@ -1665,7 +1666,7 @@ def main():
 
     mainpyfile = args[0]     # Get script filename
     if not os.path.exists(mainpyfile):
-        print('Error:', mainpyfile, 'does not exist')
+        print(('Error:', mainpyfile, 'does not exist'))
         sys.exit(1)
 
     sys.argv[:] = args      # Hide "pdb.py" and pdb options from argument list
@@ -1686,11 +1687,11 @@ def main():
                 break
             print("The program finished and will be restarted")
         except Restart:
-            print("Restarting", mainpyfile, "with arguments:")
+            print(("Restarting", mainpyfile, "with arguments:"))
             print("\t" + " ".join(args))
         except SystemExit:
             # In most cases SystemExit does not warrant a post-mortem session.
-            print("The program exited via sys.exit(). Exit status:",)
+            print(("The program exited via sys.exit(). Exit status:",))
             print(sys.exc_info()[1])
 
         except:
