@@ -8,6 +8,7 @@ import types
 
 __all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 
+
 class BdbQuit(Exception):
     """Exception to give up completely"""
 
@@ -497,7 +498,6 @@ class Breakpoint:
         else:
             self.bplist[file, line] = [self]
 
-
     def deleteMe(self):
         index = (self.file, self.line)
         self.bpbynumber[self.number] = None   # No longer in list
@@ -539,6 +539,7 @@ class Breakpoint:
 
 # -----------end of Breakpoint class----------
 
+
 def checkfuncname(b, frame):
     """Check whether we should break here because of `b.funcname`."""
     if not b.funcname:
@@ -567,6 +568,8 @@ def checkfuncname(b, frame):
 
 # Determines if there is an effective (active) breakpoint at this
 # line of code.  Returns breakpoint number or 0 if none
+
+
 def effective(file, line, frame):
     """Determine which breakpoint for this file:line is to be acted upon.
 
@@ -620,12 +623,14 @@ def effective(file, line, frame):
 
 # -------------------- testing --------------------
 
+
 class Tdb(Bdb):
     def user_call(self, frame, args):
         name = frame.f_code.co_name
         if not name:
             name = '???'
         print ('+++ call', name, args)
+
     def user_line(self, frame):
         import linecache
         name = frame.f_code.co_name
@@ -634,20 +639,25 @@ class Tdb(Bdb):
         fn = self.canonic(frame.f_code.co_filename)
         line = linecache.getline(fn, frame.f_lineno, frame.f_globals)
         print ('+++', fn, frame.f_lineno, name, ':', line.strip())
+
     def user_return(self, frame, retval):
         print ('+++ return', retval)
+
     def user_exception(self, frame, exc_stuff):
         print ('+++ exception', exc_stuff)
         self.set_continue()
+
 
 def foo(n):
     print ('foo(', n, ')')
     x = bar(n * 10)
     print ('bar returned', x)
 
+
 def bar(a):
     print ('bar(', a, ')')
     return a / 2
+
 
 def test():
     t = Tdb()

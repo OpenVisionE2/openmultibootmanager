@@ -85,8 +85,10 @@ class Restart(Exception):
     """Causes a debugger to be restarted for the debugged python program."""
     pass
 
+
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace",
            "post_mortem", "help"]
+
 
 def find_function(funcname, filename):
     cre = re.compile(r'def\s+%s\s*[(]' % re.escape(funcname))
@@ -101,6 +103,7 @@ def find_function(funcname, filename):
                 return funcname, filename, lineno
     return None
 
+
 def getsourcelines(obj):
     lines, lineno = inspect.findsource(obj)
     if inspect.isframe(obj) and obj.f_globals is obj.f_locals:
@@ -109,6 +112,7 @@ def getsourcelines(obj):
     elif inspect.ismodule(obj):
         return lines, 1
     return inspect.getblock(lines[lineno:]), lineno + 1
+
 
 def lasti2lineno(code, lasti):
     linestarts = list(dis.findlinestarts(code))
@@ -121,6 +125,7 @@ def lasti2lineno(code, lasti):
 
 class _rstr(str):
     """String that doesn't quote its repr."""
+
     def __repr__(self):
         return self
 
@@ -131,6 +136,7 @@ class _rstr(str):
 # command "pdb.line_prefix = '\n% '".
 # line_prefix = ': '    # Use this to get the old situation back
 line_prefix = '\n-> '   # Probably a better default
+
 
 class Pdb(bdb.Bdb, cmd.Cmd):
 
@@ -1548,6 +1554,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
 
 # Collect all command help into docstring, if not run with -OO
 
+
 if __doc__ is not None:
     # unfortunately we can't guess this order from the class definition
     _help_order = [
@@ -1570,20 +1577,25 @@ if __doc__ is not None:
 def run(statement, globals=None, locals=None):
     Pdb().run(statement, globals, locals)
 
+
 def runeval(expression, globals=None, locals=None):
     return Pdb().runeval(expression, globals, locals)
+
 
 def runctx(statement, globals, locals):
     # B/W compatibility
     run(statement, globals, locals)
 
+
 def runcall(*args, **kwds):
     return Pdb().runcall(*args, **kwds)
+
 
 def set_trace():
     Pdb().set_trace(sys._getframe().f_back)
 
 # Post-Mortem interface
+
 
 def post_mortem(t=None):
     # handling the default
@@ -1599,6 +1611,7 @@ def post_mortem(t=None):
     p.reset()
     p.interaction(None, t)
 
+
 def pm():
     post_mortem(sys.last_traceback)
 
@@ -1607,13 +1620,17 @@ def pm():
 
 TESTCMD = 'import x; x.main()'
 
+
 def test():
     run(TESTCMD)
 
 # print help
+
+
 def help():
     import pydoc
     pydoc.pager(__doc__)
+
 
 _usage = """\
 usage: pdb.py [-c command] ... pyfile [arg] ...
@@ -1627,6 +1644,7 @@ and in the current directory, if they exist.  Commands supplied with
 To let the script run until an exception occurs, use "-c continue".
 To let the script run up to a given line X in the debugged file, use
 "-c 'until X'"."""
+
 
 def main():
     import getopt
