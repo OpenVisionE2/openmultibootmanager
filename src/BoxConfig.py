@@ -87,7 +87,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 						archinfo = line.strip().split()
 						if (distro_name == "openpli" and archinfo[2] == "41" or
 						    distro_name == "openpli" and archinfo[2] == "26" or
-						    distro_name != "openpli" and archinfo[2] == "21" ):
+						    distro_name != "openpli" and archinfo[2] == "21"):
 							box_type = archinfo[1]
 					lines.append("model=" + box_type)
 			except:
