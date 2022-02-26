@@ -108,7 +108,7 @@ def getsourcelines(obj):
         return lines, 1
     elif inspect.ismodule(obj):
         return lines, 1
-    return inspect.getblock(lines[lineno:]), lineno+1
+    return inspect.getblock(lines[lineno:]), lineno + 1
 
 def lasti2lineno(code, lasti):
     linestarts = list(dis.findlinestarts(code))
@@ -397,7 +397,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             marker = line.find(';;')
             if marker >= 0:
                 # queue up everything after marker
-                next = line[marker+2:].lstrip()
+                next = line[marker + 2:].lstrip()
                 self.cmdqueue.append(next)
                 line = line[:marker].rstrip()
         return line
@@ -427,7 +427,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             return 1 # end of cmd list
         cmdlist = self.commands[self.commands_bnum]
         if arg:
-            cmdlist.append(cmd+' '+arg)
+            cmdlist.append(cmd + ' ' + arg)
         else:
             cmdlist.append(cmd)
         # Determine if we must stop
@@ -618,7 +618,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         comma = arg.find(',')
         if comma > 0:
             # parse stuff after comma: "condition"
-            cond = arg[comma+1:].lstrip()
+            cond = arg[comma + 1:].lstrip()
             arg = arg[:comma].rstrip()
         # parse stuff before comma: [filename:]lineno | function
         colon = arg.rfind(':')
@@ -631,7 +631,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
                 return
             else:
                 filename = f
-            arg = arg[colon+1:].lstrip()
+            arg = arg[colon + 1:].lstrip()
             try:
                 lineno = int(arg)
             except ValueError:
@@ -879,7 +879,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             # Make sure it works for "clear C:\foo\bar.py:12"
             i = arg.rfind(':')
             filename = arg[:i]
-            arg = arg[i+1:]
+            arg = arg[i + 1:]
             try:
                 lineno = int(arg)
             except ValueError:
@@ -1127,9 +1127,9 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         dict = self.curframe_locals
         n = co.co_argcount
         if co.co_flags & 4:
-            n = n+1
+            n = n + 1
         if co.co_flags & 8:
-            n = n+1
+            n = n + 1
         for i in range(n):
             name = co.co_varnames[i]
             if name in dict:
@@ -1231,7 +1231,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         breaklist = self.get_file_breaks(filename)
         try:
             lines = linecache.getlines(filename, self.curframe.f_globals)
-            self._print_lines(lines[first-1:last], first, breaklist,
+            self._print_lines(lines[first - 1:last], first, breaklist,
                               self.curframe)
             self.lineno = min(last, len(lines))
             if len(lines) < last:
@@ -1502,10 +1502,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         lookupmodule() translates (possibly incomplete) file or module name
         into an absolute file name.
         """
-        if os.path.isabs(filename) and  os.path.exists(filename):
+        if os.path.isabs(filename) and os.path.exists(filename):
             return filename
         f = os.path.join(sys.path[0], filename)
-        if  os.path.exists(f) and self.canonic(f) == self.mainpyfile:
+        if os.path.exists(f) and self.canonic(f) == self.mainpyfile:
             return f
         root, ext = os.path.splitext(filename)
         if ext == '':

@@ -192,7 +192,7 @@ class Bdb:
     def set_until(self, frame): #the name "until" is borrowed from gdb
         """Stop when the line with the line no greater than the current one is
         reached or when returning from current frame"""
-        self._set_stopinfo(frame, frame, frame.f_lineno+1)
+        self._set_stopinfo(frame, frame, frame.f_lineno + 1)
 
     def set_step(self):
         """Stop after one line of code."""
@@ -402,7 +402,7 @@ class Bdb:
         self.reset()
         sys.settrace(self.trace_dispatch)
         if not isinstance(cmd, types.CodeType):
-            cmd = cmd+'\n'
+            cmd = cmd + '\n'
         try:
             exec (cmd) in globals, locals
         except BdbQuit:
@@ -420,7 +420,7 @@ class Bdb:
         self.reset()
         sys.settrace(self.trace_dispatch)
         if not isinstance(expr, types.CodeType):
-            expr = expr+'\n'
+            expr = expr + '\n'
         try:
             return eval(expr, globals, locals)
         except BdbQuit:
@@ -560,7 +560,7 @@ def checkfuncname(b, frame):
         # The function is entered for the 1st time.
         b.func_first_executable_line = frame.f_lineno
 
-    if  b.func_first_executable_line != frame.f_lineno:
+    if b.func_first_executable_line != frame.f_lineno:
         # But we are not at the first line number: don't break.
         return False
     return True
@@ -588,7 +588,7 @@ def effective(file, line, frame):
             # If unconditional, and ignoring,
             # go on to next, else break
             if b.ignore > 0:
-                b.ignore = b.ignore -1
+                b.ignore = b.ignore - 1
                 continue
             else:
                 # breakpoint and marker that's ok
@@ -603,7 +603,7 @@ def effective(file, line, frame):
                        frame.f_locals)
                 if val:
                     if b.ignore > 0:
-                        b.ignore = b.ignore -1
+                        b.ignore = b.ignore - 1
                         # continue
                     else:
                         return (b,1)
@@ -642,12 +642,12 @@ class Tdb(Bdb):
 
 def foo(n):
     print ('foo(', n, ')')
-    x = bar(n*10)
+    x = bar(n * 10)
     print ('bar returned', x)
 
 def bar(a):
     print ('bar(', a, ')')
-    return a/2
+    return a / 2
 
 def test():
     t = Tdb()
