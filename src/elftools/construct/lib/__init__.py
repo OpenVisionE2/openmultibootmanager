@@ -4,4 +4,3 @@ from .bitstream import BitStreamReader, BitStreamWriter
 from .container import (Container, FlagsContainer, ListContainer,
     LazyContainer)
 from .hex import HexString, hexdump
-
