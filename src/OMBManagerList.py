@@ -43,6 +43,11 @@ from .OMBManagerAbout import OMBManagerAbout
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBManagerLocale import _
 
+from .OMBList import OMBList
+from .OMBConfig import omb_legacy
+
+from .BoxConfig import BoxConfig
+
 from enigma import eTimer
 
 import os
@@ -196,146 +201,25 @@ class OMBManagerList(Screen):
 			"menu": self.showMen,
 		})
 
-	def getDynamicLoader(self, base_path):
-		p = Popen("/usr/bin/strings " + base_path + "/bin/echo", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-		target_dynamic_loader = base_path + p.stdout.read().split("\n")[0].strip()
-		#print ("DYNAMIC_LOADER:", target_dynamic_loader)
-		self.dynamic_loader = target_dynamic_loader
-
-	def setRunningBoxType(self):
-		self.running_box_type = OMB_GETBOXTYPE
-		if path.isdir("/usr/lib64"):
-			e2_path = base_path + '/usr/lib64/enigma2/python'
-		else:
-			e2_path = base_path + '/usr/lib/enigma2/python'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = os.path.dirname("/usr/bin/python " + os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			self.running_box_type = p.stdout.read().strip()
-			return True
-
-		try:
-			if self.running_box_type is None:
-				self.running_box_type = open('/proc/enigma/model', 'r').read().strip()
-		except:
-			pass
-
-		return False
-
-	def isCompatible(self, base_path):
-		box_type = OMB_GETBOXTYPE
-		if path.isdir("/usr/lib64"):
-			e2_path = base_path + '/usr/lib64/enigma2/python'
-			usrlib_path = '/usr/lib64'
-		else:
-			e2_path = base_path + '/usr/lib/enigma2/python'
-			usrlib_path = '/usr/lib'
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			p = Popen(helper + " " + e2_path + " box_type", shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
-			box_type = p.stdout.read().strip()
-
-			return (self.running_box_type == box_type)
-
-		try:
-			archconffile = "%s/etc/opkg/arch.conf" % base_path
-			with open(archconffile, "r") as arch:
-				for line in arch:
-					box_type = line.split()[1]
-					if self.running_box_type == box_type or self.running_box_type in line:
-						return True
-		except:
-			pass
-
-		return False
-
-	def guessImageTitle(self, base_path, identifier):
-		image_distro = ""
-		image_version = ""
-		if path.isdir("/usr/lib64"):
-			e2_path = base_path + '/usr/lib64/enigma2/python'
-			usrlib_path = '/usr/lib64'
-		else:
-			e2_path = base_path + '/usr/lib/enigma2/python'
-			usrlib_path = '/usr/lib'
-
-		if os.path.exists(e2_path + '/boxbranding.so'):
-			helper = "LC_ALL=C LD_LIBRARY_PATH=" + base_path + "/lib:" + base_path + usrlib_path + " " + self.dynamic_loader + " " + base_path + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.pyo"
-			fin, fout = os.popen4(helper + " " + e2_path + " image_distro")
-			image_distro = fout.read().strip()
-			fin, fout = os.popen4(helper + " " + e2_path + " image_version")
-			image_version = fout.read().strip()
-		if len(image_distro) > 0:
-			return image_distro + " " + image_version
-		else:
-			return identifier
-
-	def imageTitleFromLabel(self, file_entry):
-		label = open(self.data_dir + '/' + file_entry).readline().strip()
-		return label
-
 	def populateImagesList(self):
-		self.images_list = []
-		self.images_entries = []
-		flashimageLabel = 'Flash image'
+		omblist = OMBList(self.mount_point)
 
-		self["label2"].setText(self.currentImage())
+		self["label2"].setText(omblist.currentImage())
 
-		if os.path.exists(self.data_dir + '/.label_flash'): # use label name
-			flashimageLabel = self.imageTitleFromLabel('.label_flash') + ' (Flash)'
+		omblist.populateImagesList()
 
-		self.images_entries.append({
-			'label': flashimageLabel,
-			'identifier': 'flash',
-			'path': '/'
-		})
-		self.images_list.append(self.images_entries[0]['label'])
-
-		self.setRunningBoxType()
-
-		if os.path.exists(self.data_dir):
-			for file_entry in os.listdir(self.data_dir):
-				if not os.path.isdir(self.data_dir + '/' + file_entry):
-					continue
-
-				if file_entry[0] == '.':
-					continue
-
-				self.getDynamicLoader(self.data_dir + '/' + file_entry)
-
-				if not self.isCompatible(self.data_dir + '/' + file_entry):
-					continue
-
-				if os.path.exists(self.data_dir + '/.label_' + file_entry):
-					title = self.imageTitleFromLabel('.label_' + file_entry)
-				else:
-					title = self.guessImageTitle(self.data_dir + '/' + file_entry, file_entry)
-
-				self.images_entries.append({
-					'label': title,
-					'identifier': file_entry,
-					'path': self.data_dir + '/' + file_entry,
-					'labelfile': self.data_dir + '/' + '.label_' + file_entry,
-					'kernelbin': self.data_dir + '/' + '.kernels' + '/' + file_entry + '.bin'
-				})
-				self.images_list.append(title)
+		self.images_list = omblist.getImagesList()
+		self.images_entries = omblist.getImagesEntries()
+		self.boxinfo = omblist.getBoxInfo()
 
 	def refresh(self):
 		self.populateImagesList()
 		self["list"].setList(self.images_list)
 
-	def currentImage(self):
-		selected = 'Flash'
-		try:
-			selected = open(self.data_dir + '/.selected').read()
-		except:
-			pass
-		return selected
-
 	def canDeleteEntry(self, entry):
 		selected = 'flash'
 		try:
-			selected = open(self.data_dir + '/.selected').read()
+			selected = open(omb_legacy and self.data_dir + '/.selected' or '%s/.%s-selected' % (self.data_dir, OMB_GETBOXTYPE)).read()
 		except:
 			pass
 
@@ -364,7 +248,7 @@ class OMBManagerList(Screen):
 		if ret:
 			image = self.images_entries[self.select]['identifier']
 			print("[OMB] set nextboot to %s" % image)
-			file_entry = self.data_dir + '/.nextboot'
+			file_entry = omb_legacy and self.data_dir + '/.nextboot' or '%s/.%s-nextboot' % (self.data_dir, OMB_GETBOXTYPE)
 			open(file_entry, 'w').write(image)
 
 			self.session.openWithCallback(self.confirmRebootCB, MessageBox, _('Do you want to reboot now ?'), MessageBox.TYPE_YESNO)
