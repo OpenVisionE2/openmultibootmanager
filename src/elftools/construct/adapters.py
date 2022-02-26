@@ -37,8 +37,8 @@ class BitIntegerAdapter(Adapter):
       default is 8.
     """
     __slots__ = ["width", "swapped", "signed", "bytesize"]
-    def __init__(self, subcon, width, swapped = False, signed = False,
-                 bytesize = 8):
+    def __init__(self, subcon, width, swapped=False, signed=False,
+                 bytesize=8):
         Adapter.__init__(self, subcon)
         self.width = width
         self.swapped = swapped
@@ -48,14 +48,14 @@ class BitIntegerAdapter(Adapter):
         if obj < 0 and not self.signed:
             raise BitIntegerError("object is negative, but field is not signed",
                 obj)
-        obj2 = int_to_bin(obj, width = self.width)
+        obj2 = int_to_bin(obj, width=self.width)
         if self.swapped:
-            obj2 = swap_bytes(obj2, bytesize = self.bytesize)
+            obj2 = swap_bytes(obj2, bytesize=self.bytesize)
         return obj2
     def _decode(self, obj, context):
         if self.swapped:
-            obj = swap_bytes(obj, bytesize = self.bytesize)
-        return bin_to_int(obj, signed = self.signed)
+            obj = swap_bytes(obj, bytesize=self.bytesize)
+        return bin_to_int(obj, signed=self.signed)
 
 class MappingAdapter(Adapter):
     """
@@ -75,7 +75,7 @@ class MappingAdapter(Adapter):
     """
     __slots__ = ["encoding", "decoding", "encdefault", "decdefault"]
     def __init__(self, subcon, decoding, encoding,
-                 decdefault = NotImplemented, encdefault = NotImplemented):
+                 decdefault=NotImplemented, encdefault=NotImplemented):
         Adapter.__init__(self, subcon)
         self.decoding = decoding
         self.encoding = encoding
@@ -140,7 +140,7 @@ class StringAdapter(Adapter):
       return raw bytes (usually 8-bit ASCII).
     """
     __slots__ = ["encoding"]
-    def __init__(self, subcon, encoding = None):
+    def __init__(self, subcon, encoding=None):
         Adapter.__init__(self, subcon)
         self.encoding = encoding
     def _encode(self, obj, context):
@@ -167,8 +167,8 @@ class PaddedStringAdapter(Adapter):
       building, when the given string is too long.
     """
     __slots__ = ["padchar", "paddir", "trimdir"]
-    def __init__(self, subcon, padchar = b"\x00", paddir = "right",
-                 trimdir = "right"):
+    def __init__(self, subcon, padchar=b"\x00", paddir="right",
+                 trimdir="right"):
         if paddir not in ("right", "left", "center"):
             raise ValueError("paddir must be 'right', 'left' or 'center'",
                 paddir)
@@ -228,8 +228,8 @@ class CStringAdapter(StringAdapter):
       encoding.
     """
     __slots__ = ["terminators"]
-    def __init__(self, subcon, terminators = b"\x00", encoding = None):
-        StringAdapter.__init__(self, subcon, encoding = encoding)
+    def __init__(self, subcon, terminators=b"\x00", encoding=None):
+        StringAdapter.__init__(self, subcon, encoding=encoding)
         self.terminators = terminators
     def _encode(self, obj, context):
         return StringAdapter._encode(self, obj, context) + self.terminators[0:1]
@@ -299,13 +299,13 @@ class HexDumpAdapter(Adapter):
     Adapter for hex-dumping strings. It returns a HexString, which is a string
     """
     __slots__ = ["linesize"]
-    def __init__(self, subcon, linesize = 16):
+    def __init__(self, subcon, linesize=16):
         Adapter.__init__(self, subcon)
         self.linesize = linesize
     def _encode(self, obj, context):
         return obj
     def _decode(self, obj, context):
-        return HexString(obj, linesize = self.linesize)
+        return HexString(obj, linesize=self.linesize)
 
 class ConstAdapter(Adapter):
     """
@@ -344,7 +344,7 @@ class SlicingAdapter(Adapter):
     * step - step (or None for every element)
     """
     __slots__ = ["start", "stop", "step"]
-    def __init__(self, subcon, start, stop = None):
+    def __init__(self, subcon, start, stop=None):
         Adapter.__init__(self, subcon)
         self.start = start
         self.stop = stop
@@ -385,7 +385,7 @@ class PaddingAdapter(Adapter):
       padding matches the padding pattern. default is False (unstrict)
     """
     __slots__ = ["pattern", "strict"]
-    def __init__(self, subcon, pattern = b"\x00", strict = False):
+    def __init__(self, subcon, pattern=b"\x00", strict=False):
         Adapter.__init__(self, subcon)
         self.pattern = pattern
         self.strict = strict

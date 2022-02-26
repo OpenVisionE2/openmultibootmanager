@@ -26,7 +26,7 @@ def Field(name, length):
     else:
         return StaticField(name, length)
 
-def BitField(name, length, swapped = False, signed = False, bytesize = 8):
+def BitField(name, length, swapped=False, signed=False, bytesize=8):
     """
     BitFields, as the name suggests, are fields that operate on raw, unaligned
     bits, and therefore must be enclosed in a BitStruct. Using them is very
@@ -69,7 +69,7 @@ def BitField(name, length, swapped = False, signed = False, bytesize = 8):
         bytesize=bytesize
     )
 
-def Padding(length, pattern = b"\x00", strict = False):
+def Padding(length, pattern=b"\x00", strict=False):
     r"""a padding field (value is discarded)
     * length - the length of the field. the length can be either an integer,
       or a function that takes the context as an argument and returns the
@@ -79,11 +79,11 @@ def Padding(length, pattern = b"\x00", strict = False):
       pattern mismatches the desired pattern. default is False.
     """
     return PaddingAdapter(Field(None, length),
-        pattern = pattern,
-        strict = strict,
+        pattern=pattern,
+        strict=strict,
     )
 
-def Flag(name, truth = 1, falsehood = 0, default = False):
+def Flag(name, truth=1, falsehood=0, default=False):
     """
     A flag.
 
@@ -104,7 +104,7 @@ def Flag(name, truth = 1, falsehood = 0, default = False):
 
     return SymmetricMapping(Field(name, 1),
         {True : int2byte(truth), False : int2byte(falsehood)},
-        default = default,
+        default=default,
     )
 
 #===============================================================================
@@ -249,7 +249,7 @@ def Array(count, subcon):
         con._clear_flag(con.FLAG_DYNAMIC)
     return con
 
-def PrefixedArray(subcon, length_field = UBInt8("length")):
+def PrefixedArray(subcon, length_field=UBInt8("length")):
     """an array prefixed by a length field.
     * subcon - the subcon to be repeated
     * length_field - a construct returning an integer
@@ -258,7 +258,7 @@ def PrefixedArray(subcon, length_field = UBInt8("length")):
         Sequence(subcon.name,
             length_field,
             Array(lambda ctx: ctx[length_field.name], subcon),
-            nested = False
+            nested=False
         )
     )
 
@@ -338,18 +338,18 @@ def Bitwise(subcon):
         return length >> 3
     if not subcon._is_flag(subcon.FLAG_DYNAMIC) and subcon.sizeof() < MAX_BUFFER:
         con = Buffered(subcon,
-            encoder = decode_bin,
-            decoder = encode_bin,
-            resizer = resizer
+            encoder=decode_bin,
+            decoder=encode_bin,
+            resizer=resizer
         )
     else:
         con = Restream(subcon,
-            stream_reader = BitStreamReader,
-            stream_writer = BitStreamWriter,
-            resizer = resizer)
+            stream_reader=BitStreamReader,
+            stream_writer=BitStreamWriter,
+            resizer=resizer)
     return con
 
-def Aligned(subcon, modulus = 4, pattern = b"\x00"):
+def Aligned(subcon, modulus=4, pattern=b"\x00"):
     r"""aligns subcon to modulus boundary using padding pattern
     * subcon - the subcon to align
     * modulus - the modulus boundary (default is 4)
@@ -365,8 +365,8 @@ def Aligned(subcon, modulus = 4, pattern = b"\x00"):
         # ??????
         # ??????
         # ??????
-        Padding(padlength, pattern = pattern),
-        nested = False,
+        Padding(padlength, pattern=pattern),
+        nested=False,
     )
 
 def SeqOfOne(name, *args, **kw):
@@ -376,7 +376,7 @@ def SeqOfOne(name, *args, **kw):
     * args - subconstructs
     * kw - any keyword arguments to Sequence
     """
-    return IndexingAdapter(Sequence(name, *args, **kw), index = 0)
+    return IndexingAdapter(Sequence(name, *args, **kw), index=0)
 
 def Embedded(subcon):
     """embeds a struct into the enclosing struct.
@@ -402,7 +402,7 @@ def Alias(newname, oldname):
 #===============================================================================
 # mapping
 #===============================================================================
-def SymmetricMapping(subcon, mapping, default = NotImplemented):
+def SymmetricMapping(subcon, mapping, default=NotImplemented):
     """defines a symmetrical mapping: a->b, b->a.
     * subcon - the subcon to map
     * mapping - the encoding mapping (a dict); the decoding mapping is
@@ -413,10 +413,10 @@ def SymmetricMapping(subcon, mapping, default = NotImplemented):
     """
     reversed_mapping = dict((v, k) for k, v in mapping.items())
     return MappingAdapter(subcon,
-        encoding = mapping,
-        decoding = reversed_mapping,
-        encdefault = default,
-        decdefault = default,
+        encoding=mapping,
+        decoding=reversed_mapping,
+        encdefault=default,
+        decdefault=default,
     )
 
 def Enum(subcon, **kw):
@@ -598,7 +598,7 @@ def IfThenElse(name, predicate, then_subcon, else_subcon):
         }
     )
 
-def If(predicate, subcon, elsevalue = None):
+def If(predicate, subcon, elsevalue=None):
     """an if-then conditional construct: if the predicate indicates True,
     subcon will be used; otherwise, `elsevalue` will be returned instead.
     * predicate - a function taking the context as an argument and returning
@@ -617,7 +617,7 @@ def If(predicate, subcon, elsevalue = None):
 #===============================================================================
 # misc
 #===============================================================================
-def OnDemandPointer(offsetfunc, subcon, force_build = True):
+def OnDemandPointer(offsetfunc, subcon, force_build=True):
     """an on-demand pointer.
     * offsetfunc - a function taking the context as an argument and returning
       the absolute stream position
@@ -626,8 +626,8 @@ def OnDemandPointer(offsetfunc, subcon, force_build = True):
     * force_build - see OnDemand. by default True.
     """
     return OnDemand(Pointer(offsetfunc, subcon),
-        advance_stream = False,
-        force_build = force_build
+        advance_stream=False,
+        force_build=force_build
     )
 
 def Magic(data):

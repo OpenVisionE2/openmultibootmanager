@@ -5,7 +5,7 @@ Various containers.
 from pprint import pformat
 from .py3compat import MutableMapping
 
-def recursion_lock(retval, lock_name = "__recursion_lock__"):
+def recursion_lock(retval, lock_name="__recursion_lock__"):
     def decorator(func):
         def wrapper(self, *args, **kw):
             if getattr(self, lock_name, False):
@@ -132,7 +132,7 @@ class LazyContainer(object):
     def __str__(self):
         return self.__pretty_str__()
 
-    def __pretty_str__(self, nesting = 1, indentation = "    "):
+    def __pretty_str__(self, nesting=1, indentation="    "):
         if self._value is NotImplemented:
             text = "<unread>"
         elif hasattr(self._value, "__pretty_str__"):

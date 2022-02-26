@@ -17,8 +17,8 @@ if __name__ == "__main__":
 	if len(sys.argv) == 3 and sys.argv[2].upper() == "DEBUG":
 		debug = True
 
-	ombList = OMBList.OMBList(ombdir, debug = debug)
+	ombList = OMBList.OMBList(ombdir, debug=debug)
 
 	ombList.populateImagesList()
-	print (ombList.getJson(debug = debug))
+	print (ombList.getJson(debug=debug))
 

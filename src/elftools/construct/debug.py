@@ -39,9 +39,9 @@ class Probe(Construct):
     ]
     counter = 0
 
-    def __init__(self, name = None, show_stream = True,
-                 show_context = True, show_stack = True,
-                 stream_lookahead = 100):
+    def __init__(self, name=None, show_stream=True,
+                 show_context=True, show_stack=True,
+                 stream_lookahead=100):
         Construct.__init__(self, None)
         if name is None:
             Probe.counter += 1
@@ -123,7 +123,7 @@ class Debugger(Subconstruct):
             self.subcon._build(obj, stream, context)
         except Exception:
             self.handle_exc()
-    def handle_exc(self, msg = None):
+    def handle_exc(self, msg=None):
         print("=" * 80)
         print("Debugging exception of %s:" % (self.subcon,))
         print("".join(traceback.format_exception(*sys.exc_info())[1:]))

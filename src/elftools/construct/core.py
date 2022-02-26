@@ -90,7 +90,7 @@ class Construct(object):
     FLAG_NESTING               = 0x0008
 
     __slots__ = ["name", "conflags"]
-    def __init__(self, name, flags = 0):
+    def __init__(self, name, flags=0):
         if name is not None:
             if type(name) is not str:
                 raise TypeError("name must be a string or None", name)
@@ -638,7 +638,7 @@ class Struct(Construct):
         else:
             obj = Container()
             if self.nested:
-                context = Container(_ = context)
+                context = Container(_=context)
         for sc in self.subcons:
             if sc.conflags & self.FLAG_EMBED:
                 context["<obj>"] = obj
@@ -653,7 +653,7 @@ class Struct(Construct):
         if "<unnested>" in context:
             del context["<unnested>"]
         elif self.nested:
-            context = Container(_ = context)
+            context = Container(_=context)
         for sc in self.subcons:
             if sc.conflags & self.FLAG_EMBED:
                 context["<unnested>"] = True
@@ -666,7 +666,7 @@ class Struct(Construct):
             sc._build(subobj, stream, context)
     def _sizeof(self, context):
         if self.nested:
-            context = Container(_ = context)
+            context = Container(_=context)
         return sum(sc._sizeof(context) for sc in self.subcons)
 
 class Sequence(Struct):
@@ -698,7 +698,7 @@ class Sequence(Struct):
         else:
             obj = ListContainer()
             if self.nested:
-                context = Container(_ = context)
+                context = Container(_=context)
         for sc in self.subcons:
             if sc.conflags & self.FLAG_EMBED:
                 context["<obj>"] = obj
@@ -713,7 +713,7 @@ class Sequence(Struct):
         if "<unnested>" in context:
             del context["<unnested>"]
         elif self.nested:
-            context = Container(_ = context)
+            context = Container(_=context)
         objiter = iter(obj)
         for sc in self.subcons:
             if sc.conflags & self.FLAG_EMBED:
@@ -755,7 +755,7 @@ class Union(Construct):
         Construct.__init__(self, name)
         args = [Peek(sc) for sc in subcons]
         args.append(MetaField(None, lambda ctx: master._sizeof(ctx)))
-        self.parser = Struct(name, Peek(master, perform_build = True), *args)
+        self.parser = Struct(name, Peek(master, perform_build=True), *args)
         self.builder = Struct(name, master)
     def _parse(self, stream, context):
         return self.parser._parse(stream, context)
@@ -810,8 +810,8 @@ class Switch(Construct):
 
     __slots__ = ["subcons", "keyfunc", "cases", "default", "include_key"]
 
-    def __init__(self, name, keyfunc, cases, default = NoDefault,
-                 include_key = False):
+    def __init__(self, name, keyfunc, cases, default=NoDefault,
+                 include_key=False):
         Construct.__init__(self, name)
         self._inherit_flags(*cases.values())
         self.keyfunc = keyfunc
@@ -974,7 +974,7 @@ class Peek(Subconstruct):
     Peek(UBInt8("foo"))
     """
     __slots__ = ["perform_build"]
-    def __init__(self, subcon, perform_build = False):
+    def __init__(self, subcon, perform_build=False):
         Subconstruct.__init__(self, subcon)
         self.perform_build = perform_build
     def _parse(self, stream, context):
@@ -1016,7 +1016,7 @@ class OnDemand(Subconstruct):
     OnDemand(Array(10000, UBInt8("foo"))
     """
     __slots__ = ["advance_stream", "force_build"]
-    def __init__(self, subcon, advance_stream = True, force_build = True):
+    def __init__(self, subcon, advance_stream=True, force_build=True):
         Subconstruct.__init__(self, subcon)
         self.advance_stream = advance_stream
         self.force_build = force_build
@@ -1145,7 +1145,7 @@ class Reconfig(Subconstruct):
     Reconfig("foo", UBInt8("bar"))
     """
     __slots__ = []
-    def __init__(self, name, subcon, setflags = 0, clearflags = 0):
+    def __init__(self, name, subcon, setflags=0, clearflags=0):
         Construct.__init__(self, name, subcon.conflags)
         self.subcon = subcon
         self._set_flag(setflags)

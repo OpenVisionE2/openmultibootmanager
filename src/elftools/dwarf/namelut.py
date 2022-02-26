@@ -191,8 +191,8 @@ class NameLUT(Mapping):
                     break
                 # add this entry to the look-up dictionary.
                 entries[entry.name.decode('utf-8')] = NameLUTEntry(
-                        cu_ofs = hdr_cu_ofs,
-                        die_ofs = hdr_cu_ofs + entry.die_ofs)
+                        cu_ofs=hdr_cu_ofs,
+                        die_ofs=hdr_cu_ofs + entry.die_ofs)
 
         # return the entries parsed so far.
         return (entries, cu_headers)

@@ -17,7 +17,7 @@ class BitStreamReader(object):
     def tell(self):
         return self.substream.tell()
 
-    def seek(self, pos, whence = 0):
+    def seek(self, pos, whence=0):
         self.buffer = ""
         self.total_size = 0
         self.substream.seek(pos, whence)
@@ -65,7 +65,7 @@ class BitStreamWriter(object):
     def tell(self):
         return self.substream.tell() + self.pos // 8
 
-    def seek(self, pos, whence = 0):
+    def seek(self, pos, whence=0):
         self.flush()
         self.substream.seek(pos, whence)
 
