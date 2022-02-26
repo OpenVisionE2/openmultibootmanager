@@ -63,6 +63,7 @@ Debugger commands
 =================
 
 """
+from __future__ import print_function
 # NOTE: the actual command documentation is collected from docstrings of the
 # commands and is appended to __doc__ after the class has been defined.
 
@@ -85,8 +86,10 @@ class Restart(Exception):
     """Causes a debugger to be restarted for the debugged python program."""
     pass
 
+
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace",
            "post_mortem", "help"]
+
 
 def find_function(funcname, filename):
     cre = re.compile(r'def\s+%s\s*[(]' % re.escape(funcname))
@@ -101,6 +104,7 @@ def find_function(funcname, filename):
                 return funcname, filename, lineno
     return None
 
+
 def getsourcelines(obj):
     lines, lineno = inspect.findsource(obj)
     if inspect.isframe(obj) and obj.f_globals is obj.f_locals:
@@ -108,7 +112,8 @@ def getsourcelines(obj):
         return lines, 1
     elif inspect.ismodule(obj):
         return lines, 1
-    return inspect.getblock(lines[lineno:]), lineno+1
+    return inspect.getblock(lines[lineno:]), lineno + 1
+
 
 def lasti2lineno(code, lasti):
     linestarts = list(dis.findlinestarts(code))
@@ -121,6 +126,7 @@ def lasti2lineno(code, lasti):
 
 class _rstr(str):
     """String that doesn't quote its repr."""
+
     def __repr__(self):
         return self
 
@@ -131,6 +137,7 @@ class _rstr(str):
 # command "pdb.line_prefix = '\n% '".
 # line_prefix = ': '    # Use this to get the old situation back
 line_prefix = '\n-> '   # Probably a better default
+
 
 class Pdb(bdb.Bdb, cmd.Cmd):
 
@@ -355,7 +362,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             self.message(repr(obj))
 
     def default(self, line):
-        if line[:1] == '!': line = line[1:]
+        if line[:1] == '!':
+            line = line[1:]
         locals = self.curframe_locals
         globals = self.curframe.f_globals
         try:
@@ -396,7 +404,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             marker = line.find(';;')
             if marker >= 0:
                 # queue up everything after marker
-                next = line[marker+2:].lstrip()
+                next = line[marker + 2:].lstrip()
                 self.cmdqueue.append(next)
                 line = line[:marker].rstrip()
         return line
@@ -426,7 +434,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             return 1 # end of cmd list
         cmdlist = self.commands[self.commands_bnum]
         if arg:
-            cmdlist.append(cmd+' '+arg)
+            cmdlist.append(cmd + ' ' + arg)
         else:
             cmdlist.append(cmd)
         # Determine if we must stop
@@ -444,10 +452,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
     # interface abstraction functions
 
     def message(self, msg):
-        print >>self.stdout, msg
+        print(msg, file=self.stdout)
 
     def error(self, msg):
-        print >>self.stdout,'***', msg
+        print('***', msg, file=self.stdout)
 
     # Generic completion functions.  Individual complete_foo methods can be
     # assigned below to one of these functions.
@@ -587,7 +595,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
 
     complete_commands = _complete_bpnumber
 
-    def do_break(self, arg, temporary = 0):
+    def do_break(self, arg, temporary=0):
         """b(reak) [ ([filename:]lineno | function) [, condition] ]
         Without argument, list all breaks.
 
@@ -617,7 +625,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         comma = arg.find(',')
         if comma > 0:
             # parse stuff after comma: "condition"
-            cond = arg[comma+1:].lstrip()
+            cond = arg[comma + 1:].lstrip()
             arg = arg[:comma].rstrip()
         # parse stuff before comma: [filename:]lineno | function
         colon = arg.rfind(':')
@@ -630,7 +638,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
                 return
             else:
                 filename = f
-            arg = arg[colon+1:].lstrip()
+            arg = arg[colon + 1:].lstrip()
             try:
                 lineno = int(arg)
             except ValueError:
@@ -713,7 +721,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             id = idstring[1].strip()
         else:
             return failed
-        if id == '': return failed
+        if id == '':
+            return failed
         parts = id.split('.')
         # Protection for derived debuggers
         if parts[0] == 'self':
@@ -877,7 +886,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             # Make sure it works for "clear C:\foo\bar.py:12"
             i = arg.rfind(':')
             filename = arg[:i]
-            arg = arg[i+1:]
+            arg = arg[i + 1:]
             try:
                 lineno = int(arg)
             except ValueError:
@@ -1124,8 +1133,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         co = self.curframe.f_code
         dict = self.curframe_locals
         n = co.co_argcount
-        if co.co_flags & 4: n = n+1
-        if co.co_flags & 8: n = n+1
+        if co.co_flags & 4:
+            n = n + 1
+        if co.co_flags & 8:
+            n = n + 1
         for i in range(n):
             name = co.co_varnames[i]
             if name in dict:
@@ -1227,7 +1238,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         breaklist = self.get_file_breaks(filename)
         try:
             lines = linecache.getlines(filename, self.curframe.f_globals)
-            self._print_lines(lines[first-1:last], first, breaklist,
+            self._print_lines(lines[first - 1:last], first, breaklist,
                               self.curframe)
             self.lineno = min(last, len(lines))
             if len(lines) < last:
@@ -1411,7 +1422,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         Delete the specified alias.
         """
         args = arg.split()
-        if len(args) == 0: return
+        if len(args) == 0:
+            return
         if args[0] in self.aliases:
             del self.aliases[args[0]]
 
@@ -1497,10 +1509,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         lookupmodule() translates (possibly incomplete) file or module name
         into an absolute file name.
         """
-        if os.path.isabs(filename) and  os.path.exists(filename):
+        if os.path.isabs(filename) and os.path.exists(filename):
             return filename
         f = os.path.join(sys.path[0], filename)
-        if  os.path.exists(f) and self.canonic(f) == self.mainpyfile:
+        if os.path.exists(f) and self.canonic(f) == self.mainpyfile:
             return f
         root, ext = os.path.splitext(filename)
         if ext == '':
@@ -1523,8 +1535,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         # (this gets rid of pdb's globals and cleans old variables on restarts).
         import __main__
         __main__.__dict__.clear()
-        __main__.__dict__.update({"__name__"    : "__main__",
-                                  "__file__"    : filename,
+        __main__.__dict__.update({"__name__": "__main__",
+                                  "__file__": filename,
                                   "__builtins__": __builtins__,
                                  })
 
@@ -1542,6 +1554,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         self.run(statement)
 
 # Collect all command help into docstring, if not run with -OO
+
 
 if __doc__ is not None:
     # unfortunately we can't guess this order from the class definition
@@ -1565,20 +1578,25 @@ if __doc__ is not None:
 def run(statement, globals=None, locals=None):
     Pdb().run(statement, globals, locals)
 
+
 def runeval(expression, globals=None, locals=None):
     return Pdb().runeval(expression, globals, locals)
+
 
 def runctx(statement, globals, locals):
     # B/W compatibility
     run(statement, globals, locals)
 
+
 def runcall(*args, **kwds):
     return Pdb().runcall(*args, **kwds)
+
 
 def set_trace():
     Pdb().set_trace(sys._getframe().f_back)
 
 # Post-Mortem interface
+
 
 def post_mortem(t=None):
     # handling the default
@@ -1594,6 +1612,7 @@ def post_mortem(t=None):
     p.reset()
     p.interaction(None, t)
 
+
 def pm():
     post_mortem(sys.last_traceback)
 
@@ -1602,13 +1621,17 @@ def pm():
 
 TESTCMD = 'import x; x.main()'
 
+
 def test():
     run(TESTCMD)
 
 # print help
+
+
 def help():
     import pydoc
     pydoc.pager(__doc__)
+
 
 _usage = """\
 usage: pdb.py [-c command] ... pyfile [arg] ...
@@ -1622,6 +1645,7 @@ and in the current directory, if they exist.  Commands supplied with
 To let the script run until an exception occurs, use "-c continue".
 To let the script run up to a given line X in the debugged file, use
 "-c 'until X'"."""
+
 
 def main():
     import getopt
@@ -1642,7 +1666,7 @@ def main():
 
     mainpyfile = args[0]     # Get script filename
     if not os.path.exists(mainpyfile):
-        print('Error:', mainpyfile, 'does not exist')
+        print(('Error:', mainpyfile, 'does not exist'))
         sys.exit(1)
 
     sys.argv[:] = args      # Hide "pdb.py" and pdb options from argument list
@@ -1663,11 +1687,11 @@ def main():
                 break
             print("The program finished and will be restarted")
         except Restart:
-            print("Restarting", mainpyfile, "with arguments:")
+            print(("Restarting", mainpyfile, "with arguments:"))
             print("\t" + " ".join(args))
         except SystemExit:
             # In most cases SystemExit does not warrant a post-mortem session.
-            print("The program exited via sys.exit(). Exit status:",)
+            print(("The program exited via sys.exit(). Exit status:",))
             print(sys.exc_info()[1])
 
         except:
