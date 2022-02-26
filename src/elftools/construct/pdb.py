@@ -1528,8 +1528,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         # (this gets rid of pdb's globals and cleans old variables on restarts).
         import __main__
         __main__.__dict__.clear()
-        __main__.__dict__.update({"__name__"    : "__main__",
-                                  "__file__"    : filename,
+        __main__.__dict__.update({"__name__": "__main__",
+                                  "__file__": filename,
                                   "__builtins__": __builtins__,
                                  })
 
