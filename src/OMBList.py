@@ -62,11 +62,11 @@ class OMBList():
 
 		self.debug_boxconfig.append(self.boxinfo.getItemsDict())
 
-		file_entry="flash"
+		file_entry = "flash"
 		if os.path.exists(self.data_dir + '/.label_' + file_entry):
-			title=self.imageTitleFromLabel('.label_' + file_entry)
+			title = self.imageTitleFromLabel('.label_' + file_entry)
 		else:
-			title=self.guessImageTitle(self.boxinfo, file_entry)
+			title = self.guessImageTitle(self.boxinfo, file_entry)
 
 		self.images_entries.append({
 			'label': title + ' (Flash)',
@@ -87,7 +87,7 @@ class OMBList():
 				if file_entry == "flash" or file_entry == '%s-flash' % OMB_GETBOXTYPE:
 					continue
 
-				TargetBoxInfo=BoxConfig(root=self.data_dir + '/' + file_entry, debug=self.debug)
+				TargetBoxInfo = BoxConfig(root=self.data_dir + '/' + file_entry, debug=self.debug)
 
 				self.debug_boxconfig.append(TargetBoxInfo.getItemsDict())
 
@@ -97,13 +97,13 @@ class OMBList():
 					continue
 
 				if os.path.exists(self.data_dir + '/.label_' + file_entry):
-					title=self.imageTitleFromLabel('.label_' + file_entry)
+					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
-					title=self.guessImageTitle(TargetBoxInfo, file_entry)
+					title = self.guessImageTitle(TargetBoxInfo, file_entry)
 
-				background="/usr/share/bootlogo.mvi"
+				background = "/usr/share/bootlogo.mvi"
 				if not os.path.exists(self.data_dir + '/' + file_entry + '/usr/share/bootlogo.mvi'):
-					background='/usr/share/' + OMB_GETBRANDOEM + '-bootlogo/bootlogo.mvi'
+					background = '/usr/share/' + OMB_GETBRANDOEM + '-bootlogo/bootlogo.mvi'
 
 				self.images_entries.append({
 					'label': title,
@@ -122,7 +122,7 @@ class OMBList():
 		return self.images_entries
 
 	def getJson(self, debug=None):
-		parsed={'currentimage': self.currentImage(), 'images_entries': self.images_entries}
+		parsed = {'currentimage': self.currentImage(), 'images_entries': self.images_entries}
 		if debug:
-			parsed['debug_boxconfig']=self.debug_boxconfig
+			parsed['debug_boxconfig'] = self.debug_boxconfig
 		return json.dumps(parsed, indent=4)
