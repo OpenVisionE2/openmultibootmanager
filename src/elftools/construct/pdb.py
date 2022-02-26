@@ -1666,7 +1666,7 @@ def main():
 
     mainpyfile = args[0]     # Get script filename
     if not os.path.exists(mainpyfile):
-        print(('Error:', mainpyfile, 'does not exist'))
+        print('Error:', mainpyfile, 'does not exist')
         sys.exit(1)
 
     sys.argv[:] = args      # Hide "pdb.py" and pdb options from argument list
@@ -1687,11 +1687,11 @@ def main():
                 break
             print("The program finished and will be restarted")
         except Restart:
-            print(("Restarting", mainpyfile, "with arguments:"))
+            print("Restarting", mainpyfile, "with arguments:")
             print("\t" + " ".join(args))
         except SystemExit:
             # In most cases SystemExit does not warrant a post-mortem session.
-            print(("The program exited via sys.exit(). Exit status:",))
+            print("The program exited via sys.exit(). Exit status:",)
             print(sys.exc_info()[1])
 
         except:
