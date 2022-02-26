@@ -74,7 +74,7 @@ class ARanges(object):
                 # pad to nearest multiple of tuple size
                 tuple_size = aranges_header["address_size"] * 2
                 fp = self.stream.tell()
-                seek_to = int(math.ceil(fp/float(tuple_size)) * tuple_size)
+                seek_to = int(math.ceil(fp / float(tuple_size)) * tuple_size)
                 self.stream.seek(seek_to)
 
                 # entries in this set/CU

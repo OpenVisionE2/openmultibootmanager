@@ -76,7 +76,7 @@ class Section(object):
         """
         # If this section is NOBITS, there is no data. provide a dummy answer
         if self.header['sh_type'] == 'SHT_NOBITS':
-            return b'\0'*self.data_size
+            return b'\0' * self.data_size
 
         # If this section is compressed, deflate it
         if self.compressed:
@@ -453,7 +453,7 @@ class ARMAttributesSubsection(object):
 
     def __repr__(self):
         s = "<ARMAttributesSubsection (%s): %d bytes>"
-        return s  % (self.header['vendor_name'], self.header['length'])
+        return s % (self.header['vendor_name'], self.header['length'])
 
 
 class ARMAttributesSection(Section):

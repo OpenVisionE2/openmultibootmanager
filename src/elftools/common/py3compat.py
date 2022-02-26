@@ -32,7 +32,7 @@ if PY3:
         For example, for b'abc' yields b'a', b'b' and then b'c'.
         """
         for i in range(len(b)):
-            yield b[i:i+1]
+            yield b[i:i + 1]
 
     ifilter = filter
 

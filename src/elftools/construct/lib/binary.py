@@ -111,7 +111,7 @@ def decode_bin(data):
     l = len(data) // 8
     chars = [b""] * l
     while j < l:
-        chars[j] = _bin_to_char[data[i:i+8]]
+        chars[j] = _bin_to_char[data[i:i + 8]]
         i += 8
         j += 1
     return b"".join(chars)

@@ -84,10 +84,10 @@ class Construct(object):
     the context for each iteration, which is necessary for OnDemand parsing.
     """
 
-    FLAG_COPY_CONTEXT          = 0x0001
-    FLAG_DYNAMIC               = 0x0002
-    FLAG_EMBED                 = 0x0004
-    FLAG_NESTING               = 0x0008
+    FLAG_COPY_CONTEXT = 0x0001
+    FLAG_DYNAMIC = 0x0002
+    FLAG_EMBED = 0x0004
+    FLAG_NESTING = 0x0008
 
     __slots__ = ["name", "conflags"]
     def __init__(self, name, flags=0):

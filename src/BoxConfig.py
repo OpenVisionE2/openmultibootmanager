@@ -58,7 +58,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 						pass
 				else:
 				#	print ("OMBDEBUG:", "\n".join(p.stdout.readlines()))
-					lines = ["dynamic_loader="+dynamic_loader, "boxbranding_cmd="+cmd, "boxbranding_stdout="+"\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine']]
+					lines = ["dynamic_loader=" + dynamic_loader, "boxbranding_cmd=" + cmd, "boxbranding_stdout=" + "\n".join(p.stdout.readlines()), "elf_machine=" + header['e_machine']]
 
 		if not lines:
 			lines = []
