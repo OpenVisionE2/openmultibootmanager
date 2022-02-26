@@ -21,11 +21,13 @@ class RepeatUntilExcluding(Subconstruct):
         P.S. removed some code duplication
     """
     __slots__ = ["predicate"]
+
     def __init__(self, predicate, subcon):
         Subconstruct.__init__(self, subcon)
         self.predicate = predicate
         self._clear_flag(self.FLAG_COPY_CONTEXT)
         self._set_flag(self.FLAG_DYNAMIC)
+
     def _parse(self, stream, context):
         obj = []
         try:
@@ -41,8 +43,10 @@ class RepeatUntilExcluding(Subconstruct):
         except ConstructError as ex:
             raise ArrayError("missing terminator", ex)
         return obj
+
     def _build(self, obj, stream, context):
         raise NotImplementedError('no building')
+
     def _sizeof(self, context):
         raise SizeofError("can't calculate size")
 
@@ -59,6 +63,7 @@ def _LEB128_reader():
 class _ULEB128Adapter(Adapter):
     """ An adapter for ULEB128, given a sequence of bytes in a sub-construct.
     """
+
     def _decode(self, obj, context):
         value = 0
         for b in reversed(obj):
@@ -69,6 +74,7 @@ class _ULEB128Adapter(Adapter):
 class _SLEB128Adapter(Adapter):
     """ An adapter for SLEB128, given a sequence of bytes in a sub-construct.
     """
+
     def _decode(self, obj, context):
         value = 0
         for b in reversed(obj):

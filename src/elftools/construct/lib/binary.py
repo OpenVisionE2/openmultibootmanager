@@ -41,6 +41,7 @@ _bit_values = {
     '1': 1,
     }
 
+
 def bin_to_int(bits, signed=False):
     r"""
     Logical opposite of int_to_bin. Both '0' and '\x00' are considered zero,

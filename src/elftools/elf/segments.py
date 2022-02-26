@@ -92,6 +92,7 @@ class InterpSegment(Segment):
     """ INTERP segment. Knows how to obtain the path to the interpreter used
         for this ELF file.
     """
+
     def __init__(self, header, stream):
         super(InterpSegment, self).__init__(header, stream)
 
@@ -108,12 +109,12 @@ class InterpSegment(Segment):
 class NoteSegment(Segment):
     """ NOTE segment. Knows how to parse notes.
     """
+
     def __init__(self, header, stream, elffile):
         super(NoteSegment, self).__init__(header, stream)
         self.elffile = elffile
 
     def iter_notes(self):
-
         """ Yield all the notes in the segment.  Each result is a dictionary-
             like object with "n_name", "n_type", and "n_desc" fields, amongst
             others.

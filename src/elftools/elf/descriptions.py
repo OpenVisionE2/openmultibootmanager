@@ -540,6 +540,7 @@ _DESCR_NOTE_ABI_TAG_OS = dict(
     ELF_NOTE_OS_SYLLABLE='Syllable',
 )
 
+
 def _reverse_dict(d, low_priority=()):
     """
     This is a tiny helper function to "reverse" the keys/values of a dictionary
@@ -555,6 +556,7 @@ def _reverse_dict(d, low_priority=()):
             continue
         out[v] = k
     return out
+
 
 _DESCR_RELOC_TYPE_i386 = _reverse_dict(ENUM_RELOC_TYPE_i386)
 _DESCR_RELOC_TYPE_x64 = _reverse_dict(ENUM_RELOC_TYPE_x64)

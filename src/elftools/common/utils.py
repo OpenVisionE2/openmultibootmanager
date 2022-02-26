@@ -102,12 +102,14 @@ def roundup(num, bits):
     """
     return (num - 1 | (1 << bits) - 1) + 1
 
+
 def read_blob(stream, length):
     """Read length bytes from stream, return a list of ints
     """
     return [struct_parse(ULInt8(''), stream) for i in range(length)]
 
 #------------------------- PRIVATE -------------------------
+
 
 def _assert_with_exception(cond, msg, exception_type):
     if not cond:

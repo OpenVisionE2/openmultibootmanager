@@ -9,18 +9,28 @@ from .lib.py3compat import BytesIO, decodebytes
 #===============================================================================
 class BitIntegerError(AdaptationError):
     __slots__ = []
+
+
 class MappingError(AdaptationError):
     __slots__ = []
+
+
 class ConstError(AdaptationError):
     __slots__ = []
+
+
 class ValidationError(AdaptationError):
     __slots__ = []
+
+
 class PaddingError(AdaptationError):
     __slots__ = []
 
 #===============================================================================
 # adapters
 #===============================================================================
+
+
 class BitIntegerAdapter(Adapter):
     """
     Adapter for bit-integers (converts bitstrings to integers, and vice versa).
@@ -37,6 +47,7 @@ class BitIntegerAdapter(Adapter):
       default is 8.
     """
     __slots__ = ["width", "swapped", "signed", "bytesize"]
+
     def __init__(self, subcon, width, swapped=False, signed=False,
                  bytesize=8):
         Adapter.__init__(self, subcon)
@@ -44,6 +55,7 @@ class BitIntegerAdapter(Adapter):
         self.swapped = swapped
         self.signed = signed
         self.bytesize = bytesize
+
     def _encode(self, obj, context):
         if obj < 0 and not self.signed:
             raise BitIntegerError("object is negative, but field is not signed",
@@ -52,10 +64,12 @@ class BitIntegerAdapter(Adapter):
         if self.swapped:
             obj2 = swap_bytes(obj2, bytesize=self.bytesize)
         return obj2
+
     def _decode(self, obj, context):
         if self.swapped:
             obj = swap_bytes(obj, bytesize=self.bytesize)
         return bin_to_int(obj, signed=self.signed)
+
 
 class MappingAdapter(Adapter):
     """
@@ -74,6 +88,7 @@ class MappingAdapter(Adapter):
       if `Pass` is used, the unmapped object will be passed as-is
     """
     __slots__ = ["encoding", "decoding", "encdefault", "decdefault"]
+
     def __init__(self, subcon, decoding, encoding,
                  decdefault=NotImplemented, encdefault=NotImplemented):
         Adapter.__init__(self, subcon)
@@ -81,6 +96,7 @@ class MappingAdapter(Adapter):
         self.encoding = encoding
         self.decdefault = decdefault
         self.encdefault = encdefault
+
     def _encode(self, obj, context):
         try:
             return self.encoding[obj]
@@ -91,6 +107,7 @@ class MappingAdapter(Adapter):
             if self.encdefault is Pass:
                 return obj
             return self.encdefault
+
     def _decode(self, obj, context):
         try:
             return self.decoding[obj]
@@ -101,6 +118,7 @@ class MappingAdapter(Adapter):
             if self.decdefault is Pass:
                 return obj
             return self.decdefault
+
 
 class FlagsAdapter(Adapter):
     """
@@ -113,20 +131,24 @@ class FlagsAdapter(Adapter):
     * flags - a dictionary mapping flag-names to their value
     """
     __slots__ = ["flags"]
+
     def __init__(self, subcon, flags):
         Adapter.__init__(self, subcon)
         self.flags = flags
+
     def _encode(self, obj, context):
         flags = 0
         for name, value in self.flags.items():
             if getattr(obj, name, False):
                 flags |= value
         return flags
+
     def _decode(self, obj, context):
         obj2 = FlagsContainer()
         for name, value in self.flags.items():
             setattr(obj2, name, bool(obj & value))
         return obj2
+
 
 class StringAdapter(Adapter):
     """
@@ -140,17 +162,21 @@ class StringAdapter(Adapter):
       return raw bytes (usually 8-bit ASCII).
     """
     __slots__ = ["encoding"]
+
     def __init__(self, subcon, encoding=None):
         Adapter.__init__(self, subcon)
         self.encoding = encoding
+
     def _encode(self, obj, context):
         if self.encoding:
             obj = obj.encode(self.encoding)
         return obj
+
     def _decode(self, obj, context):
         if self.encoding:
             obj = obj.decode(self.encoding)
         return obj
+
 
 class PaddedStringAdapter(Adapter):
     r"""
@@ -167,6 +193,7 @@ class PaddedStringAdapter(Adapter):
       building, when the given string is too long.
     """
     __slots__ = ["padchar", "paddir", "trimdir"]
+
     def __init__(self, subcon, padchar=b"\x00", paddir="right",
                  trimdir="right"):
         if paddir not in ("right", "left", "center"):
@@ -178,6 +205,7 @@ class PaddedStringAdapter(Adapter):
         self.padchar = padchar
         self.paddir = paddir
         self.trimdir = trimdir
+
     def _decode(self, obj, context):
         if self.paddir == "right":
             obj = obj.rstrip(self.padchar)
@@ -186,6 +214,7 @@ class PaddedStringAdapter(Adapter):
         else:
             obj = obj.strip(self.padchar)
         return obj
+
     def _encode(self, obj, context):
         size = self._sizeof(context)
         if self.paddir == "right":
@@ -201,6 +230,7 @@ class PaddedStringAdapter(Adapter):
                 obj = obj[-size:]
         return obj
 
+
 class LengthValueAdapter(Adapter):
     """
     Adapter for length-value pairs. It extracts only the value from the
@@ -211,10 +241,13 @@ class LengthValueAdapter(Adapter):
     * subcon - the subcon returning a length-value pair
     """
     __slots__ = []
+
     def _encode(self, obj, context):
         return (len(obj), obj)
+
     def _decode(self, obj, context):
         return obj[1]
+
 
 class CStringAdapter(StringAdapter):
     r"""
@@ -228,13 +261,17 @@ class CStringAdapter(StringAdapter):
       encoding.
     """
     __slots__ = ["terminators"]
+
     def __init__(self, subcon, terminators=b"\x00", encoding=None):
         StringAdapter.__init__(self, subcon, encoding=encoding)
         self.terminators = terminators
+
     def _encode(self, obj, context):
         return StringAdapter._encode(self, obj, context) + self.terminators[0:1]
+
     def _decode(self, obj, context):
         return StringAdapter._decode(self, b''.join(obj[:-1]), context)
+
 
 class TunnelAdapter(Adapter):
     """
@@ -259,15 +296,19 @@ class TunnelAdapter(Adapter):
     )
     """
     __slots__ = ["inner_subcon"]
+
     def __init__(self, subcon, inner_subcon):
         Adapter.__init__(self, subcon)
         self.inner_subcon = inner_subcon
+
     def _decode(self, obj, context):
         return self.inner_subcon._parse(BytesIO(obj), context)
+
     def _encode(self, obj, context):
         stream = BytesIO()
         self.inner_subcon._build(obj, stream, context)
         return stream.getvalue()
+
 
 class ExprAdapter(Adapter):
     """
@@ -289,23 +330,29 @@ class ExprAdapter(Adapter):
     )
     """
     __slots__ = ["_encode", "_decode"]
+
     def __init__(self, subcon, encoder, decoder):
         Adapter.__init__(self, subcon)
         self._encode = encoder
         self._decode = decoder
+
 
 class HexDumpAdapter(Adapter):
     """
     Adapter for hex-dumping strings. It returns a HexString, which is a string
     """
     __slots__ = ["linesize"]
+
     def __init__(self, subcon, linesize=16):
         Adapter.__init__(self, subcon)
         self.linesize = linesize
+
     def _encode(self, obj, context):
         return obj
+
     def _decode(self, obj, context):
         return HexString(obj, linesize=self.linesize)
+
 
 class ConstAdapter(Adapter):
     """
@@ -320,18 +367,22 @@ class ConstAdapter(Adapter):
     Const(Field("signature", 2), "MZ")
     """
     __slots__ = ["value"]
+
     def __init__(self, subcon, value):
         Adapter.__init__(self, subcon)
         self.value = value
+
     def _encode(self, obj, context):
         if obj is None or obj == self.value:
             return self.value
         else:
             raise ConstError("expected %r, found %r" % (self.value, obj))
+
     def _decode(self, obj, context):
         if obj != self.value:
             raise ConstError("expected %r, found %r" % (self.value, obj))
         return obj
+
 
 class SlicingAdapter(Adapter):
     """
@@ -344,16 +395,20 @@ class SlicingAdapter(Adapter):
     * step - step (or None for every element)
     """
     __slots__ = ["start", "stop", "step"]
+
     def __init__(self, subcon, start, stop=None):
         Adapter.__init__(self, subcon)
         self.start = start
         self.stop = stop
+
     def _encode(self, obj, context):
         if self.start is None:
             return obj
         return [None] * self.start + obj
+
     def _decode(self, obj, context):
         return obj[self.start:self.stop]
+
 
 class IndexingAdapter(Adapter):
     """
@@ -364,15 +419,19 @@ class IndexingAdapter(Adapter):
     * index - the index of the list to get
     """
     __slots__ = ["index"]
+
     def __init__(self, subcon, index):
         Adapter.__init__(self, subcon)
         if type(index) is not int:
             raise TypeError("index must be an integer", type(index))
         self.index = index
+
     def _encode(self, obj, context):
         return [None] * self.index + [obj]
+
     def _decode(self, obj, context):
         return obj[self.index]
+
 
 class PaddingAdapter(Adapter):
     r"""
@@ -385,12 +444,15 @@ class PaddingAdapter(Adapter):
       padding matches the padding pattern. default is False (unstrict)
     """
     __slots__ = ["pattern", "strict"]
+
     def __init__(self, subcon, pattern=b"\x00", strict=False):
         Adapter.__init__(self, subcon)
         self.pattern = pattern
         self.strict = strict
+
     def _encode(self, obj, context):
         return self._sizeof(context) * self.pattern
+
     def _decode(self, obj, context):
         if self.strict:
             expected = self._sizeof(context) * self.pattern
@@ -411,14 +473,18 @@ class Validator(Adapter):
     * subcon - the subcon to validate
     """
     __slots__ = []
+
     def _decode(self, obj, context):
         if not self._validate(obj, context):
             raise ValidationError("invalid object", obj)
         return obj
+
     def _encode(self, obj, context):
         return self._decode(obj, context)
+
     def _validate(self, obj, context):
         raise NotImplementedError()
+
 
 class OneOf(Validator):
     """
@@ -442,11 +508,14 @@ class OneOf(Validator):
     construct.core.ValidationError: ('invalid object', 9)
     """
     __slots__ = ["valids"]
+
     def __init__(self, subcon, valids):
         Validator.__init__(self, subcon)
         self.valids = valids
+
     def _validate(self, obj, context):
         return obj in self.valids
+
 
 class NoneOf(Validator):
     """
@@ -463,8 +532,10 @@ class NoneOf(Validator):
     construct.core.ValidationError: ('invalid object', 6)
     """
     __slots__ = ["invalids"]
+
     def __init__(self, subcon, invalids):
         Validator.__init__(self, subcon)
         self.invalids = invalids
+
     def _validate(self, obj, context):
         return obj not in self.invalids

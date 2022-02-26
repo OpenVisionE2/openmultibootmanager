@@ -45,6 +45,7 @@ else:
     def str2bytes(s): return s
     int2byte = chr
     byte2int = ord
+
     def iterbytes(b):
         return iter(b)
 
@@ -57,13 +58,16 @@ def iterkeys(d):
     """Return an iterator over the keys of a dictionary."""
     return getattr(d, 'keys' if PY3 else 'iterkeys')()
 
+
 def itervalues(d):
     """Return an iterator over the values of a dictionary."""
     return getattr(d, 'values' if PY3 else 'itervalues')()
 
+
 def iteritems(d):
     """Return an iterator over the items of a dictionary."""
     return getattr(d, 'items' if PY3 else 'iteritems')()
+
 
 try:
     from collections.abc import Mapping  # python >= 3.3

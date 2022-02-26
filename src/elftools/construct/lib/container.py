@@ -5,6 +5,7 @@ Various containers.
 from pprint import pformat
 from .py3compat import MutableMapping
 
+
 def recursion_lock(retval, lock_name="__recursion_lock__"):
     def decorator(func):
         def wrapper(self, *args, **kw):
@@ -18,6 +19,7 @@ def recursion_lock(retval, lock_name="__recursion_lock__"):
         wrapper.__name__ = func.__name__
         return wrapper
     return decorator
+
 
 class Container(MutableMapping):
     """
@@ -85,6 +87,7 @@ class Container(MutableMapping):
     def __str__(self):
         return "%s(%s)" % (self.__class__.__name__, str(self.__dict__))
 
+
 class FlagsContainer(Container):
     """
     A container providing pretty-printing for flags.
@@ -98,6 +101,7 @@ class FlagsContainer(Container):
                  if self[k] and not k.startswith("_"))
         return "%s(%s)" % (self.__class__.__name__, pformat(d))
 
+
 class ListContainer(list):
     """
     A container for lists.
@@ -108,6 +112,7 @@ class ListContainer(list):
     @recursion_lock("[...]")
     def __str__(self):
         return pformat(self)
+
 
 class LazyContainer(object):
 

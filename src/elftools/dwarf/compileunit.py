@@ -29,6 +29,7 @@ class CompileUnit(object):
         To get the top-level DIE describing the compilation unit, call the
         get_top_DIE method.
     """
+
     def __init__(self, header, dwarfinfo, structs, cu_offset, cu_die_offset):
         """ header:
                 CU header for this compile unit

@@ -51,12 +51,16 @@ class Probe(Construct):
         self.show_context = show_context
         self.show_stack = show_stack
         self.stream_lookahead = stream_lookahead
+
     def __repr__(self):
         return "%s(%r)" % (self.__class__.__name__, self.printname)
+
     def _parse(self, stream, context):
         self.printout(stream, context)
+
     def _build(self, obj, stream, context):
         self.printout(stream, context)
+
     def _sizeof(self, context):
         return 0
 
@@ -89,6 +93,7 @@ class Probe(Construct):
         print(obj)
         print("=" * 80)
 
+
 class Debugger(Subconstruct):
     """
     A pdb-based debugger. When an exception occurs in the subcon, a debugger
@@ -107,6 +112,7 @@ class Debugger(Subconstruct):
     )
     """
     __slots__ = ["retval"]
+
     def _parse(self, stream, context):
         try:
             return self.subcon._parse(stream, context)
@@ -118,11 +124,13 @@ class Debugger(Subconstruct):
                 raise
             else:
                 return self.retval
+
     def _build(self, obj, stream, context):
         try:
             self.subcon._build(obj, stream, context)
         except Exception:
             self.handle_exc()
+
     def handle_exc(self, msg=None):
         print("=" * 80)
         print("Debugging exception of %s:" % (self.subcon,))

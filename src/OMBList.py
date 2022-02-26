@@ -10,6 +10,7 @@ from .OMBManagerInstall import OMB_GETBOXTYPE, OMB_GETBRANDOEM, OMB_GETIMAGEDIST
 from .OMBManagerCommon import OMB_DATA_DIR, OMB_UPLOAD_DIR
 from .OMBConfig import omb_legacy
 
+
 class OMBList():
 	def __init__(self, mount_point, debug=True):
 		mount_point = mount_point.rstrip("/")

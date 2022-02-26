@@ -29,6 +29,7 @@ class HexString(bytes):
     Represents bytes that will be hex-dumped to a string when its string
     representation is requested.
     """
+
     def __init__(self, data, linesize=16):
         self.linesize = linesize
 

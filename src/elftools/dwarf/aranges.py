@@ -20,6 +20,7 @@ import math
 ARangeEntry = namedtuple('ARangeEntry',
     'begin_addr length info_offset unit_length version address_size segment_size')
 
+
 class ARanges(object):
     """ ARanges table in DWARF
 
@@ -29,6 +30,7 @@ class ARanges(object):
         structs:
             A DWARFStructs instance for parsing the data
     """
+
     def __init__(self, stream, size, structs):
         self.stream = stream
         self.size = size
@@ -43,7 +45,6 @@ class ARanges(object):
         # Create list of keys (first addresses) for better searching
         self.keys = [entry.begin_addr for entry in self.entries]
 
-
     def cu_offset_at_addr(self, addr):
         """ Given an address, get the offset of the CU it belongs to, where
             'offset' refers to the offset in the .debug_info section.
@@ -54,8 +55,8 @@ class ARanges(object):
         else:
             return None
 
-
     #------ PRIVATE ------#
+
     def _get_entries(self):
         """ Populate self.entries with ARangeEntry tuples for each range of addresses
         """

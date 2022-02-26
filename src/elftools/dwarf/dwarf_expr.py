@@ -94,6 +94,7 @@ DW_OP_name2opcode = dict(
     DW_OP_hi_user=0xff,
 )
 
+
 def _generate_dynamic_values(map, prefix, index_start, index_end, value_start):
     """ Generate values in a map (dict) dynamically. Each key starts with
         a (string) prefix, followed by an index in the inclusive range
@@ -103,6 +104,7 @@ def _generate_dynamic_values(map, prefix, index_start, index_end, value_start):
         name = '%s%s' % (prefix, index)
         value = value_start + index - index_start
         map[name] = value
+
 
 _generate_dynamic_values(DW_OP_name2opcode, 'DW_OP_lit', 0, 31, 0x30)
 _generate_dynamic_values(DW_OP_name2opcode, 'DW_OP_reg', 0, 31, 0x50)
@@ -163,6 +165,7 @@ def _init_dispatch_table(structs):
     the stream is advanced by the function as needed.
     """
     table = {}
+
     def add(opcode_name, func):
         table[DW_OP_name2opcode[opcode_name]] = func
 

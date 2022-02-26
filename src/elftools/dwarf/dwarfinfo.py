@@ -59,6 +59,7 @@ class DWARFInfo(object):
     """ Acts also as a "context" to other major objects, bridging between
         various parts of the debug infromation.
     """
+
     def __init__(self,
             config,
             debug_info_sec,
@@ -401,7 +402,6 @@ class DWARFInfo(object):
         initial_length = struct_parse(
             self.structs.Dwarf_uint32(''), self.debug_info_sec.stream, offset)
         dwarf_format = 64 if initial_length == 0xFFFFFFFF else 32
-
 
         # Temporary structs for parsing the header
         # The structs for the rest of the CU depend on the header data.

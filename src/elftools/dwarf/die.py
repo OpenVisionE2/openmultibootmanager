@@ -68,6 +68,7 @@ class DIE(object):
 
         See also the public methods.
     """
+
     def __init__(self, cu, stream, offset):
         """ cu:
                 CompileUnit object this DIE belongs to. Used to obtain context

@@ -73,6 +73,7 @@ class DWARFStructs(object):
 
         See also the documentation of public methods.
     """
+
     def __init__(self,
                  little_endian, dwarf_format, address_size, dwarf_version=2):
         """ dwarf_version:
@@ -343,6 +344,7 @@ class _InitialLengthAdapter(Adapter):
     """ A standard Construct adapter that expects a sub-construct
         as a struct with one or two values (first, second).
     """
+
     def _decode(self, obj, context):
         if obj.first < 0xFFFFFF00:
             return obj.first

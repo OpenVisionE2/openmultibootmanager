@@ -145,6 +145,7 @@ class SUNW_SYMINFO_FLAGS(object):
     SYMINFO_FLG_CAP = 0x100
     SYMINFO_FLG_DEFERRED = 0x200
 
+
 class VER_FLAGS(object):
     VER_FLG_BASE = 0x1
     VER_FLG_WEAK = 0x2

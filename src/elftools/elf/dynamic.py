@@ -22,6 +22,7 @@ class _DynamicStringTable(object):
     """ Bare string table based on values found via ELF dynamic tags and
         loadable segments only.  Good enough for get_string() only.
     """
+
     def __init__(self, stream, table_offset):
         self._stream = stream
         self._table_offset = table_offset
@@ -73,6 +74,7 @@ class DynamicTag(object):
 class Dynamic(object):
     """ Shared functionality between dynamic sections and segments.
     """
+
     def __init__(self, stream, elffile, stringtable, position, empty):
         """
         stream:
@@ -226,6 +228,7 @@ class Dynamic(object):
 class DynamicSection(Section, Dynamic):
     """ ELF dynamic table section.  Knows how to process the list of tags.
     """
+
     def __init__(self, header, name, elffile):
         Section.__init__(self, header, name, elffile)
         stringtable = elffile.get_section(header['sh_link'])
@@ -236,6 +239,7 @@ class DynamicSection(Section, Dynamic):
 class DynamicSegment(Segment, Dynamic):
     """ ELF dynamic table segment.  Knows how to process the list of tags.
     """
+
     def __init__(self, header, stream, elffile):
         # The string table section to be used to resolve string names in
         # the dynamic tag array is the one pointed at by the sh_link field

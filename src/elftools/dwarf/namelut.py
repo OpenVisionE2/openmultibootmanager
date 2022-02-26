@@ -17,6 +17,7 @@ from ..construct import CString, Struct, If
 
 NameLUTEntry = collections.namedtuple('NameLUTEntry', 'cu_ofs die_ofs')
 
+
 class NameLUT(Mapping):
     """
     A "Name LUT" holds any of the tables specified by .debug_pubtypes or

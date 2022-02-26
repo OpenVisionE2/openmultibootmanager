@@ -23,6 +23,7 @@ class Section(object):
          > sec = Section(...)
          > sec['sh_type']  # section type
     """
+
     def __init__(self, header, name, elffile):
         self.header = header
         self.name = name
@@ -129,6 +130,7 @@ class Section(object):
 class NullSection(Section):
     """ ELF NULL section
     """
+
     def is_null(self):
         return True
 
@@ -136,6 +138,7 @@ class NullSection(Section):
 class StringTableSection(Section):
     """ ELF string table section.
     """
+
     def get_string(self, offset):
         """ Get the string stored at the given offset in this string table.
         """
@@ -151,6 +154,7 @@ class SymbolTableIndexSection(Section):
         SHN_XINDEX (0xffff). The format of the section is described at
         https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.sheader.html
     """
+
     def __init__(self, header, name, elffile, symboltable):
         super(SymbolTableIndexSection, self).__init__(header, name, elffile)
         self.symboltable = symboltable
@@ -168,6 +172,7 @@ class SymbolTableSection(Section):
     """ ELF symbol table section. Has an associated StringTableSection that's
         passed in the constructor.
     """
+
     def __init__(self, header, name, elffile, stringtable):
         super(SymbolTableSection, self).__init__(header, name, elffile)
         self.stringtable = stringtable
@@ -223,6 +228,7 @@ class Symbol(object):
         Similarly to Section objects, allows dictionary-like access to the
         symbol entry.
     """
+
     def __init__(self, entry, name):
         self.entry = entry
         self.name = name
@@ -237,6 +243,7 @@ class SUNWSyminfoTableSection(Section):
     """ ELF .SUNW Syminfo table section.
         Has an associated SymbolTableSection that's passed in the constructor.
     """
+
     def __init__(self, header, name, elffile, symboltable):
         super(SUNWSyminfoTableSection, self).__init__(header, name, elffile)
         self.symboltable = symboltable
@@ -271,6 +278,7 @@ class SUNWSyminfoTableSection(Section):
 class NoteSection(Section):
     """ ELF NOTE section. Knows how to parse notes.
     """
+
     def iter_notes(self):
         """ Yield all the notes in the section.  Each result is a dictionary-
             like object with "n_name", "n_type", and "n_desc" fields, amongst
@@ -282,6 +290,7 @@ class NoteSection(Section):
 class StabSection(Section):
     """ ELF stab section.
     """
+
     def iter_stabs(self):
         """ Yield all stab entries.  Result type is ELFStructs.Elf_Stabs.
         """
@@ -302,6 +311,7 @@ class StabSection(Section):
 class ARMAttribute(object):
     """ ARM attribute object - representing a build attribute of ARM ELF files.
     """
+
     def __init__(self, structs, stream):
         self._tag = struct_parse(structs.Elf_Attribute_Tag, stream)
         self.extra = None
@@ -354,6 +364,7 @@ class ARMAttribute(object):
 class ARMAttributesSubsubsection(object):
     """ Subsubsection of an ELF .ARM.attributes section's subsection.
     """
+
     def __init__(self, stream, structs, offset):
         self.stream = stream
         self.offset = offset
@@ -401,6 +412,7 @@ class ARMAttributesSubsubsection(object):
 class ARMAttributesSubsection(object):
     """ Subsection of an ELF .ARM.attributes section.
     """
+
     def __init__(self, stream, structs, offset):
         self.stream = stream
         self.offset = offset
@@ -459,6 +471,7 @@ class ARMAttributesSubsection(object):
 class ARMAttributesSection(Section):
     """ ELF .ARM.attributes section.
     """
+
     def __init__(self, header, name, elffile):
         super(ARMAttributesSection, self).__init__(header, name, elffile)
 

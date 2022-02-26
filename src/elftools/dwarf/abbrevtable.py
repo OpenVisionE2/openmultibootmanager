@@ -12,6 +12,7 @@ from ..common.utils import struct_parse, dwarf_assert
 class AbbrevTable(object):
     """ Represents a DWARF abbreviation table.
     """
+
     def __init__(self, structs, stream, offset):
         """ Create new abbreviation table. Parses the actual table from the
             stream and stores it internally.
@@ -59,6 +60,7 @@ class AbbrevDecl(object):
 
         The abbreviation declaration represents an "entry" that points to it.
     """
+
     def __init__(self, code, decl):
         self.code = code
         self.decl = decl

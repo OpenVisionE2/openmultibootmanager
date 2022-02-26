@@ -44,6 +44,7 @@ class CallFrameInfo(object):
             such as guessing which CU contains which FDEs (based on their
             address ranges) and taking the address_size from those CUs.
     """
+
     def __init__(self, stream, size, address, base_structs,
                  for_eh_frame=False):
         self.stream = stream
@@ -123,7 +124,6 @@ class CallFrameInfo(object):
                 header_struct, self.stream, offset)
         else:
             header = self._parse_fde_header(entry_structs, offset)
-
 
         # If this is DWARF version 4 or later, we can have a more precise
         # address size, read from the CIE header.
@@ -456,6 +456,7 @@ class CallFrameInstruction(object):
         arguments (including arguments embedded in the low bits of some
         instructions, when applicable), decoded from the stream.
     """
+
     def __init__(self, opcode, args):
         self.opcode = opcode
         self.args = args
@@ -477,6 +478,7 @@ class CFIEntry(object):
             CallFrameInfo._parse_cie_augmentation and
             http://www.airs.com/blog/archives/460.
     """
+
     def __init__(self, header, structs, instructions, offset,
             augmentation_dict=None, augmentation_bytes=b'', cie=None):
         self.header = header
@@ -647,6 +649,7 @@ class ZERO(object):
     in pure DWARF. `readelf` displays these as "ZERO terminator", hence the
     class name.
     """
+
     def __init__(self, offset):
         self.offset = offset
 
@@ -677,6 +680,7 @@ class CFARule(object):
     """ A CFA rule is used to compute the CFA for each location. It either
         consists of a register+offset, or a DWARF expression.
     """
+
     def __init__(self, reg=None, offset=None, expr=None):
         self.reg = reg
         self.offset = offset

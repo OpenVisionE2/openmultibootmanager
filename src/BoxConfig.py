@@ -10,6 +10,7 @@ from .elftools.elf.segments import InterpSegment
 
 e2_path = '/usr/lib/enigma2/python'
 
+
 class BoxConfig:  # To maintain data integrity class variables should not be accessed from outside of this class!
 	def __init__(self, root="", debug=True):
 		self.procList = []

@@ -166,6 +166,7 @@ def describe_reg_name(regnum, machine_arch=None, default=True):
     else:
         return None
 
+
 def describe_form_class(form):
     """For a given form name, determine its value class.
 
@@ -188,26 +189,33 @@ _MACHINE_ARCH = None
 def _describe_attr_ref(attr, die, section_offset):
     return '<0x%x>' % (attr.value + die.cu.cu_offset)
 
+
 def _describe_attr_value_passthrough(attr, die, section_offset):
     return attr.value
+
 
 def _describe_attr_hex(attr, die, section_offset):
     return '0x%x' % (attr.value)
 
+
 def _describe_attr_hex_addr(attr, die, section_offset):
     return '<0x%x>' % (attr.value)
+
 
 def _describe_attr_split_64bit(attr, die, section_offset):
     low_word = attr.value & 0xFFFFFFFF
     high_word = (attr.value >> 32) & 0xFFFFFFFF
     return '0x%x 0x%x' % (low_word, high_word)
 
+
 def _describe_attr_strp(attr, die, section_offset):
     return '(indirect string, offset: 0x%x): %s' % (
         attr.raw_value, bytes2str(attr.value))
 
+
 def _describe_attr_string(attr, die, section_offset):
     return bytes2str(attr.value)
+
 
 def _describe_attr_debool(attr, die, section_offset):
     """ To be consistent with readelf, generate 1 for True flags, 0 for False
@@ -215,11 +223,13 @@ def _describe_attr_debool(attr, die, section_offset):
     """
     return '1' if attr.value else '0'
 
+
 def _describe_attr_present(attr, die, section_offset):
     """ Some forms may simply mean that an attribute is present,
         without providing any value.
     """
     return '1'
+
 
 def _describe_attr_block(attr, die, section_offset):
     s = '%s byte block: ' % len(attr.value)
@@ -394,6 +404,7 @@ _DESCR_CFI_REGISTER_RULE_TYPE = dict(
     ARCHITECTURAL='a',
 )
 
+
 def _make_extra_mapper(mapping, default, default_interpolate_value=False):
     """ Create a mapping function from attribute parameters to an extra
         value that should be displayed.
@@ -416,6 +427,7 @@ def _make_extra_string(s=''):
 
 
 _DWARF_EXPR_DUMPER_CACHE = {}
+
 
 def _location_list_extra(attr, die, section_offset):
     # According to section 2.6 of the DWARF spec v3, class loclistptr means
@@ -557,6 +569,7 @@ class ExprDumper(object):
 
         Usage: after creation, call dump_expr repeatedly - it's stateless.
     """
+
     def __init__(self, structs):
         self.structs = structs
         self.expr_parser = DWARFExprParser(self.structs)

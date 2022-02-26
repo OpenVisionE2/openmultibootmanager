@@ -41,6 +41,7 @@ from ..ehabi.ehabiinfo import EHABIInfo
 from .hash import ELFHashSection, GNUHashSection
 from .constants import SHN_INDICES
 
+
 class ELFFile(object):
     """ Creation: the constructor accepts a stream (file-like object) with the
         contents of an ELF file.
@@ -68,6 +69,7 @@ class ELFFile(object):
             e_ident_raw:
                 the raw e_ident field of the header
     """
+
     def __init__(self, stream):
         self.stream = stream
         self._identify_file()

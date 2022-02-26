@@ -23,6 +23,7 @@ class Relocation(object):
 
         Can be either a REL or RELA relocation.
     """
+
     def __init__(self, entry, elffile):
         self.entry = entry
         self.elffile = elffile
@@ -95,6 +96,7 @@ class RelocationTable(object):
 class RelocationSection(Section, RelocationTable):
     """ ELF relocation section. Serves as a collection of Relocation entries.
     """
+
     def __init__(self, header, name, elffile):
         Section.__init__(self, header, name, elffile)
         RelocationTable.__init__(self, self.elffile,
@@ -110,6 +112,7 @@ class RelocationSection(Section, RelocationTable):
 class RelocationHandler(object):
     """ Handles the logic of relocations in ELF files.
     """
+
     def __init__(self, elffile):
         self.elffile = elffile
 

@@ -1,5 +1,6 @@
 from .binary import encode_bin, decode_bin
 
+
 class BitStreamReader(object):
 
     __slots__ = ["substream", "buffer", "total_size"]
@@ -43,6 +44,7 @@ class BitStreamReader(object):
             self.buffer = buf[count:]
         self.total_size += len(data)
         return data
+
 
 class BitStreamWriter(object):
 

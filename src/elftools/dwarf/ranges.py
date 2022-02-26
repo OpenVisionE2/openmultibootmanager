@@ -20,6 +20,7 @@ class RangeLists(object):
     """ A single range list is a Python list consisting of RangeEntry or
         BaseAddressEntry objects.
     """
+
     def __init__(self, stream, structs):
         self.stream = stream
         self.structs = structs

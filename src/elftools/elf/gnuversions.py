@@ -24,6 +24,7 @@ class Version(object):
         Similarly to Section objects, allows dictionary-like access to
         verdef/verneed entry
     """
+
     def __init__(self, entry, name=None):
         self.entry = entry
         self.name = name
@@ -41,6 +42,7 @@ class VersionAuxiliary(object):
         Similarly to Section objects, allows dictionary-like access to the
         verdaux/vernaux entry
     """
+
     def __init__(self, entry, name):
         self.entry = entry
         self.name = name
@@ -129,6 +131,7 @@ class GNUVerNeedSection(GNUVersionSection):
     """ ELF SUNW or GNU Version Needed table section.
         Has an associated StringTableSection that's passed in the constructor.
     """
+
     def __init__(self, header, name, elffile, stringtable):
         super(GNUVerNeedSection, self).__init__(
                 header, name, elffile, stringtable, 'vn',
@@ -172,6 +175,7 @@ class GNUVerDefSection(GNUVersionSection):
     """ ELF SUNW or GNU Version Definition table section.
         Has an associated StringTableSection that's passed in the constructor.
     """
+
     def __init__(self, header, name, elffile, stringtable):
         super(GNUVerDefSection, self).__init__(
                 header, name, elffile, stringtable, 'vd',
@@ -194,6 +198,7 @@ class GNUVerSymSection(Section):
     """ ELF SUNW or GNU Versym table section.
         Has an associated SymbolTableSection that's passed in the constructor.
     """
+
     def __init__(self, header, name, elffile, symboltable):
         super(GNUVerSymSection, self).__init__(header, name, elffile)
         self.symboltable = symboltable

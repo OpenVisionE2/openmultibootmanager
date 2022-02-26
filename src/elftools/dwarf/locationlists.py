@@ -15,10 +15,12 @@ LocationExpr = namedtuple('LocationExpr', 'loc_expr')
 LocationEntry = namedtuple('LocationEntry', 'entry_offset begin_offset end_offset loc_expr')
 BaseAddressEntry = namedtuple('BaseAddressEntry', 'entry_offset base_address')
 
+
 class LocationLists(object):
     """ A single location list is a Python list consisting of LocationEntry or
         BaseAddressEntry objects.
     """
+
     def __init__(self, stream, structs):
         self.stream = stream
         self.structs = structs
@@ -71,6 +73,7 @@ class LocationLists(object):
                     loc_expr=loc_expr))
         return lst
 
+
 class LocationParser(object):
     """ A parser for location information in DIEs.
         Handles both location information contained within the attribute
@@ -78,6 +81,7 @@ class LocationParser(object):
         location lists in the .debug_loc section (represented as a
         list).
     """
+
     def __init__(self, location_lists):
         self.location_lists = location_lists
 

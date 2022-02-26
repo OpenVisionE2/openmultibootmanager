@@ -60,6 +60,7 @@ Embed = Embedded
 import functools
 import warnings
 
+
 def deprecated(f):
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
@@ -68,6 +69,7 @@ def deprecated(f):
             DeprecationWarning, stacklevel=2)
         return f(*args, **kwargs)
     return wrapper
+
 
 MetaBytes = deprecated(MetaField)
 GreedyRepeater = deprecated(GreedyRange)

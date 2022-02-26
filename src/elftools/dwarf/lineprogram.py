@@ -46,6 +46,7 @@ class LineState(object):
         The instance variables of this class are the "state machine registers"
         described in section 6.2.2 of DWARFv3
     """
+
     def __init__(self, default_is_stmt):
         self.address = 0
         self.file = 1
@@ -76,6 +77,7 @@ class LineProgram(object):
         sorted by increasing address, so it can be used to obtain the
         state information for each address.
     """
+
     def __init__(self, header, stream, structs,
                  program_start_offset, program_end_offset):
         """
