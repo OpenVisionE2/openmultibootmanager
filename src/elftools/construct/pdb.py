@@ -448,7 +448,7 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         print >>self.stdout, msg
 
     def error(self, msg):
-        print >>self.stdout,'***', msg
+        print >>self.stdout, '***', msg
 
     # Generic completion functions.  Individual complete_foo methods can be
     # assigned below to one of these functions.

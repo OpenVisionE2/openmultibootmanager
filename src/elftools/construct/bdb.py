@@ -6,7 +6,7 @@ import sys
 import os
 import types
 
-__all__ = ["BdbQuit","Bdb","Breakpoint"]
+__all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 
 class BdbQuit(Exception):
     """Exception to give up completely"""
@@ -575,7 +575,7 @@ def effective(file, line, frame):
     that indicates if it is ok to delete a temporary bp.
 
     """
-    possibles = Breakpoint.bplist[file,line]
+    possibles = Breakpoint.bplist[file, line]
     for i in range(0, len(possibles)):
         b = possibles[i]
         if b.enabled == 0:
@@ -593,7 +593,7 @@ def effective(file, line, frame):
             else:
                 # breakpoint and marker that's ok
                 # to delete if temporary
-                return (b,1)
+                return (b, 1)
         else:
             # Conditional bp.
             # Ignore count applies only to those bpt hits where the
@@ -606,7 +606,7 @@ def effective(file, line, frame):
                         b.ignore = b.ignore - 1
                         # continue
                     else:
-                        return (b,1)
+                        return (b, 1)
                 # else:
                 #   continue
             except:
@@ -615,7 +615,7 @@ def effective(file, line, frame):
                 # regardless of ignore count.
                 # Don't delete temporary,
                 # as another hint to user.
-                return (b,0)
+                return (b, 0)
     return (None, None)
 
 # -------------------- testing --------------------
