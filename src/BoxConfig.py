@@ -76,7 +76,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				lines.append("distro=" + distro_name)
 				lines.append("imageversion=" + distro_version)
 			except Exception as e:
-				print(("OMBDEBUG:", e))
+				print("OMBDEBUG:", e)
 				pass
 
 			try:
