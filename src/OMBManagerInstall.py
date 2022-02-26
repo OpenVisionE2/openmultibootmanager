@@ -23,6 +23,7 @@
 #
 #############################################################################
 
+from __future__ import print_function
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
@@ -439,7 +440,7 @@ class OMBManagerInstall(Screen):
 # prevent funny cases for non standard images.
 # My apologies to Sandro for this bad code.
 		try:
-			for pyver in ["2.7", "3.9"]:
+			for pyver in ["2.7", "3.9", "3.10"]:
 				if os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
 					if not os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
@@ -451,7 +452,7 @@ class OMBManagerInstall(Screen):
 		except:
 			pass
 		try:
-			for pyver in ["2.7", "3.9"]:
+			for pyver in ["2.7", "3.9", "3.10"]:
 				if os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
 					if not os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python' + pyver  + '/boxbranding.so")
