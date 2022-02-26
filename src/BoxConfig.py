@@ -70,11 +70,11 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 
 			try:
 				issue = "%s/etc/issue" % root
-				(distro_name,distro_version) = open(issue, "r").readlines()[-2].split(" ")[0:2]
+				(distro_name, distro_version) = open(issue, "r").readlines()[-2].split(" ")[0:2]
 				lines.append("distro=" + distro_name)
 				lines.append("imageversion=" + distro_version)
 			except Exception as e:
-				print ("OMBDEBUG:",e)
+				print ("OMBDEBUG:", e)
 				pass
 
 			try:
