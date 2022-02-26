@@ -355,7 +355,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             self.message(repr(obj))
 
     def default(self, line):
-        if line[:1] == '!': line = line[1:]
+        if line[:1] == '!':
+            line = line[1:]
         locals = self.curframe_locals
         globals = self.curframe.f_globals
         try:
@@ -713,7 +714,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
             id = idstring[1].strip()
         else:
             return failed
-        if id == '': return failed
+        if id == '':
+            return failed
         parts = id.split('.')
         # Protection for derived debuggers
         if parts[0] == 'self':
@@ -1124,8 +1126,10 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         co = self.curframe.f_code
         dict = self.curframe_locals
         n = co.co_argcount
-        if co.co_flags & 4: n = n+1
-        if co.co_flags & 8: n = n+1
+        if co.co_flags & 4:
+            n = n+1
+        if co.co_flags & 8:
+            n = n+1
         for i in range(n):
             name = co.co_varnames[i]
             if name in dict:
@@ -1411,7 +1415,8 @@ class Pdb(bdb.Bdb, cmd.Cmd):
         Delete the specified alias.
         """
         args = arg.split()
-        if len(args) == 0: return
+        if len(args) == 0:
+            return
         if args[0] in self.aliases:
             del self.aliases[args[0]]
 

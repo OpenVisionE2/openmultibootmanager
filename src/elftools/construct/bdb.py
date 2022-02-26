@@ -66,7 +66,8 @@ class Bdb:
     def dispatch_line(self, frame):
         if self.stop_here(frame) or self.break_here(frame):
             self.user_line(frame)
-            if self.quitting: raise BdbQuit
+            if self.quitting:
+                raise BdbQuit
         return self.trace_dispatch
 
     def dispatch_call(self, frame, arg):
@@ -79,7 +80,8 @@ class Bdb:
             # No need to trace this function
             return # None
         self.user_call(frame, arg)
-        if self.quitting: raise BdbQuit
+        if self.quitting:
+            raise BdbQuit
         return self.trace_dispatch
 
     def dispatch_return(self, frame, arg):
@@ -89,13 +91,15 @@ class Bdb:
                 self.user_return(frame, arg)
             finally:
                 self.frame_returning = None
-            if self.quitting: raise BdbQuit
+            if self.quitting:
+                raise BdbQuit
         return self.trace_dispatch
 
     def dispatch_exception(self, frame, arg):
         if self.stop_here(frame):
             self.user_exception(frame, arg)
-            if self.quitting: raise BdbQuit
+            if self.quitting:
+                raise BdbQuit
         return self.trace_dispatch
 
     # Normally derived classes don't override the following
@@ -382,7 +386,8 @@ class Bdb:
             s = s + '->'
             s = s + repr.repr(rv)
         line = linecache.getline(filename, lineno, frame.f_globals)
-        if line: s = s + lprefix + line.strip()
+        if line:
+            s = s + lprefix + line.strip()
         return s
 
     # The following two methods can be called by clients to use
@@ -525,8 +530,10 @@ class Breakpoint:
         if self.ignore:
             print >>out, '\tignore next %d hits' % (self.ignore)
         if (self.hits):
-            if (self.hits > 1): ss = 's'
-            else: ss = ''
+            if (self.hits > 1):
+                ss = 's'
+            else:
+                ss = ''
             print >>out, ('\tbreakpoint already hit %d time%s' %
                           (self.hits, ss))
 
@@ -616,12 +623,14 @@ def effective(file, line, frame):
 class Tdb(Bdb):
     def user_call(self, frame, args):
         name = frame.f_code.co_name
-        if not name: name = '???'
+        if not name:
+            name = '???'
         print ('+++ call', name, args)
     def user_line(self, frame):
         import linecache
         name = frame.f_code.co_name
-        if not name: name = '???'
+        if not name:
+            name = '???'
         fn = self.canonic(frame.f_code.co_filename)
         line = linecache.getline(fn, frame.f_lineno, frame.f_globals)
         print ('+++', fn, frame.f_lineno, name, ':', line.strip())
