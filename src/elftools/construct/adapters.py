@@ -422,7 +422,7 @@ class IndexingAdapter(Adapter):
 
     def __init__(self, subcon, index):
         Adapter.__init__(self, subcon)
-        if type(index) is not int:
+        if not isinstance(index, int):
             raise TypeError("index must be an integer", type(index))
         self.index = index
 

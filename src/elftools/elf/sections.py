@@ -343,7 +343,7 @@ class ARMAttribute(object):
         elif self.tag == 'TAG_ALSO_COMPATIBLE_WITH':
             self.value = ARMAttribute(structs, stream)
 
-            if type(self.value.value) is not str:
+            if not isinstance(self.value.value, str):
                 nul = struct_parse(structs.Elf_byte('nul'), stream)
                 elf_assert(nul == 0,
                            "Invalid terminating byte %r, expecting NUL." % nul)

@@ -111,7 +111,7 @@ class Construct(object):
 
     def __init__(self, name, flags=0):
         if name is not None:
-            if type(name) is not str:
+            if not isinstance(name, str):
                 raise TypeError("name must be a string or None", name)
             if name == "_" or name.startswith("<"):
                 raise ValueError("reserved name", name)
