@@ -103,7 +103,7 @@ def Flag(name, truth=1, falsehood=0, default=False):
     """
 
     return SymmetricMapping(Field(name, 1),
-        {True : int2byte(truth), False : int2byte(falsehood)},
+        {True: int2byte(truth), False: int2byte(falsehood)},
         default=default,
     )
 
@@ -593,8 +593,8 @@ def IfThenElse(name, predicate, then_subcon, else_subcon):
     """
     return Switch(name, lambda ctx: bool(predicate(ctx)),
         {
-            True : then_subcon,
-            False : else_subcon,
+            True: then_subcon,
+            False: else_subcon,
         }
     )
 

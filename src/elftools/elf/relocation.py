@@ -125,7 +125,7 @@ class RelocationHandler(object):
         # that either .rel or .rela section exists for this section, but
         # not both.
         for relsection in self.elffile.iter_sections():
-            if (    isinstance(relsection, RelocationSection) and
+            if (isinstance(relsection, RelocationSection) and
                     relsection.name in reloc_section_names):
                 return relsection
         return None

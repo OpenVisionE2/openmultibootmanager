@@ -72,7 +72,7 @@ def swap_bytes(bits, bytesize=8):
     output = [b""] * ((l // bytesize) + 1)
     j = len(output) - 1
     while i < l:
-        output[j] = bits[i : i + bytesize]
+        output[j] = bits[i: i + bytesize]
         i += bytesize
         j -= 1
     return b"".join(output)

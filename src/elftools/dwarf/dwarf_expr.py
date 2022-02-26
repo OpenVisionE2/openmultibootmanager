@@ -213,7 +213,7 @@ def _init_dispatch_table(structs):
     add('DW_OP_bra', parse_arg_struct(structs.Dwarf_int16('')))
     add('DW_OP_skip', parse_arg_struct(structs.Dwarf_int16('')))
 
-    for opname in [ 'DW_OP_deref', 'DW_OP_dup', 'DW_OP_drop', 'DW_OP_over',
+    for opname in ['DW_OP_deref', 'DW_OP_dup', 'DW_OP_drop', 'DW_OP_over',
                     'DW_OP_swap', 'DW_OP_swap', 'DW_OP_rot', 'DW_OP_xderef',
                     'DW_OP_abs', 'DW_OP_and', 'DW_OP_div', 'DW_OP_minus',
                     'DW_OP_mod', 'DW_OP_mul', 'DW_OP_neg', 'DW_OP_not',

@@ -356,7 +356,7 @@ class DWARFInfo(object):
             # Compute the offset of the next CU in the section. The unit_length
             # field of the CU header contains its size not including the length
             # field itself.
-            offset = (  offset +
+            offset = (offset +
                         cu['unit_length'] +
                         cu.structs.initial_length_field_size())
             yield cu
@@ -449,7 +449,7 @@ class DWARFInfo(object):
             debug_line_offset)
 
         # Calculate the offset to the next line program (see DWARF 6.2.4)
-        end_offset = (  debug_line_offset + lineprog_header['unit_length'] +
+        end_offset = (debug_line_offset + lineprog_header['unit_length'] +
                         structs.initial_length_field_size())
 
         return LineProgram(

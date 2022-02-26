@@ -547,7 +547,7 @@ class CFIEntry(object):
             if name == 'DW_CFA_set_loc':
                 table.append(copy.copy(cur_line))
                 cur_line['pc'] = instr.args[0]
-            elif name in (  'DW_CFA_advance_loc1', 'DW_CFA_advance_loc2',
+            elif name in ('DW_CFA_advance_loc1', 'DW_CFA_advance_loc2',
                             'DW_CFA_advance_loc4', 'DW_CFA_advance_loc'):
                 table.append(copy.copy(cur_line))
                 cur_line['pc'] += instr.args[0] * cie['code_alignment_factor']
@@ -575,7 +575,7 @@ class CFIEntry(object):
             elif name == 'DW_CFA_same_value':
                 _add_to_order(instr.args[0])
                 cur_line[instr.args[0]] = RegisterRule(RegisterRule.SAME_VALUE)
-            elif name in (  'DW_CFA_offset', 'DW_CFA_offset_extended',
+            elif name in ('DW_CFA_offset', 'DW_CFA_offset_extended',
                             'DW_CFA_offset_extended_sf'):
                 _add_to_order(instr.args[0])
                 cur_line[instr.args[0]] = RegisterRule(

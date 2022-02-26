@@ -71,7 +71,7 @@ def describe_CFI_instructions(entry):
             s += '  %s: %s at cfa%+d\n' % (
                 name, _full_reg_name(instr.args[0]),
                 instr.args[1] * cie['data_alignment_factor'])
-        elif name in (  'DW_CFA_restore', 'DW_CFA_restore_extended',
+        elif name in ('DW_CFA_restore', 'DW_CFA_restore_extended',
                         'DW_CFA_undefined', 'DW_CFA_same_value',
                         'DW_CFA_def_cfa_register'):
             s += '  %s: %s\n' % (name, _full_reg_name(instr.args[0]))
@@ -82,14 +82,14 @@ def describe_CFI_instructions(entry):
         elif name == 'DW_CFA_set_loc':
             pc = instr.args[0]
             s += '  %s: %08x\n' % (name, pc)
-        elif name in (  'DW_CFA_advance_loc1', 'DW_CFA_advance_loc2',
+        elif name in ('DW_CFA_advance_loc1', 'DW_CFA_advance_loc2',
                         'DW_CFA_advance_loc4', 'DW_CFA_advance_loc'):
             _assert_FDE_instruction(instr)
             factored_offset = instr.args[0] * cie['code_alignment_factor']
             s += '  %s: %s to %08x\n' % (
                 name, factored_offset, factored_offset + pc)
             pc += factored_offset
-        elif name in (  'DW_CFA_remember_state', 'DW_CFA_restore_state',
+        elif name in ('DW_CFA_remember_state', 'DW_CFA_restore_state',
                         'DW_CFA_nop'):
             s += '  %s\n' % name
         elif name == 'DW_CFA_def_cfa':

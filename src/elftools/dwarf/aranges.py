@@ -64,7 +64,7 @@ class ARanges(object):
         offset = 0
 
         # one loop == one "set" == one CU
-        while offset < self.size :
+        while offset < self.size:
             aranges_header = struct_parse(self.structs.Dwarf_aranges_header,
                 self.stream, offset)
             addr_size = self._get_addr_size_struct(aranges_header["address_size"])
