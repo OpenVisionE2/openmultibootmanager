@@ -61,7 +61,7 @@ class Bdb:
             return self.trace_dispatch
         if event == 'c_return':
             return self.trace_dispatch
-        print ('bdb.Bdb.dispatch: unknown debugging event:', repr(event))
+        print('bdb.Bdb.dispatch: unknown debugging event:', repr(event))
         return self.trace_dispatch
 
     def dispatch_line(self, frame):
@@ -405,7 +405,7 @@ class Bdb:
         if not isinstance(cmd, types.CodeType):
             cmd = cmd + '\n'
         try:
-            exec (cmd) in globals, locals
+            exec(cmd) in globals, locals
         except BdbQuit:
             pass
         finally:
@@ -629,7 +629,7 @@ class Tdb(Bdb):
         name = frame.f_code.co_name
         if not name:
             name = '???'
-        print ('+++ call', name, args)
+        print('+++ call', name, args)
 
     def user_line(self, frame):
         import linecache
@@ -638,24 +638,24 @@ class Tdb(Bdb):
             name = '???'
         fn = self.canonic(frame.f_code.co_filename)
         line = linecache.getline(fn, frame.f_lineno, frame.f_globals)
-        print ('+++', fn, frame.f_lineno, name, ':', line.strip())
+        print('+++', fn, frame.f_lineno, name, ':', line.strip())
 
     def user_return(self, frame, retval):
-        print ('+++ return', retval)
+        print('+++ return', retval)
 
     def user_exception(self, frame, exc_stuff):
-        print ('+++ exception', exc_stuff)
+        print('+++ exception', exc_stuff)
         self.set_continue()
 
 
 def foo(n):
-    print ('foo(', n, ')')
+    print('foo(', n, ')')
     x = bar(n * 10)
-    print ('bar returned', x)
+    print('bar returned', x)
 
 
 def bar(a):
-    print ('bar(', a, ')')
+    print('bar(', a, ')')
     return a / 2
 
 

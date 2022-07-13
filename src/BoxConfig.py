@@ -25,13 +25,13 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				lines = fd.read().splitlines()
 				lines.append("probemode=boxconfig")
 			if debug:
-				print ("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
+				print("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
 		except (IOError, OSError) as err:
 			if err.errno != errno.ENOENT:  # ENOENT - No such file or directory.
 				print("[BoxConfig] Error %d: Unable to read lines from file '%s'! (%s)" % (err.errno, path, err.strerror))
 			elif os.path.exists(root + e2_path + '/boxbranding.so'):
 				if debug:
-					print ("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
+					print("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
 				# retrieve dynamic_loader for target path
 				dynamic_loader = None
 				header = None
@@ -51,7 +51,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 				p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				rc = p.wait()
 				if debug:
-					print ("[BoxConfig(OMB)]: rc=%d" % rc)
+					print("[BoxConfig(OMB)]: rc=%d" % rc)
 				if rc == 0:
 					try:
 						lines = p.stdout.readlines()
@@ -65,7 +65,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 		if not lines:
 			lines = []
 			if debug:
-				print ("[BoxConfig(OMB)]: fallback Alternate (%s)" % root)
+				print("[BoxConfig(OMB)]: fallback Alternate (%s)" % root)
 
 			distro_name = None
 			distro_version = None
@@ -98,7 +98,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			else:
 				lines.append("probemode=alternate")
 				if debug:
-					print ("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
+					print("[BoxConfig(OMB)]: Alternate [%s]" % ", ".join(lines))
 
 		if lines:
 			lines.append("ombroot=%s" % root)

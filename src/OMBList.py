@@ -55,7 +55,7 @@ class OMBList():
 			# print (OMB_GETIMAGEVERSION)
 			return OMB_GETIMAGEDISTRO + " " + str(OMB_GETIMAGEVERSION)
 		except Exception as e:
-			print ("OMB: ERROR %s" % e)
+			print("OMB: ERROR %s" % e)
 			return identifier
 
 	def populateImagesList(self):

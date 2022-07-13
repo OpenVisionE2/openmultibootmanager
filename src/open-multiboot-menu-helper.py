@@ -20,4 +20,4 @@ if __name__ == "__main__":
 	ombList = OMBList.OMBList(ombdir, debug=debug)
 
 	ombList.populateImagesList()
-	print (ombList.getJson(debug=debug))
+	print(ombList.getJson(debug=debug))
