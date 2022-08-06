@@ -1,4 +1,4 @@
-from __future__ import print_function
+# -*- coding: utf-8 -*-
 #
 #	derived from code by OpenVision now in OE-A replacing earlier BoxBranding extraction code  code by Huevos
 #	this version uses the base functionality without reinventing the wheel

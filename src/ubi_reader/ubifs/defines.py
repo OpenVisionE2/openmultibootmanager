@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 #############################################################
 # Adapted in part from linux-source-3.2/fs/ubi/ubi-media.h

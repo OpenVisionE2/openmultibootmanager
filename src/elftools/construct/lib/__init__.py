@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .binary import (
     int_to_bin, bin_to_int, swap_bytes, encode_bin, decode_bin)
 from .bitstream import BitStreamReader, BitStreamWriter

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .py3compat import int2byte
 
 

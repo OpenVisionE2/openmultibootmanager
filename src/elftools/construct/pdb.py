@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #! /usr/bin/python
 
 """
@@ -63,7 +64,6 @@ Debugger commands
 =================
 
 """
-from __future__ import print_function
 # NOTE: the actual command documentation is collected from docstrings of the
 # commands and is appended to __doc__ after the class has been defined.
 

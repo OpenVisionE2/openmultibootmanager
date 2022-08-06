@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 """Debugger basics"""
 
-from __future__ import print_function
 import fnmatch
 import sys
 import os

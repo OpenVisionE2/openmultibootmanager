@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .py3compat import byte2int, int2byte, bytes2str
 
 

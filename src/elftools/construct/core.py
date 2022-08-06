@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from struct import Struct as Packer
 
 from .lib.py3compat import BytesIO, advance_iterator, bchr

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .lib.py3compat import int2byte
 from .lib import (BitStreamReader, BitStreamWriter, encode_bin,
     decode_bin)

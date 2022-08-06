@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .binary import encode_bin, decode_bin
 
 
