@@ -42,6 +42,9 @@ import glob
 import struct
 from Components.Console import Console
 from Components.SystemInfo import BoxInfo
+from Tools.PyVerHelper import getPyExt
+
+pyExt = getPyExt()
 
 OMB_GETBOXTYPE = BoxInfo.getItem("model")
 OMB_GETBRANDOEM = BoxInfo.getItem("brand")
@@ -315,9 +318,9 @@ class OMBManagerInstall(Screen):
 		# This is idea from EGAMI Team to handle universal UBIFS unpacking - used only for INI-HDp model
 		if OMB_GETBOXTYPE in ("xpeedlx3", "sezammarvel", "mbultra", "beyonwizt4", "atemionemesis"):
 			if path.isdir("/usr/lib64"):
-				ubifile = "/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
+				ubifile = "/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.%s" % pyExt
 			else:
-				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.pyo"
+				ubifile = "/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot/ubi_reader/ubi_extract_files.%s" % pyExt
 			Console().ePopen("chmod 755 %s" % ubifile)
 			Console().ePopen("python %s %s -o %s" % (ubifile, rootfs_path, ubi_path))
 			Console().ePopen("cp -rp %s/rootfs/* %s" % (ubi_path, dst_path))
@@ -442,11 +445,11 @@ class OMBManagerInstall(Screen):
 				if os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
 					if not os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib/python' + pyver + '/boxbranding.pyo'):
+					if os.path.exists(dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt):
 						os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib/python' + pyver + '/boxbranding.pyo')
-					if not os.path.exists(dst_path + "/usr/lib/python" + pyver + "/subprocess.pyo"):
-						os.system("cp /usr/lib/python" + pyver + "/subprocess.pyo " + dst_path + "/usr/lib/python" + pyver + "/subprocess.pyo")
+						os.system("rm -f " + dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt)
+					if not os.path.exists(dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt):
+						os.system("cp /usr/lib/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt)
 		except:
 			pass
 		try:
@@ -454,17 +457,17 @@ class OMBManagerInstall(Screen):
 				if os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
 					if not os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
 						os.system("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib64/python' + pyver + '/boxbranding.pyo'):
+					if os.path.exists(dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt):
 						os.system("cp /usr/lib64/enigma2/python/boxbranding.so " + dst_path + "/usr/lib64/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib64/python' + pyver + '/boxbranding.pyo')
-					if not os.path.exists(dst_path + "/usr/lib64/python" + pyver + "/subprocess.pyo"):
-						os.system("cp /usr/lib64/python" + pyver + "/subprocess.pyo " + dst_path + "/usr/lib64/python" + pyver + "/subprocess.pyo")
+						os.system("rm -f " + dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt)
+					if not os.path.exists(dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt):
+						os.system("cp /usr/lib64/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt)
 		except:
 			pass
 # OpenMultiboot installed in the multiboot image. where the init will go ?
 		if os.path.exists(dst_path + '/sbin/open_multiboot'):
 			Console().ePopen("rm -f %s/sbin/open_multiboot" % dst_path)
-			Console().ePopen("rm -f %s/sbin/open-multiboot-branding-helper.pyo" % dst_path)
+			Console().ePopen("rm -f %s/sbin/open-multiboot-branding-helper.%s" % (dst_path, pyExt))
 			Console().ePopen("rm -f %s/etc/ipk-postinsts/*-OpenMultiboot" % dst_path)
 # We can't create the init symlink because it will be overwrited by OpenMultiboot
 			Console().ePopen("ln -sfn /sbin/init.sysvinit %s/sbin/open_multiboot" % dst_path)
