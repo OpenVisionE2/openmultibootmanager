@@ -60,15 +60,15 @@ class OMBManagerList(Screen):
 					zPosition="1"
 					position="0,0"
 					size="560,360"
-					alphatest="on" />
+					alphaTest="on" />
 
 			<widget name="label1"
 					zPosition="2"
 					position="10,10"
 					size="540,30"
 					font="Regular;24"
-					halign="center"
-					valign="center"
+					horizontalAlignment="center"
+					verticalAlignment="center"
 					transparent="1" />
 
 			<widget name="label2"
@@ -76,8 +76,8 @@ class OMBManagerList(Screen):
 					position="10,40"
 					size="540,30"
 					font="Regular;24"
-					halign="center"
-					valign="center"
+					horizontalAlignment="center"
+					verticalAlignment="center"
 					transparent="1" />
 
 			<widget source="list"
@@ -93,8 +93,8 @@ class OMBManagerList(Screen):
 			<widget name="key_red"
 					position="0,360"
 					size="140,40"
-					valign="center"
-					halign="center"
+					verticalAlignment="center"
+					horizontalAlignment="center"
 					zPosition="5"
 					transparent="1"
 					foregroundColor="white"
@@ -103,8 +103,8 @@ class OMBManagerList(Screen):
 			<widget name="key_green"
 					position="140,360"
 					size="140,40"
-					valign="center"
-					halign="center"
+					verticalAlignment="center"
+					horizontalAlignment="center"
 					zPosition="5"
 					transparent="1"
 					foregroundColor="white"
@@ -113,8 +113,8 @@ class OMBManagerList(Screen):
 			<widget name="key_yellow"
 					position="280,360"
 					size="140,40"
-					valign="center"
-					halign="center"
+					verticalAlignment="center"
+					horizontalAlignment="center"
 					zPosition="5"
 					transparent="1"
 					foregroundColor="white"
@@ -123,8 +123,8 @@ class OMBManagerList(Screen):
 			<widget name="key_blue"
 					position="420,360"
 					size="140,40"
-					valign="center"
-					halign="center"
+					verticalAlignment="center"
+					horizontalAlignment="center"
 					zPosition="5"
 					transparent="1"
 					foregroundColor="white"
@@ -136,7 +136,7 @@ class OMBManagerList(Screen):
 					 size="140,40"
 					 zPosition="4"
 					 transparent="1"
-					 alphatest="on" />
+					 alphaTest="on" />
 
 			<ePixmap name="green"
 					 pixmap="buttons/green.png"
@@ -144,7 +144,7 @@ class OMBManagerList(Screen):
 					 size="140,40"
 					 zPosition="4"
 					 transparent="1"
-					 alphatest="on" />
+					 alphaTest="on" />
 
 			<ePixmap name="yellow"
 					 pixmap="buttons/yellow.png"
@@ -152,7 +152,7 @@ class OMBManagerList(Screen):
 					 size="140,40"
 					 zPosition="4"
 					 transparent="1"
-					 alphatest="on" />
+					 alphaTest="on" />
 
 			<ePixmap name="blue"
 					 pixmap="buttons/blue.png"
@@ -160,7 +160,7 @@ class OMBManagerList(Screen):
 					 size="140,40"
 					 zPosition="4"
 					 transparent="1"
-					 alphatest="on" />
+					 alphaTest="on" />
 		</screen>"""
 
 	def __init__(self, session, mount_point):
@@ -337,8 +337,8 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 	skin = """
 	<screen position="center,center" size="800,340" title="Preferences">
 		<widget name="config" position="10,20" size="780,280" scrollbarMode="showOnDemand" />
-		<ePixmap pixmap="buttons/red.png" position="330,270" size="140,40" alphatest="on" />
-		<widget name="key_red" position="330,270" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
+		<ePixmap pixmap="buttons/red.png" position="330,270" size="140,40" alphaTest="on" />
+		<widget name="key_red" position="330,270" zPosition="1" size="140,40" font="Regular;20" horizontalAlignment="center" verticalAlignment="center" backgroundColor="#9f1313" transparent="1" />
 	</screen>"""
 
 	def __init__(self, session, data_dir):
