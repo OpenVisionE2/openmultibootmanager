@@ -39,7 +39,7 @@ def group_pairs(blocks, layout_blocks_list):
                 break
 
         else:
-                layouts_grouped.append([blocks[l].peb_num])
+            layouts_grouped.append([blocks[l].peb_num])
 
     return layouts_grouped
 

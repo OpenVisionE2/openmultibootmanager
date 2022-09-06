@@ -194,7 +194,7 @@ class DIE(object):
 
             # We also need to check the offset of the terminator DIE
             if search.has_children and search._terminator.offset <= self.offset:
-                    prev = search._terminator
+                prev = search._terminator
 
             # If we didn't find a closer parent, give up, don't loop.
             # Either we mis-parsed an ancestor or someone created a DIE
