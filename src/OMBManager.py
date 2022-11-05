@@ -32,7 +32,8 @@ from .OMBManagerLocale import _
 
 from enigma import eTimer
 
-import os
+from os import system
+from os.path import isfile, exists, ismount
 from Components.Console import Console
 
 
@@ -57,7 +58,8 @@ class OMBManagerInit:
 			)
 
 	def getFSType(self, device):
-		fin, fout = os.popen4("mount | cut -f 1,5 -d ' '")
+		from os import popen
+		fin, fout = popen("mount | cut -f 1,5 -d ' '")
 		tmp = fout.read().strip()
 		for line in tmp.split(b'\n'):
 			parts = line.split(b' ')
@@ -69,9 +71,10 @@ class OMBManagerInit:
 	def createDir(self, partition):
 		data_dir = partition.mountpoint + '/' + OMB_DATA_DIR
 		upload_dir = partition.mountpoint + '/' + OMB_UPLOAD_DIR
+		from os import makedirs
 		try:
-			os.makedirs(data_dir)
-			os.makedirs(upload_dir)
+			makedirs(data_dir)
+			makedirs(upload_dir)
 		except OSError as exception:
 			self.session.open(
 				MessageBox,
@@ -82,7 +85,7 @@ class OMBManagerInit:
 # by Meo. We are installing in flash. We can link init to open_multiboot
 # so we can disable it in open multiboot postinst.
 # In this way we will be sure to have not open_multiboot init in mb installed images.
-		if os.path.isfile('/sbin/open_multiboot'):
+		if isfile('/sbin/open_multiboot'):
 			Console().ePopen("ln -sfn /sbin/open_multiboot /sbin/init")
 
 		self.session.open(OMBManagerList, partition.mountpoint)
@@ -97,13 +100,13 @@ class OMBManagerInit:
 	def doFormatDevice(self):
 		self.timer.stop()
 		self.error_message = ''
-		if os.system('umount /dev/' + self.response.device) != 0:
+		if system('umount /dev/' + self.response.device) != 0:
 			self.error_message = _('Cannot umount the device')
 		else:
-			if os.system('/sbin/mkfs.ext4 -F /dev/' + self.response.device) != 0:
+			if system('/sbin/mkfs.ext4 -F /dev/' + self.response.device) != 0:
 				self.error_message = _('Cannot format the device')
 			else:
-				if os.system('mount /dev/' + self.response.device + ' ' + self.response.mountpoint) != 0:
+				if system('mount /dev/' + self.response.device + ' ' + self.response.mountpoint) != 0:
 					self.error_message = _('Cannot remount the device')
 
 		self.messagebox.close()
@@ -160,7 +163,7 @@ class OMBManagerKernelModule:
 	def installModule(self):
 		self.timer.stop()
 		self.error_message = ''
-		if os.system('opkg update && opkg install ' + self.kernel_module) != 0:
+		if system('opkg update && opkg install ' + self.kernel_module) != 0:
 			self.error_message = _('Cannot install ') + self.kernel_module
 
 		self.messagebox.close()
@@ -185,7 +188,7 @@ def OMBManager(session, **kwargs):
 
 	kernel_module = 'kernel-module-nandsim'
 	if "jffs2" in OMB_GETIMAGEFILESYSTEM:
-		if os.path.exists('/usr/bin/unjffs2'):
+		if exists('/usr/bin/unjffs2'):
 			kernel_module = None
 		else:
 			if OMB_GETBRANDOEM == "dreambox":
@@ -195,22 +198,23 @@ def OMBManager(session, **kwargs):
 	if "tar.bz2" in OMB_GETIMAGEFILESYSTEM:
 		kernel_module = None
 
-	if kernel_module and os.system('opkg list_installed | grep ' + kernel_module) != 0:
+	if kernel_module and system('opkg list_installed | grep ' + kernel_module) != 0:
 		OMBManagerKernelModule(session, kernel_module)
 		return
 
 	data_dir = OMB_MAIN_DIR + '/' + OMB_DATA_DIR
-	if os.path.exists(data_dir):
+	if exists(data_dir):
 		session.open(OMBManagerList, OMB_MAIN_DIR)
 		found = True
 	else:
 		for partition in harddiskmanager.getMountedPartitions():
 			if partition.mountpoint != '/':
 				data_dir = partition.mountpoint + '/' + OMB_DATA_DIR
-				if os.path.exists(data_dir):
-					if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not os.path.ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
-						if os.readlink("/sbin/init") == "/sbin/init.sysvinit":
-							if os.path.isfile('/sbin/open_multiboot'):
+				if exists(data_dir):
+					if not ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
+						from os import readlink
+						if readlink("/sbin/init") == "/sbin/init.sysvinit":
+							if isfile('/sbin/open_multiboot'):
 								Console().ePopen("ln -sfn /sbin/open_multiboot /sbin/init")
 					session.open(OMBManagerList, partition.mountpoint)
 					found = True
@@ -219,5 +223,5 @@ def OMBManager(session, **kwargs):
 	if not found:
 # by meo: Allow plugin installation only for images in flash. We don't need plugin in mb installed images.
 # The postinst link creation in open_multiboot will be also disabled to avoid conflicts between init files.
-		if not os.path.ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not os.path.ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
+		if not ismount('/usr/lib/enigma2/python/Plugins/Extensions/OpenMultiboot') or not ismount('/usr/lib64/enigma2/python/Plugins/Extensions/OpenMultiboot'):
 			OMBManagerInit(session)

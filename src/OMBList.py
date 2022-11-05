@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
-import os
+from os.path import exists
 import json
 
 from .BoxConfig import BoxConfig
@@ -63,7 +63,7 @@ class OMBList():
 		self.debug_boxconfig.append(self.boxinfo.getItemsDict())
 
 		file_entry = "flash"
-		if os.path.exists(self.data_dir + '/.label_' + file_entry):
+		if exists(self.data_dir + '/.label_' + file_entry):
 			title = self.imageTitleFromLabel('.label_' + file_entry)
 		else:
 			title = self.guessImageTitle(self.boxinfo, file_entry)
@@ -76,9 +76,11 @@ class OMBList():
 		})
 		self.images_list.append(self.images_entries[0]['label'])
 
-		if os.path.exists(self.data_dir):
-			for file_entry in os.listdir(self.data_dir):
-				if not os.path.isdir(self.data_dir + '/' + file_entry):
+		if exists(self.data_dir):
+			from os import listdir
+			from os.path import isdir
+			for file_entry in listdir(self.data_dir):
+				if not isdir(self.data_dir + '/' + file_entry):
 					continue
 
 				if file_entry[0] == '.':
@@ -96,13 +98,13 @@ class OMBList():
 				if OMB_GETBOXTYPE != TargetBoxInfo.getItem("model"):
 					continue
 
-				if os.path.exists(self.data_dir + '/.label_' + file_entry):
+				if exists(self.data_dir + '/.label_' + file_entry):
 					title = self.imageTitleFromLabel('.label_' + file_entry)
 				else:
 					title = self.guessImageTitle(TargetBoxInfo, file_entry)
 
 				background = "/usr/share/bootlogo.mvi"
-				if not os.path.exists(self.data_dir + '/' + file_entry + '/usr/share/bootlogo.mvi'):
+				if not exists(self.data_dir + '/' + file_entry + '/usr/share/bootlogo.mvi'):
 					background = '/usr/share/' + OMB_GETBRANDOEM + '-bootlogo/bootlogo.mvi'
 
 				self.images_entries.append({

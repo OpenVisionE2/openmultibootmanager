@@ -36,8 +36,8 @@ from .OMBManagerLocale import _
 
 from enigma import eTimer
 
-import os
-from os import path
+from os import makedirs, system
+from os.path import exists
 import glob
 import struct
 from Components.Console import Console
@@ -129,11 +129,11 @@ class OMBManagerInstall(Screen):
 	def guessIdentifierName(self, selected_image):
 		selected_image = selected_image.replace(' ', '_')
 		prefix = self.mount_point + '/' + OMB_DATA_DIR + '/'
-		if not os.path.exists(prefix + selected_image):
+		if not exists(prefix + selected_image):
 			return selected_image
 
 		count = 1
-		while os.path.exists(prefix + selected_image + '_' + str(count)):
+		while exists(prefix + selected_image + '_' + str(count)):
 			count += 1
 
 		return selected_image + '_' + str(count)
@@ -149,42 +149,42 @@ class OMBManagerInstall(Screen):
 		kernel_target_folder = self.mount_point + '/' + OMB_DATA_DIR + '/.kernels'
 		kernel_target_file = kernel_target_folder + '/' + selected_image_identifier + '.bin'
 
-		if not os.path.exists(OMB_MAIN_DIR):
+		if not exists(OMB_MAIN_DIR):
 			try:
-				os.makedirs(OMB_MAIN_DIR)
+				makedirs(OMB_MAIN_DIR)
 			except OSError as exception:
 				self.showError(_("Cannot create main folder %s") % OMB_MAIN_DIR)
 				return
 
-		if not os.path.exists(kernel_target_folder):
+		if not exists(kernel_target_folder):
 			try:
-				os.makedirs(kernel_target_folder)
+				makedirs(kernel_target_folder)
 			except OSError as exception:
 				self.showError(_("Cannot create kernel folder %s") % kernel_target_folder)
 				return
 
-		if os.path.exists(target_folder):
+		if exists(target_folder):
 			self.showError(_("The folder %s already exist") % target_folder)
 			return
 
 		try:
-			os.makedirs(target_folder)
+			makedirs(target_folder)
 		except OSError as exception:
 			self.showError(_("Cannot create folder %s") % target_folder)
 			return
 
 		tmp_folder = self.mount_point + '/' + OMB_TMP_DIR
-		if os.path.exists(tmp_folder):
+		if exists(tmp_folder):
 			Console().ePopen("rm -rf %s" % tmp_folder)
 		try:
-			os.makedirs(tmp_folder)
-			os.makedirs(tmp_folder + '/ubi')
-			os.makedirs(tmp_folder + '/jffs2')
+			makedirs(tmp_folder)
+			makedirs(tmp_folder + '/ubi')
+			makedirs(tmp_folder + '/jffs2')
 		except OSError as exception:
 			self.showError(_("Cannot create folder %s") % tmp_folder)
 			return
 
-		if os.system('unzip ' + source_file + ' -d ' + tmp_folder) != 0:
+		if system('unzip ' + source_file + ' -d ' + tmp_folder) != 0:
 			self.showError(_("Cannot deflate image"))
 			return
 
@@ -200,8 +200,8 @@ class OMBManagerInstall(Screen):
 				self.messagebox.close()
 				self.close()
 		if tarxzfile:
-			if os.system('/bin/tar' + ' xpJf %s -C %s' % (tarxzfile[0], target_folder)) != 0:
-				if not os.path.exists(target_folder + "/usr/bin/enigma2"):
+			if system('/bin/tar' + ' xpJf %s -C %s' % (tarxzfile[0], target_folder)) != 0:
+				if not exists(target_folder + "/usr/bin/enigma2"):
 					self.showError(_("Error unpacking rootfs"))
 					Console().ePopen("rm -rf %s" % tmp_folder)
 				else:
@@ -237,12 +237,12 @@ class OMBManagerInstall(Screen):
 		rootfs_path = base_path + '/' + OMB_GETMACHINEROOTFILE
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 
-		if os.system('tar jxf %s -C %s' % (rootfs_path, dst_path)) != 0:
+		if system('tar jxf %s -C %s' % (rootfs_path, dst_path)) != 0:
 			self.showError(_("Error unpacking rootfs"))
 			return False
 
-		if os.path.exists(dst_path + '/usr/bin/enigma2'):
-			if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
+		if exists(dst_path + '/usr/bin/enigma2'):
+			if system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 				self.showError(_("Error copying kernel"))
 				return False
 
@@ -255,7 +255,7 @@ class OMBManagerInstall(Screen):
 		mtdfile = "/dev/mtdblock0"
 		for i in range(0, 20):
 			mtdfile = "/dev/mtdblock%d" % i
-			if not os.path.exists(mtdfile):
+			if not exists(mtdfile):
 				break
 
 		base_path = src_path + '/' + OMB_GETIMAGEFOLDER
@@ -263,16 +263,16 @@ class OMBManagerInstall(Screen):
 		kernel_path = base_path + '/' + OMB_GETMACHINEKERNELFILE
 		jffs2_path = src_path + '/jffs2'
 
-		if os.path.exists('/usr/bin/unjffs2'):
-			if os.system("unjffs2 %s %s" % (rootfs_path, jffs2_path)) != 0:
+		if exists('/usr/bin/unjffs2'):
+			if system("unjffs2 %s %s" % (rootfs_path, jffs2_path)) != 0:
 				self.showError(_("Error unpacking rootfs"))
 				rc = False
 
-			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				if os.system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+			if exists(jffs2_path + '/usr/bin/enigma2'):
+				if system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
 					self.showError(_("Error copying unpacked rootfs"))
 					rc = False
-				if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				if system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 					self.showError(_("Error copying kernel"))
 					rc = False
 		else:
@@ -284,11 +284,11 @@ class OMBManagerInstall(Screen):
 			Console().ePopen('echo "/dev/loop0,%s" > /sys/module/block2mtd/parameters/block2mtd' % self.esize)
 			Console().ePopen("mount -t jffs2 %s %s" % (mtdfile, jffs2_path))
 
-			if os.path.exists(jffs2_path + '/usr/bin/enigma2'):
-				if os.system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
+			if exists(jffs2_path + '/usr/bin/enigma2'):
+				if system('cp -rp ' + jffs2_path + '/* ' + dst_path) != 0:
 					self.showError(_("Error copying unpacked rootfs"))
 					rc = False
-				if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
+				if system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 					self.showError(_("Error copying kernel"))
 					rc = False
 			else:
@@ -306,7 +306,7 @@ class OMBManagerInstall(Screen):
 		rc = True
 		for i in range(0, 20):
 			mtdfile = "/dev/mtd" + str(i)
-			if os.path.exists(mtdfile) is False:
+			if exists(mtdfile) is False:
 				break
 		mtd = str(i)
 
@@ -332,23 +332,23 @@ class OMBManagerInstall(Screen):
 
 		virtual_mtd = tmp_folder + '/virtual_mtd'
 		Console().ePopen("modprobe nandsim cache_file=%s %s" % (virtual_mtd, self.nandsim_parm))
-		if not os.path.exists('/dev/mtd' + mtd):
+		if not exists('/dev/mtd' + mtd):
 			Console().ePopen('rmmod nandsim')
 			self.showError(_("Cannot create virtual MTD device"))
 			return False
 
-		if not os.path.exists('/dev/mtdblock' + mtd):
+		if not exists('/dev/mtdblock' + mtd):
 			Console().ePopen("dd if=%s of=/dev/mtd%s bs=2048" % (rootfs_path, mtd))
 		else:
 			Console().ePopen("dd if=%s of=/dev/mtdblock%s bs=2048" % (rootfs_path, mtd))
 		Console().ePopen("ubiattach /dev/ubi_ctrl -m %s -O %s" % (mtd, self.vid_offset))
 		Console().ePopen("mount -t ubifs ubi1_0 %s" % ubi_path)
 
-		if os.path.exists(ubi_path + '/usr/bin/enigma2'):
-			if os.system('cp -rp ' + ubi_path + '/* ' + dst_path) != 0:
+		if exists(ubi_path + '/usr/bin/enigma2'):
+			if system('cp -rp ' + ubi_path + '/* ' + dst_path) != 0:
 				self.showError(_("Error copying unpacked rootfs"))
 				rc = False
-			if os.system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
+			if system('cp ' + kernel_path + ' ' + kernel_dst_path) != 0:
 				self.showError(_("Error copying kernel"))
 				rc = False
 		else:
@@ -416,8 +416,9 @@ class OMBManagerInstall(Screen):
 			else:
 				print('Extracting %s with %d blocksize...' % (output_names[part], bs))
 				output_filename = extractdir + '/' + output_names[part]
-				if os.path.exists(output_filename):
-					os.remove(output_filename)
+				if exists(output_filename):
+					from os import remove
+					remove(output_filename)
 				output = open(output_filename, 'wb')
 				if part == 2:
 					output.write(nfidata.read(size))
@@ -442,30 +443,30 @@ class OMBManagerInstall(Screen):
 # My apologies to Sandro for this bad code.
 		try:
 			for pyver in ["2.7", "3.9", "3.10"]:
-				if os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
-					if not os.path.exists('/usr/lib/python' + pyver + '/boxbranding.so'):
-						os.system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt):
-						os.system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt)
-					if not os.path.exists(dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt):
-						os.system("cp /usr/lib/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt)
+				if exists('/usr/lib/python' + pyver + '/boxbranding.so'):
+					if not exists('/usr/lib/python' + pyver + '/boxbranding.so'):
+						system("ln -s /usr/lib/enigma2/python/boxbranding.so /usr/lib/python' + pyver  + '/boxbranding.so")
+					if exists(dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt):
+						system("cp /usr/lib/enigma2/python/boxbranding.so " + dst_path + "/usr/lib/python' + pyver  + '/boxbranding.so")
+						system("rm -f " + dst_path + '/usr/lib/python' + pyver + '/boxbranding.%s' % pyExt)
+					if not exists(dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt):
+						system("cp /usr/lib/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib/python" + pyver + "/subprocess.%s" % pyExt)
 		except:
 			pass
 		try:
 			for pyver in ["2.7", "3.9", "3.10"]:
-				if os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
-					if not os.path.exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
-						os.system("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python' + pyver  + '/boxbranding.so")
-					if os.path.exists(dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt):
-						os.system("cp /usr/lib64/enigma2/python/boxbranding.so " + dst_path + "/usr/lib64/python' + pyver  + '/boxbranding.so")
-						os.system("rm -f " + dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt)
-					if not os.path.exists(dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt):
-						os.system("cp /usr/lib64/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt)
+				if exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
+					if not exists('/usr/lib64/python' + pyver + '/boxbranding.so'):
+						system("ln -s /usr/lib64/enigma2/python/boxbranding.so /usr/lib64/python' + pyver  + '/boxbranding.so")
+					if exists(dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt):
+						system("cp /usr/lib64/enigma2/python/boxbranding.so " + dst_path + "/usr/lib64/python' + pyver  + '/boxbranding.so")
+						system("rm -f " + dst_path + '/usr/lib64/python' + pyver + '/boxbranding.%s' % pyExt)
+					if not exists(dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt):
+						system("cp /usr/lib64/python" + pyver + "/subprocess.%s " % pyExt + dst_path + "/usr/lib64/python" + pyver + "/subprocess.%s" % pyExt)
 		except:
 			pass
 # OpenMultiboot installed in the multiboot image. where the init will go ?
-		if os.path.exists(dst_path + '/sbin/open_multiboot'):
+		if exists(dst_path + '/sbin/open_multiboot'):
 			Console().ePopen("rm -f %s/sbin/open_multiboot" % dst_path)
 			Console().ePopen("rm -f %s/sbin/open-multiboot-branding-helper.%s" % (dst_path, pyExt))
 			Console().ePopen("rm -f %s/etc/ipk-postinsts/*-OpenMultiboot" % dst_path)
@@ -476,7 +477,7 @@ class OMBManagerInstall(Screen):
 		fix = False
 		error = False
 		file = dst_path + '/etc/init.d/volatile-media.sh'
-		if os.path.exists(file):
+		if exists(file):
 			try:
 				f = open(file, 'r')
 				for line in f.readlines():

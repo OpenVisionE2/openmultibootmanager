@@ -25,7 +25,7 @@ from Components.Language import language
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 import gettext
-import os
+from os import environ
 
 PluginLanguageDomain = "OpenMultiboot"
 PluginLanguagePath = "Extensions/OpenMultiboot/locale"
@@ -33,7 +33,7 @@ PluginLanguagePath = "Extensions/OpenMultiboot/locale"
 
 def localeInit():
 	lang = language.getLanguage()[:2]
-	os.environ["LANGUAGE"] = lang
+	environ["LANGUAGE"] = lang
 	gettext.bindtextdomain(PluginLanguageDomain, resolveFilename(SCOPE_PLUGINS, PluginLanguagePath))
 
 

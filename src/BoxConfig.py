@@ -4,7 +4,6 @@
 #	this version uses the base functionality without reinventing the wheel
 #
 import errno
-import os
 from subprocess import Popen, PIPE, STDOUT
 from .elftools.elf.elffile import ELFFile
 from .elftools.elf.segments import InterpSegment
@@ -27,9 +26,10 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 			if debug:
 				print("[BoxConfig(OMB)]: BoxConfig (%s)" % root)
 		except (IOError, OSError) as err:
+			from os.path import exists, dirname, abspath
 			if err.errno != errno.ENOENT:  # ENOENT - No such file or directory.
 				print("[BoxConfig] Error %d: Unable to read lines from file '%s'! (%s)" % (err.errno, path, err.strerror))
-			elif os.path.exists(root + e2_path + '/boxbranding.so'):
+			elif exists(root + e2_path + '/boxbranding.so'):
 				if debug:
 					print("[BoxConfig(OMB)]: fallback BoxBranding (%s)" % (root + e2_path))
 				# retrieve dynamic_loader for target path
@@ -46,7 +46,7 @@ class BoxConfig:  # To maintain data integrity class variables should not be acc
 						break
 
 				# hack to fix loading of branding for image with different libc then the main one
-				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib " + root + dynamic_loader + " " + root + "/usr/bin/python " + os.path.dirname(os.path.abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
+				cmd = "LD_PRELOAD= LC_ALL=C LD_LIBRARY_PATH=" + root + "/lib:" + root + "/usr/lib " + root + dynamic_loader + " " + root + "/usr/bin/python " + dirname(abspath(__file__)) + "/open-multiboot-branding-helper.py " + root + e2_path + " all"
 				# print ("OMBDEBUG:", cmd)
 				p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True, universal_newlines=True)
 				rc = p.wait()

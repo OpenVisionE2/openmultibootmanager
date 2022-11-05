@@ -48,8 +48,7 @@ from .BoxConfig import BoxConfig
 
 from enigma import eTimer
 
-import os
-from os import path
+from os.path import isfile
 from Components.Console import Console
 
 
@@ -314,8 +313,10 @@ class OMBManagerList(Screen):
 
 	def keyInstall(self):
 		upload_list = []
-		if os.path.exists(self.upload_dir):
-			for file_entry in os.listdir(self.upload_dir):
+		from os import listdir
+		from os.path import exists
+		if exists(self.upload_dir):
+			for file_entry in listdir(self.upload_dir):
 				if file_entry[0] == '.' or file_entry == 'flash.zip':
 					continue
 
@@ -357,7 +358,7 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 		})
 
 		self.bootmenu_enabled = NoSave(ConfigYesNo(default=True))
-		if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
+		if isfile(self.data_dir + '/.bootmenu.lock'):
 			self.bootmenu_enabled.value = False
 		self.list.append(getConfigListEntry(_("Enable Boot Menu"), self.bootmenu_enabled))
 
@@ -366,9 +367,10 @@ class OMBManagerPreferences(Screen, ConfigListScreen):
 
 	def saveConf(self):
 		if self.bootmenu_enabled.value == True:
-			if os.path.isfile(self.data_dir + '/.bootmenu.lock'):
-				os.remove(self.data_dir + '/.bootmenu.lock')
+			from os import remove
+			if isfile(self.data_dir + '/.bootmenu.lock'):
+				remove(self.data_dir + '/.bootmenu.lock')
 		else:
-			if not os.path.isfile(self.data_dir + '/.bootmenu.lock'):
+			if not isfile(self.data_dir + '/.bootmenu.lock'):
 				Console().ePopen("touch %s/.bootmenu.lock" % self.data_dir)
 		self.close()
